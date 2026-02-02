@@ -66,7 +66,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     unique_id: str,
 ) -> Response[Any | JSONResponse]:
-    """Fetch TikTok LIVE Stream Cover URL given a uniqueId.
+    """Requires Business Plan - Fetch TikTok LIVE Stream Cover URL given a uniqueId.
 
     Args:
         unique_id (str):
@@ -95,7 +95,7 @@ def sync(
     client: AuthenticatedClient,
     unique_id: str,
 ) -> Any | JSONResponse | None:
-    """Fetch TikTok LIVE Stream Cover URL given a uniqueId.
+    """Requires Business Plan - Fetch TikTok LIVE Stream Cover URL given a uniqueId.
 
     Args:
         unique_id (str):
@@ -119,7 +119,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     unique_id: str,
 ) -> Response[Any | JSONResponse]:
-    """Fetch TikTok LIVE Stream Cover URL given a uniqueId.
+    """Requires Business Plan - Fetch TikTok LIVE Stream Cover URL given a uniqueId.
 
     Args:
         unique_id (str):
@@ -146,7 +146,7 @@ async def asyncio(
     client: AuthenticatedClient,
     unique_id: str,
 ) -> Any | JSONResponse | None:
-    """Fetch TikTok LIVE Stream Cover URL given a uniqueId.
+    """Requires Business Plan - Fetch TikTok LIVE Stream Cover URL given a uniqueId.
 
     Args:
         unique_id (str):

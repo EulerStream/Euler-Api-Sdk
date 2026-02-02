@@ -17,13 +17,22 @@ def _get_kwargs(
     room_id: str | Unset = UNSET,
     unique_id: str | Unset = UNSET,
     cursor: str | Unset = UNSET,
-    session_id: str | Unset = UNSET,
     user_agent: str | Unset = UNSET,
-    tt_target_idc: str | Unset = UNSET,
     client_enter: bool | Unset = True,
     country: SoaxProxyRegion | Unset = UNSET,
     platform: WebcastFetchPlatform | Unset = UNSET,
+    session_id: str | Unset = UNSET,
+    tt_target_idc: str | Unset = UNSET,
+    x_oauth_token: str | Unset = UNSET,
+    x_cookie_header: str | Unset = UNSET,
 ) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
+    if not isinstance(x_oauth_token, Unset):
+        headers["x-oauth-token"] = x_oauth_token
+
+    if not isinstance(x_cookie_header, Unset):
+        headers["x-cookie-header"] = x_cookie_header
+
     params: dict[str, Any] = {}
 
     params["client"] = client_query
@@ -34,11 +43,7 @@ def _get_kwargs(
 
     params["cursor"] = cursor
 
-    params["session_id"] = session_id
-
     params["user_agent"] = user_agent
-
-    params["tt_target_idc"] = tt_target_idc
 
     params["client_enter"] = client_enter
 
@@ -54,6 +59,10 @@ def _get_kwargs(
 
     params["platform"] = json_platform
 
+    params["session_id"] = session_id
+
+    params["tt_target_idc"] = tt_target_idc
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
@@ -62,6 +71,7 @@ def _get_kwargs(
         "params": params,
     }
 
+    _kwargs["headers"] = headers
     return _kwargs
 
 
@@ -105,26 +115,37 @@ def sync_detailed(
     room_id: str | Unset = UNSET,
     unique_id: str | Unset = UNSET,
     cursor: str | Unset = UNSET,
-    session_id: str | Unset = UNSET,
     user_agent: str | Unset = UNSET,
-    tt_target_idc: str | Unset = UNSET,
     client_enter: bool | Unset = True,
     country: SoaxProxyRegion | Unset = UNSET,
     platform: WebcastFetchPlatform | Unset = UNSET,
+    session_id: str | Unset = UNSET,
+    tt_target_idc: str | Unset = UNSET,
+    x_oauth_token: str | Unset = UNSET,
+    x_cookie_header: str | Unset = UNSET,
 ) -> Response[Any | Uint8Array]:
     """Fetch the WebSocket URL & first payload for a TikTok LIVE Room given a Room ID.
+
+    **Authentication (Optional):** Anonymous access is supported. For authenticated requests, provide
+    exactly one of the following headers:
+    - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored
+    OAuth session. [Read More](https://www.eulerstream.com/docs/oauth)
+    - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from
+    TikTok.
 
     Args:
         client_query (str | Unset):  Default: 'ttlive-other'.
         room_id (str | Unset):
         unique_id (str | Unset):
         cursor (str | Unset):
-        session_id (str | Unset):
         user_agent (str | Unset):
-        tt_target_idc (str | Unset):
         client_enter (bool | Unset):  Default: True.
         country (SoaxProxyRegion | Unset):
         platform (WebcastFetchPlatform | Unset):
+        session_id (str | Unset):
+        tt_target_idc (str | Unset):
+        x_oauth_token (str | Unset):
+        x_cookie_header (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -139,12 +160,14 @@ def sync_detailed(
         room_id=room_id,
         unique_id=unique_id,
         cursor=cursor,
-        session_id=session_id,
         user_agent=user_agent,
-        tt_target_idc=tt_target_idc,
         client_enter=client_enter,
         country=country,
         platform=platform,
+        session_id=session_id,
+        tt_target_idc=tt_target_idc,
+        x_oauth_token=x_oauth_token,
+        x_cookie_header=x_cookie_header,
     )
 
     response = client.get_httpx_client().request(
@@ -161,26 +184,37 @@ def sync(
     room_id: str | Unset = UNSET,
     unique_id: str | Unset = UNSET,
     cursor: str | Unset = UNSET,
-    session_id: str | Unset = UNSET,
     user_agent: str | Unset = UNSET,
-    tt_target_idc: str | Unset = UNSET,
     client_enter: bool | Unset = True,
     country: SoaxProxyRegion | Unset = UNSET,
     platform: WebcastFetchPlatform | Unset = UNSET,
+    session_id: str | Unset = UNSET,
+    tt_target_idc: str | Unset = UNSET,
+    x_oauth_token: str | Unset = UNSET,
+    x_cookie_header: str | Unset = UNSET,
 ) -> Any | Uint8Array | None:
     """Fetch the WebSocket URL & first payload for a TikTok LIVE Room given a Room ID.
+
+    **Authentication (Optional):** Anonymous access is supported. For authenticated requests, provide
+    exactly one of the following headers:
+    - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored
+    OAuth session. [Read More](https://www.eulerstream.com/docs/oauth)
+    - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from
+    TikTok.
 
     Args:
         client_query (str | Unset):  Default: 'ttlive-other'.
         room_id (str | Unset):
         unique_id (str | Unset):
         cursor (str | Unset):
-        session_id (str | Unset):
         user_agent (str | Unset):
-        tt_target_idc (str | Unset):
         client_enter (bool | Unset):  Default: True.
         country (SoaxProxyRegion | Unset):
         platform (WebcastFetchPlatform | Unset):
+        session_id (str | Unset):
+        tt_target_idc (str | Unset):
+        x_oauth_token (str | Unset):
+        x_cookie_header (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -196,12 +230,14 @@ def sync(
         room_id=room_id,
         unique_id=unique_id,
         cursor=cursor,
-        session_id=session_id,
         user_agent=user_agent,
-        tt_target_idc=tt_target_idc,
         client_enter=client_enter,
         country=country,
         platform=platform,
+        session_id=session_id,
+        tt_target_idc=tt_target_idc,
+        x_oauth_token=x_oauth_token,
+        x_cookie_header=x_cookie_header,
     ).parsed
 
 
@@ -212,26 +248,37 @@ async def asyncio_detailed(
     room_id: str | Unset = UNSET,
     unique_id: str | Unset = UNSET,
     cursor: str | Unset = UNSET,
-    session_id: str | Unset = UNSET,
     user_agent: str | Unset = UNSET,
-    tt_target_idc: str | Unset = UNSET,
     client_enter: bool | Unset = True,
     country: SoaxProxyRegion | Unset = UNSET,
     platform: WebcastFetchPlatform | Unset = UNSET,
+    session_id: str | Unset = UNSET,
+    tt_target_idc: str | Unset = UNSET,
+    x_oauth_token: str | Unset = UNSET,
+    x_cookie_header: str | Unset = UNSET,
 ) -> Response[Any | Uint8Array]:
     """Fetch the WebSocket URL & first payload for a TikTok LIVE Room given a Room ID.
+
+    **Authentication (Optional):** Anonymous access is supported. For authenticated requests, provide
+    exactly one of the following headers:
+    - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored
+    OAuth session. [Read More](https://www.eulerstream.com/docs/oauth)
+    - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from
+    TikTok.
 
     Args:
         client_query (str | Unset):  Default: 'ttlive-other'.
         room_id (str | Unset):
         unique_id (str | Unset):
         cursor (str | Unset):
-        session_id (str | Unset):
         user_agent (str | Unset):
-        tt_target_idc (str | Unset):
         client_enter (bool | Unset):  Default: True.
         country (SoaxProxyRegion | Unset):
         platform (WebcastFetchPlatform | Unset):
+        session_id (str | Unset):
+        tt_target_idc (str | Unset):
+        x_oauth_token (str | Unset):
+        x_cookie_header (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -246,12 +293,14 @@ async def asyncio_detailed(
         room_id=room_id,
         unique_id=unique_id,
         cursor=cursor,
-        session_id=session_id,
         user_agent=user_agent,
-        tt_target_idc=tt_target_idc,
         client_enter=client_enter,
         country=country,
         platform=platform,
+        session_id=session_id,
+        tt_target_idc=tt_target_idc,
+        x_oauth_token=x_oauth_token,
+        x_cookie_header=x_cookie_header,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -266,26 +315,37 @@ async def asyncio(
     room_id: str | Unset = UNSET,
     unique_id: str | Unset = UNSET,
     cursor: str | Unset = UNSET,
-    session_id: str | Unset = UNSET,
     user_agent: str | Unset = UNSET,
-    tt_target_idc: str | Unset = UNSET,
     client_enter: bool | Unset = True,
     country: SoaxProxyRegion | Unset = UNSET,
     platform: WebcastFetchPlatform | Unset = UNSET,
+    session_id: str | Unset = UNSET,
+    tt_target_idc: str | Unset = UNSET,
+    x_oauth_token: str | Unset = UNSET,
+    x_cookie_header: str | Unset = UNSET,
 ) -> Any | Uint8Array | None:
     """Fetch the WebSocket URL & first payload for a TikTok LIVE Room given a Room ID.
+
+    **Authentication (Optional):** Anonymous access is supported. For authenticated requests, provide
+    exactly one of the following headers:
+    - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored
+    OAuth session. [Read More](https://www.eulerstream.com/docs/oauth)
+    - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from
+    TikTok.
 
     Args:
         client_query (str | Unset):  Default: 'ttlive-other'.
         room_id (str | Unset):
         unique_id (str | Unset):
         cursor (str | Unset):
-        session_id (str | Unset):
         user_agent (str | Unset):
-        tt_target_idc (str | Unset):
         client_enter (bool | Unset):  Default: True.
         country (SoaxProxyRegion | Unset):
         platform (WebcastFetchPlatform | Unset):
+        session_id (str | Unset):
+        tt_target_idc (str | Unset):
+        x_oauth_token (str | Unset):
+        x_cookie_header (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -302,11 +362,13 @@ async def asyncio(
             room_id=room_id,
             unique_id=unique_id,
             cursor=cursor,
-            session_id=session_id,
             user_agent=user_agent,
-            tt_target_idc=tt_target_idc,
             client_enter=client_enter,
             country=country,
             platform=platform,
+            session_id=session_id,
+            tt_target_idc=tt_target_idc,
+            x_oauth_token=x_oauth_token,
+            x_cookie_header=x_cookie_header,
         )
     ).parsed

@@ -21,7 +21,7 @@ rl.question('Press any key to upload...', () => {
     }
 
     execSync(
-        `pnpm config set //registry.npmjs.org/:_authToken=${npmToken} && pnpm publish --access public --registry https://registry.npmjs.org/`
+        `pnpm config set //registry.npmjs.org/:_authToken=${npmToken} && pnpm publish --no-git-checks --access public --registry https://registry.npmjs.org/`
         , { stdio: 'inherit' }
     );
 

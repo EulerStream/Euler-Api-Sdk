@@ -75,7 +75,7 @@ def sync_detailed(
     unique_id: str,
     stream_type: StreamType | Unset = UNSET,
 ) -> Response[Any | JSONResponse]:
-    """Fetch TikTok LIVE Stream video given a uniqueId.
+    """Requires Business Plan - Fetch TikTok LIVE Stream video given a uniqueId.
 
     Args:
         unique_id (str):
@@ -107,7 +107,7 @@ def sync(
     unique_id: str,
     stream_type: StreamType | Unset = UNSET,
 ) -> Any | JSONResponse | None:
-    """Fetch TikTok LIVE Stream video given a uniqueId.
+    """Requires Business Plan - Fetch TikTok LIVE Stream video given a uniqueId.
 
     Args:
         unique_id (str):
@@ -134,7 +134,7 @@ async def asyncio_detailed(
     unique_id: str,
     stream_type: StreamType | Unset = UNSET,
 ) -> Response[Any | JSONResponse]:
-    """Fetch TikTok LIVE Stream video given a uniqueId.
+    """Requires Business Plan - Fetch TikTok LIVE Stream video given a uniqueId.
 
     Args:
         unique_id (str):
@@ -164,7 +164,7 @@ async def asyncio(
     unique_id: str,
     stream_type: StreamType | Unset = UNSET,
 ) -> Any | JSONResponse | None:
-    """Fetch TikTok LIVE Stream video given a uniqueId.
+    """Requires Business Plan - Fetch TikTok LIVE Stream video given a uniqueId.
 
     Args:
         unique_id (str):

@@ -26,7 +26,6 @@ class AccountWithPermissionsSafe:
         max_websockets (float):
         expires_at (datetime.datetime | None):
         purchased_captcha_credits (float):
-        extra_captcha_credits (float):
         updated_at (datetime.datetime):
         created_at (datetime.datetime):
         id (float):
@@ -42,7 +41,6 @@ class AccountWithPermissionsSafe:
     max_websockets: float
     expires_at: datetime.datetime | None
     purchased_captcha_credits: float
-    extra_captcha_credits: float
     updated_at: datetime.datetime
     created_at: datetime.datetime
     id: float
@@ -72,8 +70,6 @@ class AccountWithPermissionsSafe:
 
         purchased_captcha_credits = self.purchased_captcha_credits
 
-        extra_captcha_credits = self.extra_captcha_credits
-
         updated_at = self.updated_at.isoformat()
 
         created_at = self.created_at.isoformat()
@@ -98,7 +94,6 @@ class AccountWithPermissionsSafe:
                 "max_websockets": max_websockets,
                 "expires_at": expires_at,
                 "purchased_captcha_credits": purchased_captcha_credits,
-                "extra_captcha_credits": extra_captcha_credits,
                 "updated_at": updated_at,
                 "created_at": created_at,
                 "id": id,
@@ -142,8 +137,6 @@ class AccountWithPermissionsSafe:
 
         purchased_captcha_credits = d.pop("purchased_captcha_credits")
 
-        extra_captcha_credits = d.pop("extra_captcha_credits")
-
         updated_at = isoparse(d.pop("updated_at"))
 
         created_at = isoparse(d.pop("created_at"))
@@ -167,7 +160,6 @@ class AccountWithPermissionsSafe:
             max_websockets=max_websockets,
             expires_at=expires_at,
             purchased_captcha_credits=purchased_captcha_credits,
-            extra_captcha_credits=extra_captcha_credits,
             updated_at=updated_at,
             created_at=created_at,
             id=id,

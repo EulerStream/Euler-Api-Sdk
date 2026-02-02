@@ -8,27 +8,36 @@ from ...client import AuthenticatedClient, Client
 from ...models.oxy_labs_proxy_region import OxyLabsProxyRegion
 from ...models.retrieve_webcast_rankings_rank_type import RetrieveWebcastRankingsRankType
 from ...models.webcast_region_rankings_response import WebcastRegionRankingsResponse
-from ...types import UNSET, Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
     region: OxyLabsProxyRegion,
-    session_id: str,
-    tt_target_idc: str,
     rank_type: RetrieveWebcastRankingsRankType,
+    session_id: str | Unset = UNSET,
+    tt_target_idc: str | Unset = UNSET,
+    x_oauth_token: str | Unset = UNSET,
+    x_cookie_header: str | Unset = UNSET,
 ) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
+    if not isinstance(x_oauth_token, Unset):
+        headers["x-oauth-token"] = x_oauth_token
+
+    if not isinstance(x_cookie_header, Unset):
+        headers["x-cookie-header"] = x_cookie_header
+
     params: dict[str, Any] = {}
 
     json_region = region.value
     params["region"] = json_region
 
+    json_rank_type = rank_type.value
+    params["rank_type"] = json_rank_type
+
     params["session_id"] = session_id
 
     params["tt_target_idc"] = tt_target_idc
-
-    json_rank_type = rank_type.value
-    params["rank_type"] = json_rank_type
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -38,6 +47,7 @@ def _get_kwargs(
         "params": params,
     }
 
+    _kwargs["headers"] = headers
     return _kwargs
 
 
@@ -70,17 +80,27 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     region: OxyLabsProxyRegion,
-    session_id: str,
-    tt_target_idc: str,
     rank_type: RetrieveWebcastRankingsRankType,
+    session_id: str | Unset = UNSET,
+    tt_target_idc: str | Unset = UNSET,
+    x_oauth_token: str | Unset = UNSET,
+    x_cookie_header: str | Unset = UNSET,
 ) -> Response[WebcastRegionRankingsResponse]:
-    """Premium Route - Retrieve TikTok LIVE rankings for a specific region.
+    """Requires Premium Routes Addon - Retrieve TikTok LIVE rankings for a specific region.
+
+    **Authentication:** Provide exactly one of the following headers:
+    - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored
+    OAuth session. [Read More](https://www.eulerstream.com/docs/oauth)
+    - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from
+    TikTok.
 
     Args:
         region (OxyLabsProxyRegion):
-        session_id (str):
-        tt_target_idc (str):
         rank_type (RetrieveWebcastRankingsRankType):
+        session_id (str | Unset):
+        tt_target_idc (str | Unset):
+        x_oauth_token (str | Unset):
+        x_cookie_header (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -92,9 +112,11 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         region=region,
+        rank_type=rank_type,
         session_id=session_id,
         tt_target_idc=tt_target_idc,
-        rank_type=rank_type,
+        x_oauth_token=x_oauth_token,
+        x_cookie_header=x_cookie_header,
     )
 
     response = client.get_httpx_client().request(
@@ -108,17 +130,27 @@ def sync(
     *,
     client: AuthenticatedClient,
     region: OxyLabsProxyRegion,
-    session_id: str,
-    tt_target_idc: str,
     rank_type: RetrieveWebcastRankingsRankType,
+    session_id: str | Unset = UNSET,
+    tt_target_idc: str | Unset = UNSET,
+    x_oauth_token: str | Unset = UNSET,
+    x_cookie_header: str | Unset = UNSET,
 ) -> WebcastRegionRankingsResponse | None:
-    """Premium Route - Retrieve TikTok LIVE rankings for a specific region.
+    """Requires Premium Routes Addon - Retrieve TikTok LIVE rankings for a specific region.
+
+    **Authentication:** Provide exactly one of the following headers:
+    - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored
+    OAuth session. [Read More](https://www.eulerstream.com/docs/oauth)
+    - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from
+    TikTok.
 
     Args:
         region (OxyLabsProxyRegion):
-        session_id (str):
-        tt_target_idc (str):
         rank_type (RetrieveWebcastRankingsRankType):
+        session_id (str | Unset):
+        tt_target_idc (str | Unset):
+        x_oauth_token (str | Unset):
+        x_cookie_header (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -131,9 +163,11 @@ def sync(
     return sync_detailed(
         client=client,
         region=region,
+        rank_type=rank_type,
         session_id=session_id,
         tt_target_idc=tt_target_idc,
-        rank_type=rank_type,
+        x_oauth_token=x_oauth_token,
+        x_cookie_header=x_cookie_header,
     ).parsed
 
 
@@ -141,17 +175,27 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     region: OxyLabsProxyRegion,
-    session_id: str,
-    tt_target_idc: str,
     rank_type: RetrieveWebcastRankingsRankType,
+    session_id: str | Unset = UNSET,
+    tt_target_idc: str | Unset = UNSET,
+    x_oauth_token: str | Unset = UNSET,
+    x_cookie_header: str | Unset = UNSET,
 ) -> Response[WebcastRegionRankingsResponse]:
-    """Premium Route - Retrieve TikTok LIVE rankings for a specific region.
+    """Requires Premium Routes Addon - Retrieve TikTok LIVE rankings for a specific region.
+
+    **Authentication:** Provide exactly one of the following headers:
+    - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored
+    OAuth session. [Read More](https://www.eulerstream.com/docs/oauth)
+    - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from
+    TikTok.
 
     Args:
         region (OxyLabsProxyRegion):
-        session_id (str):
-        tt_target_idc (str):
         rank_type (RetrieveWebcastRankingsRankType):
+        session_id (str | Unset):
+        tt_target_idc (str | Unset):
+        x_oauth_token (str | Unset):
+        x_cookie_header (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -163,9 +207,11 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         region=region,
+        rank_type=rank_type,
         session_id=session_id,
         tt_target_idc=tt_target_idc,
-        rank_type=rank_type,
+        x_oauth_token=x_oauth_token,
+        x_cookie_header=x_cookie_header,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -177,17 +223,27 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     region: OxyLabsProxyRegion,
-    session_id: str,
-    tt_target_idc: str,
     rank_type: RetrieveWebcastRankingsRankType,
+    session_id: str | Unset = UNSET,
+    tt_target_idc: str | Unset = UNSET,
+    x_oauth_token: str | Unset = UNSET,
+    x_cookie_header: str | Unset = UNSET,
 ) -> WebcastRegionRankingsResponse | None:
-    """Premium Route - Retrieve TikTok LIVE rankings for a specific region.
+    """Requires Premium Routes Addon - Retrieve TikTok LIVE rankings for a specific region.
+
+    **Authentication:** Provide exactly one of the following headers:
+    - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored
+    OAuth session. [Read More](https://www.eulerstream.com/docs/oauth)
+    - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from
+    TikTok.
 
     Args:
         region (OxyLabsProxyRegion):
-        session_id (str):
-        tt_target_idc (str):
         rank_type (RetrieveWebcastRankingsRankType):
+        session_id (str | Unset):
+        tt_target_idc (str | Unset):
+        x_oauth_token (str | Unset):
+        x_cookie_header (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -201,8 +257,10 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             region=region,
+            rank_type=rank_type,
             session_id=session_id,
             tt_target_idc=tt_target_idc,
-            rank_type=rank_type,
+            x_oauth_token=x_oauth_token,
+            x_cookie_header=x_cookie_header,
         )
     ).parsed

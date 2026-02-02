@@ -1,5 +1,5 @@
 # EulerApiSdk
-A client library for accessing The Sign Server™
+A client library for accessing Euler Stream Sign API
 
 ## Usage
 First, create a client:
@@ -7,7 +7,7 @@ First, create a client:
 ```python
 from EulerApiSdk import Client
 
-client = Client(base_url="https://tiktok.eulerstream.com")
+client = Client(base_url="https://api.example.com")
 ```
 
 If the endpoints you're going to hit require authentication, use `AuthenticatedClient` instead:
@@ -15,7 +15,7 @@ If the endpoints you're going to hit require authentication, use `AuthenticatedC
 ```python
 from EulerApiSdk import AuthenticatedClient
 
-client = AuthenticatedClient(base_url="https://tiktok.eulerstream.com", token="YOUR_API_KEY")
+client = AuthenticatedClient(base_url="https://api.example.com", token="SuperSecretToken")
 ```
 
 Now call your endpoint and use your models:
@@ -48,7 +48,7 @@ By default, when you're calling an HTTPS API it will attempt to verify that SSL 
 ```python
 client = AuthenticatedClient(
     base_url="https://internal_api.example.com", 
-    token="YOUR_API_KEY",
+    token="SuperSecretToken",
     verify_ssl="/path/to/certificate_bundle.pem",
 )
 ```
@@ -58,7 +58,7 @@ You can also disable certificate validation altogether, but beware that **this i
 ```python
 client = AuthenticatedClient(
     base_url="https://internal_api.example.com", 
-    token="YOUR_API_KEY", 
+    token="SuperSecretToken", 
     verify_ssl=False
 )
 ```
@@ -89,7 +89,7 @@ def log_response(response):
     print(f"Response event hook: {request.method} {request.url} - Status {response.status_code}")
 
 client = Client(
-    base_url="https://tiktok.eulerstream.com",
+    base_url="https://api.example.com",
     httpx_args={"event_hooks": {"request": [log_request], "response": [log_response]}},
 )
 
@@ -103,10 +103,10 @@ import httpx
 from EulerApiSdk import Client
 
 client = Client(
-    base_url="https://tiktok.eulerstream.com",
+    base_url="https://api.example.com",
 )
 # Note that base_url needs to be re-set, as would any shared cookies, headers, etc.
-client.set_httpx_client(httpx.Client(base_url="https://tiktok.eulerstream.com", proxies="http://localhost:8030"))
+client.set_httpx_client(httpx.Client(base_url="https://api.example.com", proxies="http://localhost:8030"))
 ```
 
 ## Building / publishing this package

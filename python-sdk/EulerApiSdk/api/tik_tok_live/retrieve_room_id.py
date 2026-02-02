@@ -58,7 +58,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     unique_id: str,
 ) -> Response[WebcastRoomIdRouteResponse]:
-    """Fetch Room ID for a given uniqueId & whether that user is live.
+    """Requires Business Plan - Fetch Room ID for a given uniqueId & whether that user is live.
 
     Args:
         unique_id (str):
@@ -87,7 +87,7 @@ def sync(
     client: AuthenticatedClient,
     unique_id: str,
 ) -> WebcastRoomIdRouteResponse | None:
-    """Fetch Room ID for a given uniqueId & whether that user is live.
+    """Requires Business Plan - Fetch Room ID for a given uniqueId & whether that user is live.
 
     Args:
         unique_id (str):
@@ -111,7 +111,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     unique_id: str,
 ) -> Response[WebcastRoomIdRouteResponse]:
-    """Fetch Room ID for a given uniqueId & whether that user is live.
+    """Requires Business Plan - Fetch Room ID for a given uniqueId & whether that user is live.
 
     Args:
         unique_id (str):
@@ -138,7 +138,7 @@ async def asyncio(
     client: AuthenticatedClient,
     unique_id: str,
 ) -> WebcastRoomIdRouteResponse | None:
-    """Fetch Room ID for a given uniqueId & whether that user is live.
+    """Requires Business Plan - Fetch Room ID for a given uniqueId & whether that user is live.
 
     Args:
         unique_id (str):

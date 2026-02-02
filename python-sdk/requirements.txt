@@ -1,1 +1,2 @@
 openapi-python-client
+poetry

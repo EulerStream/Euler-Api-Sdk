@@ -15,22 +15,18 @@ class CaptchaCreditsResponse:
     """
     Attributes:
         code (float):
-        plan_credits (float):
-        purchased_credits (float):
+        credits_ (float):
         message (str | Unset):
     """
 
     code: float
-    plan_credits: float
-    purchased_credits: float
+    credits_: float
     message: str | Unset = UNSET
 
     def to_dict(self) -> dict[str, Any]:
         code = self.code
 
-        plan_credits = self.plan_credits
-
-        purchased_credits = self.purchased_credits
+        credits_ = self.credits_
 
         message = self.message
 
@@ -39,8 +35,7 @@ class CaptchaCreditsResponse:
         field_dict.update(
             {
                 "code": code,
-                "plan_credits": plan_credits,
-                "purchased_credits": purchased_credits,
+                "credits": credits_,
             }
         )
         if message is not UNSET:
@@ -53,16 +48,13 @@ class CaptchaCreditsResponse:
         d = dict(src_dict)
         code = d.pop("code")
 
-        plan_credits = d.pop("plan_credits")
-
-        purchased_credits = d.pop("purchased_credits")
+        credits_ = d.pop("credits")
 
         message = d.pop("message", UNSET)
 
         captcha_credits_response = cls(
             code=code,
-            plan_credits=plan_credits,
-            purchased_credits=purchased_credits,
+            credits_=credits_,
             message=message,
         )
 

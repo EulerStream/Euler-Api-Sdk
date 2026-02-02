@@ -18,10 +18,12 @@ class IconsResult:
     Attributes:
         time_ms (float):
         points (list[Point]):
+        label (str):
     """
 
     time_ms: float
     points: list[Point]
+    label: str
 
     def to_dict(self) -> dict[str, Any]:
         time_ms = self.time_ms
@@ -31,12 +33,15 @@ class IconsResult:
             points_item = points_item_data.to_dict()
             points.append(points_item)
 
+        label = self.label
+
         field_dict: dict[str, Any] = {}
 
         field_dict.update(
             {
                 "time_ms": time_ms,
                 "points": points,
+                "label": label,
             }
         )
 
@@ -56,9 +61,12 @@ class IconsResult:
 
             points.append(points_item)
 
+        label = d.pop("label")
+
         icons_result = cls(
             time_ms=time_ms,
             points=points,
+            label=label,
         )
 
         return icons_result

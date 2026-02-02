@@ -5,6 +5,8 @@ from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 
+from ..types import UNSET, Unset
+
 T = TypeVar("T", bound="WebcastRoomChatPayload")
 
 
@@ -12,36 +14,34 @@ T = TypeVar("T", bound="WebcastRoomChatPayload")
 class WebcastRoomChatPayload:
     """
     Attributes:
-        content (str):
-        session_id (str):
-        tt_target_idc (str):
-        room_id (str):
+        content (str): The chat message content to send
+        target_room_id (str | Unset): The room ID to send the chat to (either this or targetUniqueId is required)
+        target_unique_id (str | Unset): The username of the room to send the chat to (either this or targetRoomId is
+            required)
     """
 
     content: str
-    session_id: str
-    tt_target_idc: str
-    room_id: str
+    target_room_id: str | Unset = UNSET
+    target_unique_id: str | Unset = UNSET
 
     def to_dict(self) -> dict[str, Any]:
         content = self.content
 
-        session_id = self.session_id
+        target_room_id = self.target_room_id
 
-        tt_target_idc = self.tt_target_idc
-
-        room_id = self.room_id
+        target_unique_id = self.target_unique_id
 
         field_dict: dict[str, Any] = {}
 
         field_dict.update(
             {
                 "content": content,
-                "sessionId": session_id,
-                "ttTargetIdc": tt_target_idc,
-                "roomId": room_id,
             }
         )
+        if target_room_id is not UNSET:
+            field_dict["targetRoomId"] = target_room_id
+        if target_unique_id is not UNSET:
+            field_dict["targetUniqueId"] = target_unique_id
 
         return field_dict
 
@@ -50,17 +50,14 @@ class WebcastRoomChatPayload:
         d = dict(src_dict)
         content = d.pop("content")
 
-        session_id = d.pop("sessionId")
+        target_room_id = d.pop("targetRoomId", UNSET)
 
-        tt_target_idc = d.pop("ttTargetIdc")
-
-        room_id = d.pop("roomId")
+        target_unique_id = d.pop("targetUniqueId", UNSET)
 
         webcast_room_chat_payload = cls(
             content=content,
-            session_id=session_id,
-            tt_target_idc=tt_target_idc,
-            room_id=room_id,
+            target_room_id=target_room_id,
+            target_unique_id=target_unique_id,
         )
 
         return webcast_room_chat_payload

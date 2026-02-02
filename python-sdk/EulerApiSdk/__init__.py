@@ -1,4 +1,4 @@
-"""A client library for accessing The Sign Server™"""
+"""A client library for accessing Euler Stream Sign API"""
 
 from .client import AuthenticatedClient, Client
 

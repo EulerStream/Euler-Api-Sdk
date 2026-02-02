@@ -1,0 +1,19 @@
+from enum import Enum
+
+
+class OAuthScope(str, Enum):
+    USERCONSENTS = "user:consents"
+    WEBCASTBAN = "webcast:ban"
+    WEBCASTBULK_LIVE_CHECK = "webcast:bulk_live_check"
+    WEBCASTCHAT = "webcast:chat"
+    WEBCASTCOMMENTS = "webcast:comments"
+    WEBCASTFETCH = "webcast:fetch"
+    WEBCASTLIVE_ANALYTICS = "webcast:live_analytics"
+    WEBCASTMODERATORS = "webcast:moderators"
+    WEBCASTMUTE = "webcast:mute"
+    WEBCASTRANKINGS = "webcast:rankings"
+    WEBCASTSIGN_URL = "webcast:sign_url"
+    WEBCASTUSER_EARNINGS = "webcast:user_earnings"
+
+    def __str__(self) -> str:
+        return str(self.value)
