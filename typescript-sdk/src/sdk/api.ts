@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * The Sign Server™
+ * Euler Stream Sign API
  * Sign Server API Documentation
  *
  * The version of the OpenAPI document: dev
@@ -83,12 +83,6 @@ export interface Account {
      * @memberof Account
      */
     'purchased_captcha_credits': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Account
-     */
-    'extra_captcha_credits': number;
     /**
      * 
      * @type {string}
@@ -247,12 +241,6 @@ export interface AccountWithPermissionsSafe {
      * @memberof AccountWithPermissionsSafe
      */
     'purchased_captcha_credits': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof AccountWithPermissionsSafe
-     */
-    'extra_captcha_credits': number;
     /**
      * 
      * @type {string}
@@ -616,38 +604,7 @@ export interface CaptchaCreditsResponse {
      * @type {number}
      * @memberof CaptchaCreditsResponse
      */
-    'plan_credits': number;
-    /**
-     * 
-     * @type {number}
-     * @memberof CaptchaCreditsResponse
-     */
-    'purchased_credits': number;
-}
-/**
- * 
- * @export
- * @interface CountSignUsage
- */
-export interface CountSignUsage {
-    /**
-     * 
-     * @type {number}
-     * @memberof CountSignUsage
-     */
-    'code': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof CountSignUsage
-     */
-    'message'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof CountSignUsage
-     */
-    'pages'?: number;
+    'credits': number;
 }
 /**
  * Configuration for the alert
@@ -860,6 +817,57 @@ export interface DeleteKeyResponse {
 /**
  * 
  * @export
+ * @interface ExchangeTokenRequest
+ */
+export interface ExchangeTokenRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof ExchangeTokenRequest
+     */
+    'client_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExchangeTokenRequest
+     */
+    'client_secret': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExchangeTokenRequest
+     */
+    'grant_type': ExchangeTokenRequestGrantTypeEnum;
+    /**
+     * Required for authorization_code grant
+     * @type {string}
+     * @memberof ExchangeTokenRequest
+     */
+    'code'?: string;
+    /**
+     * Required for authorization_code grant
+     * @type {string}
+     * @memberof ExchangeTokenRequest
+     */
+    'redirect_uri'?: string;
+    /**
+     * Required for refresh_token grant
+     * @type {string}
+     * @memberof ExchangeTokenRequest
+     */
+    'refresh_token'?: string;
+}
+
+export const ExchangeTokenRequestGrantTypeEnum = {
+    AuthorizationCode: 'authorization_code',
+    RefreshToken: 'refresh_token'
+} as const;
+
+export type ExchangeTokenRequestGrantTypeEnum = typeof ExchangeTokenRequestGrantTypeEnum[keyof typeof ExchangeTokenRequestGrantTypeEnum];
+
+/**
+ * 
+ * @export
  * @interface GetRateLimits
  */
 export interface GetRateLimits {
@@ -899,31 +907,6 @@ export interface GetRateLimits {
      * @memberof GetRateLimits
      */
     'load_shedding': LoadShedInfo;
-}
-/**
- * 
- * @export
- * @interface GetSignUsageResponse
- */
-export interface GetSignUsageResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof GetSignUsageResponse
-     */
-    'code': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetSignUsageResponse
-     */
-    'message'?: string;
-    /**
-     * 
-     * @type {Array<SignLogPublic>}
-     * @memberof GetSignUsageResponse
-     */
-    'usage'?: Array<SignLogPublic>;
 }
 /**
  * 
@@ -985,6 +968,31 @@ export interface GetSignWebcastUrlResponse {
      * @memberof GetSignWebcastUrlResponse
      */
     'User-Agent'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface HashtagListAPIResponse
+ */
+export interface HashtagListAPIResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof HashtagListAPIResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof HashtagListAPIResponse
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {WebcastHashtagListRouteOutput}
+     * @memberof HashtagListAPIResponse
+     */
+    'response'?: WebcastHashtagListRouteOutput;
 }
 /**
  * 
@@ -1060,6 +1068,12 @@ export interface IconsResult {
      * @memberof IconsResult
      */
     'points': Array<Point>;
+    /**
+     * 
+     * @type {string}
+     * @memberof IconsResult
+     */
+    'label': string;
 }
 /**
  * 
@@ -1312,6 +1326,56 @@ export interface ListKeysResponse {
 /**
  * 
  * @export
+ * @interface LiveAnalyticsVideoDetailAPIResponse
+ */
+export interface LiveAnalyticsVideoDetailAPIResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof LiveAnalyticsVideoDetailAPIResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof LiveAnalyticsVideoDetailAPIResponse
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailRouteOutput}
+     * @memberof LiveAnalyticsVideoDetailAPIResponse
+     */
+    'response'?: WebcastLiveAnalyticsVideoDetailRouteOutput;
+}
+/**
+ * 
+ * @export
+ * @interface LiveAnalyticsVideoListAPIResponse
+ */
+export interface LiveAnalyticsVideoListAPIResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof LiveAnalyticsVideoListAPIResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof LiveAnalyticsVideoListAPIResponse
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoListRouteOutput}
+     * @memberof LiveAnalyticsVideoListAPIResponse
+     */
+    'response'?: WebcastLiveAnalyticsVideoListRouteOutput;
+}
+/**
+ * 
+ * @export
  * @interface LoadShedInfo
  */
 export interface LoadShedInfo {
@@ -1327,6 +1391,103 @@ export interface LoadShedInfo {
      * @memberof LoadShedInfo
      */
     'chance': number;
+}
+/**
+ * Mute duration in seconds
+ * @export
+ * @enum {number}
+ */
+
+export const MuteDuration = {
+    NUMBER_MINUS_1: -1,
+    NUMBER_5: 5,
+    NUMBER_30: 30,
+    NUMBER_60: 60,
+    NUMBER_300: 300
+} as const;
+
+export type MuteDuration = typeof MuteDuration[keyof typeof MuteDuration];
+
+
+/**
+ * 
+ * @export
+ * @interface OAuthRevokeResponse
+ */
+export interface OAuthRevokeResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof OAuthRevokeResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OAuthRevokeResponse
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {TokenErrorResponse}
+     * @memberof OAuthRevokeResponse
+     */
+    'error'?: TokenErrorResponse;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const OAuthScope = {
+    WebcastFetch: 'webcast:fetch',
+    WebcastRankings: 'webcast:rankings',
+    WebcastBulkLiveCheck: 'webcast:bulk_live_check',
+    WebcastUserEarnings: 'webcast:user_earnings',
+    WebcastSignUrl: 'webcast:sign_url',
+    WebcastChat: 'webcast:chat',
+    WebcastMute: 'webcast:mute',
+    WebcastBan: 'webcast:ban',
+    WebcastComments: 'webcast:comments',
+    WebcastModerators: 'webcast:moderators',
+    WebcastLiveAnalytics: 'webcast:live_analytics',
+    UserConsents: 'user:consents'
+} as const;
+
+export type OAuthScope = typeof OAuthScope[keyof typeof OAuthScope];
+
+
+/**
+ * 
+ * @export
+ * @interface OAuthTokenResponse
+ */
+export interface OAuthTokenResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof OAuthTokenResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OAuthTokenResponse
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {TokenResponse}
+     * @memberof OAuthTokenResponse
+     */
+    'data'?: TokenResponse;
+    /**
+     * 
+     * @type {TokenErrorResponse}
+     * @memberof OAuthTokenResponse
+     */
+    'error'?: TokenErrorResponse;
 }
 /**
  * 
@@ -1832,31 +1993,6 @@ export interface RetrieveAgentHostsResponse {
 /**
  * 
  * @export
- * @interface RetrieveAggregateUsageResponse
- */
-export interface RetrieveAggregateUsageResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof RetrieveAggregateUsageResponse
-     */
-    'code': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof RetrieveAggregateUsageResponse
-     */
-    'message'?: string;
-    /**
-     * Construct a type with a set of properties K of type T
-     * @type {{ [key: string]: { [key: string]: any; }; }}
-     * @memberof RetrieveAggregateUsageResponse
-     */
-    'usage'?: { [key: string]: { [key: string]: any; }; };
-}
-/**
- * 
- * @export
  * @interface RetrieveAlertResponse
  */
 export interface RetrieveAlertResponse {
@@ -1940,16 +2076,58 @@ export interface RetrieveBulkLiveCheckPayload {
      * @memberof RetrieveBulkLiveCheckPayload
      */
     'user_numeric_ids': Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface RetrieveBulkLiveCheckPayloadV1
+ */
+export interface RetrieveBulkLiveCheckPayloadV1 {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RetrieveBulkLiveCheckPayloadV1
+     */
+    'user_numeric_ids': Array<string>;
     /**
      * 
      * @type {string}
-     * @memberof RetrieveBulkLiveCheckPayload
+     * @memberof RetrieveBulkLiveCheckPayloadV1
+     * @deprecated
      */
     'session_id': string;
     /**
      * 
      * @type {string}
-     * @memberof RetrieveBulkLiveCheckPayload
+     * @memberof RetrieveBulkLiveCheckPayloadV1
+     * @deprecated
+     */
+    'tt_target_idc'?: string;
+}
+/**
+ * The body of the request containing user numeric IDs.
+ * @export
+ * @interface RetrieveBulkLiveCheckRequest
+ */
+export interface RetrieveBulkLiveCheckRequest {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RetrieveBulkLiveCheckRequest
+     */
+    'user_numeric_ids': Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof RetrieveBulkLiveCheckRequest
+     * @deprecated
+     */
+    'session_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RetrieveBulkLiveCheckRequest
+     * @deprecated
      */
     'tt_target_idc'?: string;
 }
@@ -2006,6 +2184,309 @@ export interface RetrieveKeyResponse {
 /**
  * 
  * @export
+ * @interface RevokeRequestBody
+ */
+export interface RevokeRequestBody {
+    /**
+     * 
+     * @type {string}
+     * @memberof RevokeRequestBody
+     */
+    'token': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RevokeRequestBody
+     */
+    'token_type_hint'?: RevokeRequestBodyTokenTypeHintEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof RevokeRequestBody
+     */
+    'client_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RevokeRequestBody
+     */
+    'client_secret': string;
+}
+
+export const RevokeRequestBodyTokenTypeHintEnum = {
+    AccessToken: 'access_token',
+    RefreshToken: 'refresh_token'
+} as const;
+
+export type RevokeRequestBodyTokenTypeHintEnum = typeof RevokeRequestBodyTokenTypeHintEnum[keyof typeof RevokeRequestBodyTokenTypeHintEnum];
+
+/**
+ * 
+ * @export
+ * @interface RoomAdminUpdateAPIResponse
+ */
+export interface RoomAdminUpdateAPIResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof RoomAdminUpdateAPIResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RoomAdminUpdateAPIResponse
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {WebcastRoomAdminUpdateRouteOutput}
+     * @memberof RoomAdminUpdateAPIResponse
+     */
+    'response'?: WebcastRoomAdminUpdateRouteOutput;
+}
+/**
+ * 
+ * @export
+ * @interface RoomCommentsToggleAPIResponse
+ */
+export interface RoomCommentsToggleAPIResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof RoomCommentsToggleAPIResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RoomCommentsToggleAPIResponse
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {WebcastRoomCommentsToggleRouteOutput}
+     * @memberof RoomCommentsToggleAPIResponse
+     */
+    'response'?: WebcastRoomCommentsToggleRouteOutput;
+}
+/**
+ * 
+ * @export
+ * @interface RoomKickUserAPIResponse
+ */
+export interface RoomKickUserAPIResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof RoomKickUserAPIResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RoomKickUserAPIResponse
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {WebcastRoomKickUserRouteOutput}
+     * @memberof RoomKickUserAPIResponse
+     */
+    'response'?: WebcastRoomKickUserRouteOutput;
+}
+/**
+ * 
+ * @export
+ * @interface RoomKickedUsersAPIResponse
+ */
+export interface RoomKickedUsersAPIResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof RoomKickedUsersAPIResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RoomKickedUsersAPIResponse
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {WebcastRoomKickedUsersRouteOutput}
+     * @memberof RoomKickedUsersAPIResponse
+     */
+    'response'?: WebcastRoomKickedUsersRouteOutput;
+}
+/**
+ * 
+ * @export
+ * @interface RoomModeratorsAPIResponse
+ */
+export interface RoomModeratorsAPIResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof RoomModeratorsAPIResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RoomModeratorsAPIResponse
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {WebcastRoomAdminListRouteOutput}
+     * @memberof RoomModeratorsAPIResponse
+     */
+    'response'?: WebcastRoomAdminListRouteOutput;
+}
+/**
+ * 
+ * @export
+ * @interface RoomMuteUserAPIResponse
+ */
+export interface RoomMuteUserAPIResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof RoomMuteUserAPIResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RoomMuteUserAPIResponse
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {WebcastRoomMuteUserRouteOutput}
+     * @memberof RoomMuteUserAPIResponse
+     */
+    'response'?: WebcastRoomMuteUserRouteOutput;
+}
+/**
+ * 
+ * @export
+ * @interface RoomMutedUsersAPIResponse
+ */
+export interface RoomMutedUsersAPIResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof RoomMutedUsersAPIResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RoomMutedUsersAPIResponse
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersRouteOutput}
+     * @memberof RoomMutedUsersAPIResponse
+     */
+    'response'?: WebcastRoomMutedUsersRouteOutput;
+}
+/**
+ * 
+ * @export
+ * @interface RoomUnkickUserAPIResponse
+ */
+export interface RoomUnkickUserAPIResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof RoomUnkickUserAPIResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RoomUnkickUserAPIResponse
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {WebcastRoomUnkickUserRouteOutput}
+     * @memberof RoomUnkickUserAPIResponse
+     */
+    'response'?: WebcastRoomUnkickUserRouteOutput;
+}
+/**
+ * 
+ * @export
+ * @interface RoomUnmuteUserAPIResponse
+ */
+export interface RoomUnmuteUserAPIResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof RoomUnmuteUserAPIResponse
+     */
+    'code': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RoomUnmuteUserAPIResponse
+     */
+    'message'?: string;
+    /**
+     * 
+     * @type {WebcastRoomUnmuteUserRouteOutput}
+     * @memberof RoomUnmuteUserAPIResponse
+     */
+    'response'?: WebcastRoomUnmuteUserRouteOutput;
+}
+/**
+ * The payload configuration for sending a chat
+ * @export
+ * @interface SendRoomChatRequest
+ */
+export interface SendRoomChatRequest {
+    /**
+     * The chat message content to send
+     * @type {string}
+     * @memberof SendRoomChatRequest
+     */
+    'content': string;
+    /**
+     * The room ID to send the chat to (either this or targetUniqueId is required)
+     * @type {string}
+     * @memberof SendRoomChatRequest
+     */
+    'targetRoomId'?: string;
+    /**
+     * The username of the room to send the chat to (either this or targetRoomId is required)
+     * @type {string}
+     * @memberof SendRoomChatRequest
+     */
+    'targetUniqueId'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SendRoomChatRequest
+     * @deprecated
+     */
+    'sessionId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SendRoomChatRequest
+     * @deprecated
+     */
+    'ttTargetIdc'?: string;
+}
+/**
+ * 
+ * @export
  * @interface ShapesCaptchaResponse
  */
 export interface ShapesCaptchaResponse {
@@ -2058,61 +2539,6 @@ export interface ShapesResult {
      * @memberof ShapesResult
      */
     'point_2': Point;
-}
-/**
- * 
- * @export
- * @interface SignLogPublic
- */
-export interface SignLogPublic {
-    /**
-     * 
-     * @type {string}
-     * @memberof SignLogPublic
-     */
-    'id': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SignLogPublic
-     */
-    'ts': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SignLogPublic
-     */
-    'code': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SignLogPublic
-     */
-    'client': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SignLogPublic
-     */
-    'ip': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof SignLogPublic
-     */
-    'api_key_id': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof SignLogPublic
-     */
-    'user_agent': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SignLogPublic
-     */
-    'agent_id': string;
 }
 /**
  * 
@@ -2521,6 +2947,75 @@ export interface TikTokLiveUserUser {
      */
     'unique_id': string;
 }
+/**
+ * 
+ * @export
+ * @interface TokenErrorResponse
+ */
+export interface TokenErrorResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenErrorResponse
+     */
+    'error': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenErrorResponse
+     */
+    'error_description'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface TokenResponse
+ */
+export interface TokenResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenResponse
+     */
+    'access_token': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenResponse
+     */
+    'refresh_token': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenResponse
+     */
+    'token_type': TokenResponseTokenTypeEnum;
+    /**
+     * Access token lifetime in seconds
+     * @type {number}
+     * @memberof TokenResponse
+     */
+    'expires_in': number;
+    /**
+     * Refresh token lifetime in seconds
+     * @type {number}
+     * @memberof TokenResponse
+     */
+    'refresh_expires_in': number;
+    /**
+     * 
+     * @type {Array<OAuthScope>}
+     * @memberof TokenResponse
+     */
+    'scopes': Array<OAuthScope>;
+}
+
+export const TokenResponseTokenTypeEnum = {
+    Bearer: 'Bearer'
+} as const;
+
+export type TokenResponseTokenTypeEnum = typeof TokenResponseTokenTypeEnum[keyof typeof TokenResponseTokenTypeEnum];
+
 /**
  * 
  * @export
@@ -3401,6 +3896,309 @@ export interface WebcastGiftInfoRouteResponse {
 /**
  * 
  * @export
+ * @interface WebcastHashtagListResponse
+ */
+export interface WebcastHashtagListResponse {
+    /**
+     * 
+     * @type {WebcastHashtagListResponseData}
+     * @memberof WebcastHashtagListResponse
+     */
+    'data': WebcastHashtagListResponseData;
+    /**
+     * 
+     * @type {WebcastHashtagListResponseExtra}
+     * @memberof WebcastHashtagListResponse
+     */
+    'extra': WebcastHashtagListResponseExtra;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastHashtagListResponse
+     */
+    'status_code': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastHashtagListResponseData
+ */
+export interface WebcastHashtagListResponseData {
+    /**
+     * 
+     * @type {WebcastHashtagListResponseHashtag}
+     * @memberof WebcastHashtagListResponseData
+     */
+    'game_hashtag': WebcastHashtagListResponseHashtag;
+    /**
+     * 
+     * @type {Array<WebcastHashtagListResponseGameTag>}
+     * @memberof WebcastHashtagListResponseData
+     */
+    'game_tag_list': Array<WebcastHashtagListResponseGameTag>;
+    /**
+     * 
+     * @type {Array<WebcastHashtagListResponseHashtag>}
+     * @memberof WebcastHashtagListResponseData
+     */
+    'hashtag': Array<WebcastHashtagListResponseHashtag>;
+    /**
+     * 
+     * @type {Array<WebcastHashtagListResponseHashtag>}
+     * @memberof WebcastHashtagListResponseData
+     */
+    'live_studio_hashtag': Array<WebcastHashtagListResponseHashtag>;
+    /**
+     * 
+     * @type {Array<WebcastHashtagListResponseHashtag>}
+     * @memberof WebcastHashtagListResponseData
+     */
+    'live_voice_hashtag': Array<WebcastHashtagListResponseHashtag>;
+    /**
+     * 
+     * @type {Array<WebcastHashtagListResponseHashtag>}
+     * @memberof WebcastHashtagListResponseData
+     */
+    'third_party_hashtag': Array<WebcastHashtagListResponseHashtag>;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastHashtagListResponseExtra
+ */
+export interface WebcastHashtagListResponseExtra {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastHashtagListResponseExtra
+     */
+    'now': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastHashtagListResponseGameCategory
+ */
+export interface WebcastHashtagListResponseGameCategory {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastHashtagListResponseGameCategory
+     */
+    'game_type': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastHashtagListResponseGameCategory
+     */
+    'title': string;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastHashtagListResponseGameTag
+ */
+export interface WebcastHashtagListResponseGameTag {
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastHashtagListResponseGameTag
+     */
+    'bundle_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastHashtagListResponseGameTag
+     */
+    'full_name': string;
+    /**
+     * 
+     * @type {Array<WebcastHashtagListResponseGameCategory>}
+     * @memberof WebcastHashtagListResponseGameTag
+     */
+    'game_category': Array<WebcastHashtagListResponseGameCategory>;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastHashtagListResponseGameTag
+     */
+    'gar': Array<any>;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastHashtagListResponseGameTag
+     */
+    'hashtag_id': Array<any>;
+    /**
+     * 
+     * @type {Array<WebcastHashtagListResponseHashtagSimple>}
+     * @memberof WebcastHashtagListResponseGameTag
+     */
+    'hashtag_list': Array<WebcastHashtagListResponseHashtagSimple>;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastHashtagListResponseGameTag
+     */
+    'id': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastHashtagListResponseGameTag
+     */
+    'is_new_game': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastHashtagListResponseGameTag
+     */
+    'landscape': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastHashtagListResponseGameTag
+     */
+    'package_name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastHashtagListResponseGameTag
+     */
+    'short_name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastHashtagListResponseGameTag
+     */
+    'show_name': string;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastHashtagListResponseHashtag
+ */
+export interface WebcastHashtagListResponseHashtag {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastHashtagListResponseHashtag
+     */
+    'id': number;
+    /**
+     * 
+     * @type {WebcastHashtagListResponseImage}
+     * @memberof WebcastHashtagListResponseHashtag
+     */
+    'image': WebcastHashtagListResponseImage;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastHashtagListResponseHashtag
+     */
+    'namespace': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastHashtagListResponseHashtag
+     */
+    'title': string;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastHashtagListResponseHashtagSimple
+ */
+export interface WebcastHashtagListResponseHashtagSimple {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastHashtagListResponseHashtagSimple
+     */
+    'id': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastHashtagListResponseHashtagSimple
+     */
+    'namespace': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastHashtagListResponseHashtagSimple
+     */
+    'title': string;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastHashtagListResponseImage
+ */
+export interface WebcastHashtagListResponseImage {
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastHashtagListResponseImage
+     */
+    'avg_color': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastHashtagListResponseImage
+     */
+    'height': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastHashtagListResponseImage
+     */
+    'image_type': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastHashtagListResponseImage
+     */
+    'is_animated': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastHashtagListResponseImage
+     */
+    'open_web_url': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastHashtagListResponseImage
+     */
+    'uri': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof WebcastHashtagListResponseImage
+     */
+    'url_list': Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastHashtagListResponseImage
+     */
+    'width': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastHashtagListRouteOutput
+ */
+export interface WebcastHashtagListRouteOutput {
+    /**
+     * 
+     * @type {WebcastHashtagListResponse}
+     * @memberof WebcastHashtagListRouteOutput
+     */
+    'data': WebcastHashtagListResponse;
+}
+/**
+ * 
+ * @export
  * @interface WebcastIsLiveOutput
  */
 export interface WebcastIsLiveOutput {
@@ -3410,6 +4208,1123 @@ export interface WebcastIsLiveOutput {
      * @memberof WebcastIsLiveOutput
      */
     'data'?: { [key: string]: RecordStringIsLiveBooleanRoomIdStringOrNullValue; };
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponse
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponse {
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseData}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponse
+     */
+    'data': WebcastLiveAnalyticsVideoDetailResponseData;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseExtra}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponse
+     */
+    'extra': WebcastLiveAnalyticsVideoDetailResponseExtra;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponse
+     */
+    'status_code': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseAnalytics
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseAnalytics {
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseEarnings}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseAnalytics
+     */
+    'earnings': WebcastLiveAnalyticsVideoDetailResponseEarnings;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseInteraction}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseAnalytics
+     */
+    'interaction': WebcastLiveAnalyticsVideoDetailResponseInteraction;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseViews}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseAnalytics
+     */
+    'views': WebcastLiveAnalyticsVideoDetailResponseViews;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseAverageWatchTime
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseAverageWatchTime {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseAverageWatchTime
+     */
+    'follower': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseAverageWatchTime
+     */
+    'non_follower': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseBehaviorSummary
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseBehaviorSummary {
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseCohostSummary}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseBehaviorSummary
+     */
+    'cohost_summary': WebcastLiveAnalyticsVideoDetailResponseCohostSummary;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseMultiGuestSummary}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseBehaviorSummary
+     */
+    'multi_guest_summary': WebcastLiveAnalyticsVideoDetailResponseMultiGuestSummary;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseCohostSummary
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseCohostSummary {
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseCohostSummary
+     */
+    'cohost_rank': Array<any>;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseCohostSummary
+     */
+    'total_anchor': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseCohostSummary
+     */
+    'total_diamonds': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseCohostSummary
+     */
+    'total_views': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseCommentsInfo
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseCommentsInfo {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseCommentsInfo
+     */
+    'comment_cnt': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseCommentsInfo
+     */
+    'entry_location': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseCommentsInfo
+     */
+    'show_entry': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseCommentsInfo
+     */
+    'sub_title': string;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseCommentsInfo
+     */
+    'top_users': Array<any>;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseData
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseData {
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseAnalytics}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'analytics': WebcastLiveAnalyticsVideoDetailResponseAnalytics;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseAverageWatchTime}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'average_watch_time': WebcastLiveAnalyticsVideoDetailResponseAverageWatchTime;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseBehaviorSummary}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'behavior_summary': WebcastLiveAnalyticsVideoDetailResponseBehaviorSummary;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseCommentsInfo}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'comments_info': WebcastLiveAnalyticsVideoDetailResponseCommentsInfo;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'cover_image_url': string;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseDetailedMetrics}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'detailed_metrics': WebcastLiveAnalyticsVideoDetailResponseDetailedMetrics;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'duration': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'end_time': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'is_first_live': boolean;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseNewAnalytics}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'new_analytics': WebcastLiveAnalyticsVideoDetailResponseNewAnalytics;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'pause_duration': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'start_time': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'title': string;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseTrafficInfo}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'traffic_info': WebcastLiveAnalyticsVideoDetailResponseTrafficInfo;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseViewerInfo}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'viewer_info': WebcastLiveAnalyticsVideoDetailResponseViewerInfo;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseViewsBySection}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseData
+     */
+    'views_by_setion': WebcastLiveAnalyticsVideoDetailResponseViewsBySection;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseDetailedMetrics
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseDetailedMetrics {
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseFollowerMetric}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseDetailedMetrics
+     */
+    'commenter': WebcastLiveAnalyticsVideoDetailResponseFollowerMetric;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseFollowerMetric}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseDetailedMetrics
+     */
+    'gifters': WebcastLiveAnalyticsVideoDetailResponseFollowerMetric;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseFollowerMetric}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseDetailedMetrics
+     */
+    'viewers': WebcastLiveAnalyticsVideoDetailResponseFollowerMetric;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseDiamondsDetails
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseDiamondsDetails {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseDiamondsDetails
+     */
+    'gift_fan_tickets_percentage': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseDiamondsDetails
+     */
+    'multi_guest_fan_tickets_percentage': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseDiamondsDetails
+     */
+    'star_comment_fan_tickets_percentage': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseDiamondsDetails
+     */
+    'star_comment_qualification': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseEarnings
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseEarnings {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseEarnings
+     */
+    'diamonds': number;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseDiamondsDetails}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseEarnings
+     */
+    'diamonds_details': WebcastLiveAnalyticsVideoDetailResponseDiamondsDetails;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseEarnings
+     */
+    'gifters': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseExtra
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseExtra {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseExtra
+     */
+    'now': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseFollowerMetric
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseFollowerMetric {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseFollowerMetric
+     */
+    'follower': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseFollowerMetric
+     */
+    'non_follower': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseInteraction
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseInteraction {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseInteraction
+     */
+    'comment': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseInteraction
+     */
+    'likes': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseInteraction
+     */
+    'new_followers': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseInteraction
+     */
+    'shares': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseMultiGuestSummary
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseMultiGuestSummary {
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseMultiGuestSummary
+     */
+    'multi_guest_rank': Array<any>;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseMultiGuestSummary
+     */
+    'multi_guest_show_type': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseMultiGuestSummary
+     */
+    'total_diamonds': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseMultiGuestSummary
+     */
+    'total_duration': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseMultiGuestSummary
+     */
+    'total_guest': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseMultiGuestSummary
+     */
+    'total_points': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseNewAnalytics
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseNewAnalytics {
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseNewEarnings}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewAnalytics
+     */
+    'earnings': WebcastLiveAnalyticsVideoDetailResponseNewEarnings;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseNewInteraction}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewAnalytics
+     */
+    'interaction': WebcastLiveAnalyticsVideoDetailResponseNewInteraction;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseNewViews}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewAnalytics
+     */
+    'views': WebcastLiveAnalyticsVideoDetailResponseNewViews;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseNewEarnings
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseNewEarnings {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewEarnings
+     */
+    'diamonds': number;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseDiamondsDetails}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewEarnings
+     */
+    'diamonds_details': WebcastLiveAnalyticsVideoDetailResponseDiamondsDetails;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewEarnings
+     */
+    'last_diamonds': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseNewInteraction
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseNewInteraction {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewInteraction
+     */
+    'comment': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewInteraction
+     */
+    'gifters': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewInteraction
+     */
+    'last_comment': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewInteraction
+     */
+    'last_gifters': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewInteraction
+     */
+    'last_likes': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewInteraction
+     */
+    'last_new_followers': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewInteraction
+     */
+    'last_shares': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewInteraction
+     */
+    'likes': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewInteraction
+     */
+    'new_followers': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewInteraction
+     */
+    'shares': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewInteraction
+     */
+    'top_interaction': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseNewViews
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseNewViews {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewViews
+     */
+    'anchor_live_acu': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewViews
+     */
+    'average_watch_time': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewViews
+     */
+    'last_anchor_live_acu': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewViews
+     */
+    'last_average_watch_time': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewViews
+     */
+    'last_three_min_total_views': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewViews
+     */
+    'last_top_viewer_count': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewViews
+     */
+    'last_total_views': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewViews
+     */
+    'last_unique_viewers': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewViews
+     */
+    'three_min_total_views': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewViews
+     */
+    'top_viewer_count': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewViews
+     */
+    'total_views': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseNewViews
+     */
+    'unique_viewers': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseRegionEntry
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseRegionEntry {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseRegionEntry
+     */
+    'percent': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseRegionEntry
+     */
+    'region_name': string;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseTrafficConversion
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseTrafficConversion {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseTrafficConversion
+     */
+    'gifters': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseTrafficConversion
+     */
+    'impression_viewers': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseTrafficConversion
+     */
+    'unique_viewers': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseTrafficInfo
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseTrafficInfo {
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseTrafficTotal}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseTrafficInfo
+     */
+    'total': WebcastLiveAnalyticsVideoDetailResponseTrafficTotal;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseTrafficConversion}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseTrafficInfo
+     */
+    'traffic_conversion': WebcastLiveAnalyticsVideoDetailResponseTrafficConversion;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseTrafficTotal
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseTrafficTotal {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseTrafficTotal
+     */
+    'following': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseTrafficTotal
+     */
+    'live_recomm': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseTrafficTotal
+     */
+    'others': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseTrafficTotal
+     */
+    'share': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseTrafficTotal
+     */
+    'video_recomm': number;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseVideoRecommInfo}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseTrafficTotal
+     */
+    'video_recomm_info': WebcastLiveAnalyticsVideoDetailResponseVideoRecommInfo;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseVideoRecommInfo
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseVideoRecommInfo {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseVideoRecommInfo
+     */
+    'total_views': number;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseVideoRecommInfo
+     */
+    'video_info': Array<any>;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseViewerInfo
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseViewerInfo {
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewerInfo
+     */
+    'gift_rank': Array<any>;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseViewerPortrait}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewerInfo
+     */
+    'viewer_portrait': WebcastLiveAnalyticsVideoDetailResponseViewerPortrait;
+    /**
+     * 
+     * @type {Array<WebcastLiveAnalyticsVideoDetailResponseWatcherRank>}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewerInfo
+     */
+    'watcher_rank': Array<WebcastLiveAnalyticsVideoDetailResponseWatcherRank>;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseViewerPortrait
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseViewerPortrait {
+    /**
+     * 
+     * @type {Array<WebcastLiveAnalyticsVideoDetailResponseViewersAge>}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewerPortrait
+     */
+    'viewers_age': Array<WebcastLiveAnalyticsVideoDetailResponseViewersAge>;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseViewersGender}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewerPortrait
+     */
+    'viewers_gender': WebcastLiveAnalyticsVideoDetailResponseViewersGender;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponseViewersRegion}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewerPortrait
+     */
+    'viewers_region': WebcastLiveAnalyticsVideoDetailResponseViewersRegion;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseViewersAge
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseViewersAge {
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewersAge
+     */
+    'age_section': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewersAge
+     */
+    'percent': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseViewersGender
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseViewersGender {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewersGender
+     */
+    'female_percent': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewersGender
+     */
+    'male_percent': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseViewersRegion
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseViewersRegion {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewersRegion
+     */
+    'others': number;
+    /**
+     * 
+     * @type {Array<WebcastLiveAnalyticsVideoDetailResponseRegionEntry>}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewersRegion
+     */
+    'top_viewers_region_list': Array<WebcastLiveAnalyticsVideoDetailResponseRegionEntry>;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseViews
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseViews {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViews
+     */
+    'anchor_live_acu': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViews
+     */
+    'average_watch_time': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViews
+     */
+    'top_viewer_count': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViews
+     */
+    'total_views': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViews
+     */
+    'unique_viewers': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseViewsBySection
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseViewsBySection {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewsBySection
+     */
+    'following': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewsBySection
+     */
+    'live_recomm': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewsBySection
+     */
+    'others': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewsBySection
+     */
+    'share': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseViewsBySection
+     */
+    'video_recomm': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailResponseWatcherRank
+ */
+export interface WebcastLiveAnalyticsVideoDetailResponseWatcherRank {
+    /**
+     * Construct a type with a set of properties K of type T
+     * @type {{ [key: string]: any; }}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseWatcherRank
+     */
+    'user': { [key: string]: any; };
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoDetailResponseWatcherRank
+     */
+    'value': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoDetailRouteOutput
+ */
+export interface WebcastLiveAnalyticsVideoDetailRouteOutput {
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoDetailResponse}
+     * @memberof WebcastLiveAnalyticsVideoDetailRouteOutput
+     */
+    'data': WebcastLiveAnalyticsVideoDetailResponse;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoListResponse
+ */
+export interface WebcastLiveAnalyticsVideoListResponse {
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoListResponseData}
+     * @memberof WebcastLiveAnalyticsVideoListResponse
+     */
+    'data': WebcastLiveAnalyticsVideoListResponseData;
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoListResponseExtra}
+     * @memberof WebcastLiveAnalyticsVideoListResponse
+     */
+    'extra': WebcastLiveAnalyticsVideoListResponseExtra;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoListResponse
+     */
+    'status_code': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoListResponseData
+ */
+export interface WebcastLiveAnalyticsVideoListResponseData {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoListResponseData
+     */
+    'total': number;
+    /**
+     * 
+     * @type {Array<WebcastLiveAnalyticsVideoListResponseVideo>}
+     * @memberof WebcastLiveAnalyticsVideoListResponseData
+     */
+    'video_list': Array<WebcastLiveAnalyticsVideoListResponseVideo>;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoListResponseExtra
+ */
+export interface WebcastLiveAnalyticsVideoListResponseExtra {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoListResponseExtra
+     */
+    'now': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoListResponseVideo
+ */
+export interface WebcastLiveAnalyticsVideoListResponseVideo {
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastLiveAnalyticsVideoListResponseVideo
+     */
+    'cover': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoListResponseVideo
+     */
+    'diamonds': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoListResponseVideo
+     */
+    'duration': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoListResponseVideo
+     */
+    'end_time': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoListResponseVideo
+     */
+    'new_followers': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastLiveAnalyticsVideoListResponseVideo
+     */
+    'room_id': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoListResponseVideo
+     */
+    'start_time': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastLiveAnalyticsVideoListResponseVideo
+     */
+    'title': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastLiveAnalyticsVideoListResponseVideo
+     */
+    'views': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastLiveAnalyticsVideoListRouteOutput
+ */
+export interface WebcastLiveAnalyticsVideoListRouteOutput {
+    /**
+     * 
+     * @type {WebcastLiveAnalyticsVideoListResponse}
+     * @memberof WebcastLiveAnalyticsVideoListRouteOutput
+     */
+    'data': WebcastLiveAnalyticsVideoListResponse;
 }
 /**
  * 
@@ -3484,33 +5399,278 @@ export interface WebcastRegionRankingsResponse {
 /**
  * 
  * @export
+ * @interface WebcastRoomAdminListResponse
+ */
+export interface WebcastRoomAdminListResponse {
+    /**
+     * 
+     * @type {Array<WebcastRoomAdminListResponseAdmin>}
+     * @memberof WebcastRoomAdminListResponse
+     */
+    'data': Array<WebcastRoomAdminListResponseAdmin>;
+    /**
+     * 
+     * @type {WebcastRoomAdminListResponseExtra}
+     * @memberof WebcastRoomAdminListResponse
+     */
+    'extra': WebcastRoomAdminListResponseExtra;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomAdminListResponse
+     */
+    'status_code': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomAdminListResponseAdmin
+ */
+export interface WebcastRoomAdminListResponseAdmin {
+    /**
+     * Construct a type with a set of properties K of type T
+     * @type {{ [key: string]: number; }}
+     * @memberof WebcastRoomAdminListResponseAdmin
+     */
+    'admin_permissions': { [key: string]: number; };
+    /**
+     * 
+     * @type {WebcastRoomAdminListResponseImage}
+     * @memberof WebcastRoomAdminListResponseAdmin
+     */
+    'avatar_large': WebcastRoomAdminListResponseImage;
+    /**
+     * 
+     * @type {WebcastRoomAdminListResponseImage}
+     * @memberof WebcastRoomAdminListResponseAdmin
+     */
+    'avatar_thumb': WebcastRoomAdminListResponseImage;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomAdminListResponseAdmin
+     */
+    'display_id': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomAdminListResponseAdmin
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomAdminListResponseAdmin
+     */
+    'id_str': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomAdminListResponseAdmin
+     */
+    'nickname': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomAdminListResponseAdmin
+     */
+    'sec_uid': string;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomAdminListResponseExtra
+ */
+export interface WebcastRoomAdminListResponseExtra {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomAdminListResponseExtra
+     */
+    'now': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomAdminListResponseImage
+ */
+export interface WebcastRoomAdminListResponseImage {
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomAdminListResponseImage
+     */
+    'avg_color': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomAdminListResponseImage
+     */
+    'height': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomAdminListResponseImage
+     */
+    'image_type': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomAdminListResponseImage
+     */
+    'is_animated': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomAdminListResponseImage
+     */
+    'open_web_url': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomAdminListResponseImage
+     */
+    'uri': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof WebcastRoomAdminListResponseImage
+     */
+    'url_list': Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomAdminListResponseImage
+     */
+    'width': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomAdminListRouteOutput
+ */
+export interface WebcastRoomAdminListRouteOutput {
+    /**
+     * 
+     * @type {WebcastRoomAdminListResponse}
+     * @memberof WebcastRoomAdminListRouteOutput
+     */
+    'data': WebcastRoomAdminListResponse;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomAdminUpdateResponse
+ */
+export interface WebcastRoomAdminUpdateResponse {
+    /**
+     * Construct a type with a set of properties K of type T
+     * @type {{ [key: string]: any; }}
+     * @memberof WebcastRoomAdminUpdateResponse
+     */
+    'data': { [key: string]: any; };
+    /**
+     * 
+     * @type {WebcastRoomAdminUpdateResponseExtra}
+     * @memberof WebcastRoomAdminUpdateResponse
+     */
+    'extra': WebcastRoomAdminUpdateResponseExtra;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomAdminUpdateResponse
+     */
+    'status_code': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomAdminUpdateResponseExtra
+ */
+export interface WebcastRoomAdminUpdateResponseExtra {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomAdminUpdateResponseExtra
+     */
+    'now': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomAdminUpdateRouteOutput
+ */
+export interface WebcastRoomAdminUpdateRouteOutput {
+    /**
+     * 
+     * @type {WebcastRoomAdminUpdateResponse}
+     * @memberof WebcastRoomAdminUpdateRouteOutput
+     */
+    'data': WebcastRoomAdminUpdateResponse;
+}
+/**
+ * 
+ * @export
  * @interface WebcastRoomChatPayload
  */
 export interface WebcastRoomChatPayload {
     /**
-     * 
+     * The chat message content to send
      * @type {string}
      * @memberof WebcastRoomChatPayload
      */
     'content': string;
     /**
-     * 
+     * The room ID to send the chat to (either this or targetUniqueId is required)
      * @type {string}
      * @memberof WebcastRoomChatPayload
+     */
+    'targetRoomId'?: string;
+    /**
+     * The username of the room to send the chat to (either this or targetRoomId is required)
+     * @type {string}
+     * @memberof WebcastRoomChatPayload
+     */
+    'targetUniqueId'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomChatPayloadV1
+ */
+export interface WebcastRoomChatPayloadV1 {
+    /**
+     * The chat message content to send
+     * @type {string}
+     * @memberof WebcastRoomChatPayloadV1
+     */
+    'content': string;
+    /**
+     * The room ID to send the chat to (either this or targetUniqueId is required)
+     * @type {string}
+     * @memberof WebcastRoomChatPayloadV1
+     */
+    'targetRoomId'?: string;
+    /**
+     * The username of the room to send the chat to (either this or targetRoomId is required)
+     * @type {string}
+     * @memberof WebcastRoomChatPayloadV1
+     */
+    'targetUniqueId'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomChatPayloadV1
+     * @deprecated
      */
     'sessionId': string;
     /**
      * 
      * @type {string}
-     * @memberof WebcastRoomChatPayload
+     * @memberof WebcastRoomChatPayloadV1
+     * @deprecated
      */
-    'ttTargetIdc': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof WebcastRoomChatPayload
-     */
-    'roomId': string;
+    'ttTargetIdc'?: string;
 }
 /**
  * 
@@ -3536,6 +5696,57 @@ export interface WebcastRoomChatRouteResponse {
      * @memberof WebcastRoomChatRouteResponse
      */
     'data'?: any;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomCommentsToggleResponse
+ */
+export interface WebcastRoomCommentsToggleResponse {
+    /**
+     * Construct a type with a set of properties K of type T
+     * @type {{ [key: string]: any; }}
+     * @memberof WebcastRoomCommentsToggleResponse
+     */
+    'data': { [key: string]: any; };
+    /**
+     * 
+     * @type {WebcastRoomCommentsToggleResponseExtra}
+     * @memberof WebcastRoomCommentsToggleResponse
+     */
+    'extra': WebcastRoomCommentsToggleResponseExtra;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomCommentsToggleResponse
+     */
+    'status_code': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomCommentsToggleResponseExtra
+ */
+export interface WebcastRoomCommentsToggleResponseExtra {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomCommentsToggleResponseExtra
+     */
+    'now': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomCommentsToggleRouteOutput
+ */
+export interface WebcastRoomCommentsToggleRouteOutput {
+    /**
+     * 
+     * @type {WebcastRoomCommentsToggleResponse}
+     * @memberof WebcastRoomCommentsToggleRouteOutput
+     */
+    'data': WebcastRoomCommentsToggleResponse;
 }
 /**
  * 
@@ -3616,6 +5827,1380 @@ export interface WebcastRoomInfoRouteResponse {
      * @memberof WebcastRoomInfoRouteResponse
      */
     'data': TikTokLiveUser | null;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomKickUserResponse
+ */
+export interface WebcastRoomKickUserResponse {
+    /**
+     * Construct a type with a set of properties K of type T
+     * @type {{ [key: string]: any; }}
+     * @memberof WebcastRoomKickUserResponse
+     */
+    'data': { [key: string]: any; };
+    /**
+     * 
+     * @type {WebcastRoomKickUserResponseExtra}
+     * @memberof WebcastRoomKickUserResponse
+     */
+    'extra': WebcastRoomKickUserResponseExtra;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomKickUserResponse
+     */
+    'status_code': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomKickUserResponseExtra
+ */
+export interface WebcastRoomKickUserResponseExtra {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomKickUserResponseExtra
+     */
+    'now': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomKickUserRouteOutput
+ */
+export interface WebcastRoomKickUserRouteOutput {
+    /**
+     * 
+     * @type {WebcastRoomKickUserResponse}
+     * @memberof WebcastRoomKickUserRouteOutput
+     */
+    'data': WebcastRoomKickUserResponse;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomKickedUsersResponse
+ */
+export interface WebcastRoomKickedUsersResponse {
+    /**
+     * 
+     * @type {Array<{ [key: string]: any; }>}
+     * @memberof WebcastRoomKickedUsersResponse
+     */
+    'data': Array<{ [key: string]: any; }>;
+    /**
+     * 
+     * @type {WebcastRoomKickedUsersResponseExtra}
+     * @memberof WebcastRoomKickedUsersResponse
+     */
+    'extra': WebcastRoomKickedUsersResponseExtra;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomKickedUsersResponse
+     */
+    'status_code': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomKickedUsersResponseExtra
+ */
+export interface WebcastRoomKickedUsersResponseExtra {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomKickedUsersResponseExtra
+     */
+    'has_more': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomKickedUsersResponseExtra
+     */
+    'next_cursor': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomKickedUsersResponseExtra
+     */
+    'now': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomKickedUsersResponseExtra
+     */
+    'total': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomKickedUsersRouteOutput
+ */
+export interface WebcastRoomKickedUsersRouteOutput {
+    /**
+     * 
+     * @type {WebcastRoomKickedUsersResponse}
+     * @memberof WebcastRoomKickedUsersRouteOutput
+     */
+    'data': WebcastRoomKickedUsersResponse;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMuteUserResponse
+ */
+export interface WebcastRoomMuteUserResponse {
+    /**
+     * 
+     * @type {WebcastRoomMuteUserResponseData}
+     * @memberof WebcastRoomMuteUserResponse
+     */
+    'data': WebcastRoomMuteUserResponseData;
+    /**
+     * 
+     * @type {WebcastRoomMuteUserResponseExtra}
+     * @memberof WebcastRoomMuteUserResponse
+     */
+    'extra': WebcastRoomMuteUserResponseExtra;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMuteUserResponse
+     */
+    'status_code': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMuteUserResponseData
+ */
+export interface WebcastRoomMuteUserResponseData {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMuteUserResponseData
+     */
+    'actual_duration': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMuteUserResponseData
+     */
+    'max_count': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMuteUserResponseData
+     */
+    'room_id': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMuteUserResponseData
+     */
+    'total': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMuteUserResponseData
+     */
+    'user_id': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMuteUserResponseExtra
+ */
+export interface WebcastRoomMuteUserResponseExtra {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMuteUserResponseExtra
+     */
+    'now': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMuteUserRouteOutput
+ */
+export interface WebcastRoomMuteUserRouteOutput {
+    /**
+     * 
+     * @type {WebcastRoomMuteUserResponse}
+     * @memberof WebcastRoomMuteUserRouteOutput
+     */
+    'data': WebcastRoomMuteUserResponse;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMutedUsersResponse
+ */
+export interface WebcastRoomMutedUsersResponse {
+    /**
+     * 
+     * @type {Array<WebcastRoomMutedUsersResponseUser>}
+     * @memberof WebcastRoomMutedUsersResponse
+     */
+    'data': Array<WebcastRoomMutedUsersResponseUser>;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponseExtra}
+     * @memberof WebcastRoomMutedUsersResponse
+     */
+    'extra': WebcastRoomMutedUsersResponseExtra;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponse
+     */
+    'status_code': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMutedUsersResponseBadge
+ */
+export interface WebcastRoomMutedUsersResponseBadge {
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseBadge
+     */
+    'OpenWebURL'?: string;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponseBadgeCombine}
+     * @memberof WebcastRoomMutedUsersResponseBadge
+     */
+    'combine'?: WebcastRoomMutedUsersResponseBadgeCombine;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseBadge
+     */
+    'display': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseBadge
+     */
+    'display_status': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseBadge
+     */
+    'display_type': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseBadge
+     */
+    'exhibition_type': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseBadge
+     */
+    'greyed_by_client': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseBadge
+     */
+    'is_customized': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseBadge
+     */
+    'position': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseBadge
+     */
+    'priority_type': number;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponsePrivilegeLogExtra}
+     * @memberof WebcastRoomMutedUsersResponseBadge
+     */
+    'privilege_log_extra': WebcastRoomMutedUsersResponsePrivilegeLogExtra;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseBadge
+     */
+    'scene_type': number;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponseBadgeText}
+     * @memberof WebcastRoomMutedUsersResponseBadge
+     */
+    'text'?: WebcastRoomMutedUsersResponseBadgeText;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMutedUsersResponseBadgeBackground
+ */
+export interface WebcastRoomMutedUsersResponseBadgeBackground {
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseBadgeBackground
+     */
+    'background_color_code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseBadgeBackground
+     */
+    'border_color_code': string;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponseImage}
+     * @memberof WebcastRoomMutedUsersResponseBadgeBackground
+     */
+    'image': WebcastRoomMutedUsersResponseImage;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponseImage}
+     * @memberof WebcastRoomMutedUsersResponseBadgeBackground
+     */
+    'left_side_image': WebcastRoomMutedUsersResponseImage;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMutedUsersResponseBadgeCombine
+ */
+export interface WebcastRoomMutedUsersResponseBadgeCombine {
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponseBadgeBackground}
+     * @memberof WebcastRoomMutedUsersResponseBadgeCombine
+     */
+    'background': WebcastRoomMutedUsersResponseBadgeBackground;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseBadgeCombine
+     */
+    'background_auto_mirrored': boolean;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponseBadgeBackground}
+     * @memberof WebcastRoomMutedUsersResponseBadgeCombine
+     */
+    'background_dark_mode': WebcastRoomMutedUsersResponseBadgeBackground;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseBadgeCombine
+     */
+    'display_type': number;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponseImage}
+     * @memberof WebcastRoomMutedUsersResponseBadgeCombine
+     */
+    'icon': WebcastRoomMutedUsersResponseImage;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseBadgeCombine
+     */
+    'icon_auto_mirrored': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseBadgeCombine
+     */
+    'multi_guest_show_style': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseBadgeCombine
+     */
+    'personal_card_show_style': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseBadgeCombine
+     */
+    'public_screen_show_style': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseBadgeCombine
+     */
+    'ranklist_online_audience_show_style': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseBadgeCombine
+     */
+    'str': string;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponseBadgeText}
+     * @memberof WebcastRoomMutedUsersResponseBadgeCombine
+     */
+    'text': WebcastRoomMutedUsersResponseBadgeText;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMutedUsersResponseBadgeText
+ */
+export interface WebcastRoomMutedUsersResponseBadgeText {
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseBadgeText
+     */
+    'default_pattern': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseBadgeText
+     */
+    'display_type'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseBadgeText
+     */
+    'key': string;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastRoomMutedUsersResponseBadgeText
+     */
+    'pieces': Array<any>;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMutedUsersResponseEnigmaInfo
+ */
+export interface WebcastRoomMutedUsersResponseEnigmaInfo {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseEnigmaInfo
+     */
+    'is_enigma_mask_on': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMutedUsersResponseExtra
+ */
+export interface WebcastRoomMutedUsersResponseExtra {
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastRoomMutedUsersResponseExtra
+     */
+    'datas': Array<any>;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseExtra
+     */
+    'has_more': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseExtra
+     */
+    'max_count': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseExtra
+     */
+    'next_cursor': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseExtra
+     */
+    'now': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseExtra
+     */
+    'total': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMutedUsersResponseFollowInfo
+ */
+export interface WebcastRoomMutedUsersResponseFollowInfo {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseFollowInfo
+     */
+    'follow_status': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseFollowInfo
+     */
+    'follower_count': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseFollowInfo
+     */
+    'following_count': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseFollowInfo
+     */
+    'push_status': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMutedUsersResponseImage
+ */
+export interface WebcastRoomMutedUsersResponseImage {
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseImage
+     */
+    'avg_color': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseImage
+     */
+    'height': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseImage
+     */
+    'image_type': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseImage
+     */
+    'is_animated': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseImage
+     */
+    'open_web_url': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseImage
+     */
+    'uri': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof WebcastRoomMutedUsersResponseImage
+     */
+    'url_list': Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseImage
+     */
+    'width': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMutedUsersResponsePayGrade
+ */
+export interface WebcastRoomMutedUsersResponsePayGrade {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'deprecated20': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'deprecated22': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'deprecated23': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'deprecated24': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'deprecated25': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'deprecated26': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'grade_banner': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'grade_describe': string;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'grade_icon_list': Array<any>;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'level': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'next_name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'next_privileges': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'score': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'screen_chat_type': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponsePayGrade
+     */
+    'upgrade_need_consume': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMutedUsersResponsePrivilegeLogExtra
+ */
+export interface WebcastRoomMutedUsersResponsePrivilegeLogExtra {
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponsePrivilegeLogExtra
+     */
+    'data_version': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponsePrivilegeLogExtra
+     */
+    'end_time': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponsePrivilegeLogExtra
+     */
+    'level': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponsePrivilegeLogExtra
+     */
+    'privilege_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponsePrivilegeLogExtra
+     */
+    'privilege_order_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponsePrivilegeLogExtra
+     */
+    'privilege_version': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponsePrivilegeLogExtra
+     */
+    'start_time': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMutedUsersResponseUser
+ */
+export interface WebcastRoomMutedUsersResponseUser {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'allow_find_by_contacts': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'allow_others_download_video': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'allow_others_download_when_sharing_video': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'allow_share_show_profile': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'allow_show_in_gossip': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'allow_show_my_action': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'allow_strange_comment': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'allow_unfollower_comment': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'allow_use_linkmic': boolean;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponseImage}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'avatar_large': WebcastRoomMutedUsersResponseImage;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponseImage}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'avatar_thumb': WebcastRoomMutedUsersResponseImage;
+    /**
+     * 
+     * @type {Array<WebcastRoomMutedUsersResponseImage>}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'badge_image_list': Array<WebcastRoomMutedUsersResponseImage>;
+    /**
+     * 
+     * @type {Array<WebcastRoomMutedUsersResponseBadge>}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'badge_list': Array<WebcastRoomMutedUsersResponseBadge>;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'bg_img_url': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'bio_description': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'block_status': number;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'border_list': Array<any>;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'comment_restrict': number;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'commerce_webcast_config_ids': Array<any>;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'constellation': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'create_time': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'disable_ichat': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'display_id': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'enable_ichat_img': number;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponseEnigmaInfo}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'enigma_info': WebcastRoomMutedUsersResponseEnigmaInfo;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'exp': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'fan_ticket_count': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'fold_stranger_chat': boolean;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponseFollowInfo}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'follow_info': WebcastRoomMutedUsersResponseFollowInfo;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'follow_status': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'ichat_restrict_type': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'id_str': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'is_anchor_marked': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'is_block': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'is_follower': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'is_following': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'is_subscribe': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'link_mic_stats': number;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'media_badge_image_list': Array<any>;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'mint_type_label': Array<any>;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'modify_time': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'need_profile_guide': boolean;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'new_real_time_icons': Array<any>;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'nickname': string;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponsePayGrade}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'pay_grade': WebcastRoomMutedUsersResponsePayGrade;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'pay_score': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'pay_scores': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'push_comment_status': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'push_digg': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'push_follow': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'push_friend_action': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'push_ichat': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'push_status': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'push_video_post': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'push_video_recommend': boolean;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'real_time_icons': Array<any>;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'scm_label': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'sec_uid': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'secret': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'share_qrcode_uri': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'special_id': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'status': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'ticket_count': number;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'top_fans': Array<any>;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'top_vip_no': number;
+    /**
+     * 
+     * @type {Array<any>}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'upcoming_event_list': Array<any>;
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponseUserAttr}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'user_attr': WebcastRoomMutedUsersResponseUserAttr;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'user_role': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'verified': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'verified_content': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'verified_reason': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'with_car_management_permission': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'with_commerce_permission': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUser
+     */
+    'with_fusion_shop_entry': boolean;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMutedUsersResponseUserAttr
+ */
+export interface WebcastRoomMutedUsersResponseUserAttr {
+    /**
+     * Construct a type with a set of properties K of type T
+     * @type {{ [key: string]: number; }}
+     * @memberof WebcastRoomMutedUsersResponseUserAttr
+     */
+    'admin_permissions': { [key: string]: number; };
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUserAttr
+     */
+    'has_voting_function': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUserAttr
+     */
+    'is_admin': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUserAttr
+     */
+    'is_channel_admin': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUserAttr
+     */
+    'is_muted': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebcastRoomMutedUsersResponseUserAttr
+     */
+    'is_super_admin': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomMutedUsersResponseUserAttr
+     */
+    'mute_duration': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomMutedUsersRouteOutput
+ */
+export interface WebcastRoomMutedUsersRouteOutput {
+    /**
+     * 
+     * @type {WebcastRoomMutedUsersResponse}
+     * @memberof WebcastRoomMutedUsersRouteOutput
+     */
+    'data': WebcastRoomMutedUsersResponse;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomUnkickUserResponse
+ */
+export interface WebcastRoomUnkickUserResponse {
+    /**
+     * Construct a type with a set of properties K of type T
+     * @type {{ [key: string]: any; }}
+     * @memberof WebcastRoomUnkickUserResponse
+     */
+    'data': { [key: string]: any; };
+    /**
+     * 
+     * @type {WebcastRoomUnkickUserResponseExtra}
+     * @memberof WebcastRoomUnkickUserResponse
+     */
+    'extra': WebcastRoomUnkickUserResponseExtra;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomUnkickUserResponse
+     */
+    'status_code': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomUnkickUserResponseExtra
+ */
+export interface WebcastRoomUnkickUserResponseExtra {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomUnkickUserResponseExtra
+     */
+    'now': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomUnkickUserRouteOutput
+ */
+export interface WebcastRoomUnkickUserRouteOutput {
+    /**
+     * 
+     * @type {WebcastRoomUnkickUserResponse}
+     * @memberof WebcastRoomUnkickUserRouteOutput
+     */
+    'data': WebcastRoomUnkickUserResponse;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomUnmuteUserResponse
+ */
+export interface WebcastRoomUnmuteUserResponse {
+    /**
+     * Construct a type with a set of properties K of type T
+     * @type {{ [key: string]: any; }}
+     * @memberof WebcastRoomUnmuteUserResponse
+     */
+    'data': { [key: string]: any; };
+    /**
+     * 
+     * @type {WebcastRoomUnmuteUserResponseExtra}
+     * @memberof WebcastRoomUnmuteUserResponse
+     */
+    'extra': WebcastRoomUnmuteUserResponseExtra;
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomUnmuteUserResponse
+     */
+    'status_code': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomUnmuteUserResponseExtra
+ */
+export interface WebcastRoomUnmuteUserResponseExtra {
+    /**
+     * 
+     * @type {number}
+     * @memberof WebcastRoomUnmuteUserResponseExtra
+     */
+    'now': number;
+}
+/**
+ * 
+ * @export
+ * @interface WebcastRoomUnmuteUserRouteOutput
+ */
+export interface WebcastRoomUnmuteUserRouteOutput {
+    /**
+     * 
+     * @type {WebcastRoomUnmuteUserResponse}
+     * @memberof WebcastRoomUnmuteUserRouteOutput
+     */
+    'data': WebcastRoomUnmuteUserResponse;
 }
 /**
  * 
@@ -3769,135 +7354,6 @@ export interface WhirlResult {
 export const AccountsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Retrieve the usage logs for a specific account
-         * @param {number} accountId Account ID to retrieve usage logs for
-         * @param {string} from Start date for the logs
-         * @param {string} to End date for the logs
-         * @param {number} [apiKeyId] Optional API key ID to filter logs by
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        countSignUsage: async (accountId: number, from: string, to: string, apiKeyId?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('countSignUsage', 'accountId', accountId)
-            // verify required parameter 'from' is not null or undefined
-            assertParamExists('countSignUsage', 'from', from)
-            // verify required parameter 'to' is not null or undefined
-            assertParamExists('countSignUsage', 'to', to)
-            const localVarPath = `/accounts/{account_id}/usage/sign_usage/page_count`
-                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-            if (from !== undefined) {
-                localVarQueryParameter['from'] = (from as any instanceof Date) ?
-                    (from as any).toISOString() :
-                    from;
-            }
-
-            if (to !== undefined) {
-                localVarQueryParameter['to'] = (to as any instanceof Date) ?
-                    (to as any).toISOString() :
-                    to;
-            }
-
-            if (apiKeyId !== undefined) {
-                localVarQueryParameter['api_key_id'] = apiKeyId;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Retrieve the usage logs for a specific account
-         * @param {number} accountId Account ID to retrieve usage logs for
-         * @param {string} from Start date for the logs
-         * @param {string} to End date for the logs
-         * @param {number} [apiKeyId] Optional API key ID to filter logs by
-         * @param {number} [page] Page number to retrieve
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getSignUsage: async (accountId: number, from: string, to: string, apiKeyId?: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('getSignUsage', 'accountId', accountId)
-            // verify required parameter 'from' is not null or undefined
-            assertParamExists('getSignUsage', 'from', from)
-            // verify required parameter 'to' is not null or undefined
-            assertParamExists('getSignUsage', 'to', to)
-            const localVarPath = `/accounts/{account_id}/usage/sign_usage`
-                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-            if (from !== undefined) {
-                localVarQueryParameter['from'] = (from as any instanceof Date) ?
-                    (from as any).toISOString() :
-                    from;
-            }
-
-            if (to !== undefined) {
-                localVarQueryParameter['to'] = (to as any instanceof Date) ?
-                    (to as any).toISOString() :
-                    to;
-            }
-
-            if (apiKeyId !== undefined) {
-                localVarQueryParameter['api_key_id'] = apiKeyId;
-            }
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Retrieve an account from the Sign API
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3932,59 +7388,6 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * Retrieve the usage logs for a specific account
-         * @param {number} accountId Account ID to retrieve usage logs for
-         * @param {RetrieveAggregateUsagePeriodEnum} period The period for aggregate statistics to check
-         * @param {number} value The value for the period (either hours or numbers)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveAggregateUsage: async (accountId: number, period: RetrieveAggregateUsagePeriodEnum, value: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('retrieveAggregateUsage', 'accountId', accountId)
-            // verify required parameter 'period' is not null or undefined
-            assertParamExists('retrieveAggregateUsage', 'period', period)
-            // verify required parameter 'value' is not null or undefined
-            assertParamExists('retrieveAggregateUsage', 'value', value)
-            const localVarPath = `/accounts/{account_id}/usage/sign_usage/aggregate`
-                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-            if (period !== undefined) {
-                localVarQueryParameter['period'] = period;
-            }
-
-            if (value !== undefined) {
-                localVarQueryParameter['value'] = value;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -3996,37 +7399,6 @@ export const AccountsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AccountsApiAxiosParamCreator(configuration)
     return {
         /**
-         * Retrieve the usage logs for a specific account
-         * @param {number} accountId Account ID to retrieve usage logs for
-         * @param {string} from Start date for the logs
-         * @param {string} to End date for the logs
-         * @param {number} [apiKeyId] Optional API key ID to filter logs by
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async countSignUsage(accountId: number, from: string, to: string, apiKeyId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CountSignUsage>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.countSignUsage(accountId, from, to, apiKeyId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AccountsApi.countSignUsage']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Retrieve the usage logs for a specific account
-         * @param {number} accountId Account ID to retrieve usage logs for
-         * @param {string} from Start date for the logs
-         * @param {string} to End date for the logs
-         * @param {number} [apiKeyId] Optional API key ID to filter logs by
-         * @param {number} [page] Page number to retrieve
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getSignUsage(accountId: number, from: string, to: string, apiKeyId?: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSignUsageResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getSignUsage(accountId, from, to, apiKeyId, page, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AccountsApi.getSignUsage']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
          * Retrieve an account from the Sign API
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4035,20 +7407,6 @@ export const AccountsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveAccountSelf(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AccountsApi.retrieveAccountSelf']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Retrieve the usage logs for a specific account
-         * @param {number} accountId Account ID to retrieve usage logs for
-         * @param {RetrieveAggregateUsagePeriodEnum} period The period for aggregate statistics to check
-         * @param {number} value The value for the period (either hours or numbers)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async retrieveAggregateUsage(accountId: number, period: RetrieveAggregateUsagePeriodEnum, value: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveAggregateUsageResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveAggregateUsage(accountId, period, value, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AccountsApi.retrieveAggregateUsage']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -4062,48 +7420,12 @@ export const AccountsApiFactory = function (configuration?: Configuration, baseP
     const localVarFp = AccountsApiFp(configuration)
     return {
         /**
-         * Retrieve the usage logs for a specific account
-         * @param {number} accountId Account ID to retrieve usage logs for
-         * @param {string} from Start date for the logs
-         * @param {string} to End date for the logs
-         * @param {number} [apiKeyId] Optional API key ID to filter logs by
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        countSignUsage(accountId: number, from: string, to: string, apiKeyId?: number, options?: RawAxiosRequestConfig): AxiosPromise<CountSignUsage> {
-            return localVarFp.countSignUsage(accountId, from, to, apiKeyId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Retrieve the usage logs for a specific account
-         * @param {number} accountId Account ID to retrieve usage logs for
-         * @param {string} from Start date for the logs
-         * @param {string} to End date for the logs
-         * @param {number} [apiKeyId] Optional API key ID to filter logs by
-         * @param {number} [page] Page number to retrieve
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getSignUsage(accountId: number, from: string, to: string, apiKeyId?: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<GetSignUsageResponse> {
-            return localVarFp.getSignUsage(accountId, from, to, apiKeyId, page, options).then((request) => request(axios, basePath));
-        },
-        /**
          * Retrieve an account from the Sign API
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         retrieveAccountSelf(options?: RawAxiosRequestConfig): AxiosPromise<RetrieveAccountResponse> {
             return localVarFp.retrieveAccountSelf(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Retrieve the usage logs for a specific account
-         * @param {number} accountId Account ID to retrieve usage logs for
-         * @param {RetrieveAggregateUsagePeriodEnum} period The period for aggregate statistics to check
-         * @param {number} value The value for the period (either hours or numbers)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveAggregateUsage(accountId: number, period: RetrieveAggregateUsagePeriodEnum, value: number, options?: RawAxiosRequestConfig): AxiosPromise<RetrieveAggregateUsageResponse> {
-            return localVarFp.retrieveAggregateUsage(accountId, period, value, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4116,35 +7438,6 @@ export const AccountsApiFactory = function (configuration?: Configuration, baseP
  */
 export class AccountsApi extends BaseAPI {
     /**
-     * Retrieve the usage logs for a specific account
-     * @param {number} accountId Account ID to retrieve usage logs for
-     * @param {string} from Start date for the logs
-     * @param {string} to End date for the logs
-     * @param {number} [apiKeyId] Optional API key ID to filter logs by
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AccountsApi
-     */
-    public countSignUsage(accountId: number, from: string, to: string, apiKeyId?: number, options?: RawAxiosRequestConfig) {
-        return AccountsApiFp(this.configuration).countSignUsage(accountId, from, to, apiKeyId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Retrieve the usage logs for a specific account
-     * @param {number} accountId Account ID to retrieve usage logs for
-     * @param {string} from Start date for the logs
-     * @param {string} to End date for the logs
-     * @param {number} [apiKeyId] Optional API key ID to filter logs by
-     * @param {number} [page] Page number to retrieve
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AccountsApi
-     */
-    public getSignUsage(accountId: number, from: string, to: string, apiKeyId?: number, page?: number, options?: RawAxiosRequestConfig) {
-        return AccountsApiFp(this.configuration).getSignUsage(accountId, from, to, apiKeyId, page, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
      * Retrieve an account from the Sign API
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -4152,779 +7445,6 @@ export class AccountsApi extends BaseAPI {
      */
     public retrieveAccountSelf(options?: RawAxiosRequestConfig) {
         return AccountsApiFp(this.configuration).retrieveAccountSelf(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Retrieve the usage logs for a specific account
-     * @param {number} accountId Account ID to retrieve usage logs for
-     * @param {RetrieveAggregateUsagePeriodEnum} period The period for aggregate statistics to check
-     * @param {number} value The value for the period (either hours or numbers)
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AccountsApi
-     */
-    public retrieveAggregateUsage(accountId: number, period: RetrieveAggregateUsagePeriodEnum, value: number, options?: RawAxiosRequestConfig) {
-        return AccountsApiFp(this.configuration).retrieveAggregateUsage(accountId, period, value, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-/**
- * @export
- */
-export const RetrieveAggregateUsagePeriodEnum = {
-    Hour: 'hour',
-    Day: 'day'
-} as const;
-export type RetrieveAggregateUsagePeriodEnum = typeof RetrieveAggregateUsagePeriodEnum[keyof typeof RetrieveAggregateUsagePeriodEnum];
-
-
-/**
- * AlertTargetsApi - axios parameter creator
- * @export
- */
-export const AlertTargetsApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * Create a target for an alert. This is the HTTP endpoint that will be called when an alert is triggered.
-         * @param {number} accountId The ID of the account to create the alert target for
-         * @param {number} alertId The ID of the alert to create the target for
-         * @param {CreateAlertTargetPayload} createAlertTargetPayload Configuration for the alert target
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createAlertTarget: async (accountId: number, alertId: number, createAlertTargetPayload: CreateAlertTargetPayload, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('createAlertTarget', 'accountId', accountId)
-            // verify required parameter 'alertId' is not null or undefined
-            assertParamExists('createAlertTarget', 'alertId', alertId)
-            // verify required parameter 'createAlertTargetPayload' is not null or undefined
-            assertParamExists('createAlertTarget', 'createAlertTargetPayload', createAlertTargetPayload)
-            const localVarPath = `/accounts/{account_id}/alerts/{alert_id}/targets/create`
-                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)))
-                .replace(`{${"alert_id"}}`, encodeURIComponent(String(alertId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication jwt_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createAlertTargetPayload, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Delete an alert target from the Sign API
-         * @param {number} accountId The ID of the account to delete the alert target from
-         * @param {number} alertId The ID of the alert to delete the target from
-         * @param {number} targetId The ID of the target to delete
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteAlertTarget: async (accountId: number, alertId: number, targetId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('deleteAlertTarget', 'accountId', accountId)
-            // verify required parameter 'alertId' is not null or undefined
-            assertParamExists('deleteAlertTarget', 'alertId', alertId)
-            // verify required parameter 'targetId' is not null or undefined
-            assertParamExists('deleteAlertTarget', 'targetId', targetId)
-            const localVarPath = `/accounts/{account_id}/alerts/{alert_id}/targets/{target_id}/delete`
-                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)))
-                .replace(`{${"alert_id"}}`, encodeURIComponent(String(alertId)))
-                .replace(`{${"target_id"}}`, encodeURIComponent(String(targetId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication jwt_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * List all alert targets for a specific alert
-         * @param {number} accountId The account that the alert belongs to
-         * @param {number} alertId The alert to list targets for
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listAlertTargets: async (accountId: number, alertId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('listAlertTargets', 'accountId', accountId)
-            // verify required parameter 'alertId' is not null or undefined
-            assertParamExists('listAlertTargets', 'alertId', alertId)
-            const localVarPath = `/accounts/{account_id}/alerts/{alert_id}/targets/list`
-                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)))
-                .replace(`{${"alert_id"}}`, encodeURIComponent(String(alertId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication jwt_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Test an alert target
-         * @param {number} accountId The account that the alert belongs to
-         * @param {number} alertId The alert that the target belongs to
-         * @param {number} targetId The target to test
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        testAlertTarget: async (accountId: number, alertId: number, targetId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('testAlertTarget', 'accountId', accountId)
-            // verify required parameter 'alertId' is not null or undefined
-            assertParamExists('testAlertTarget', 'alertId', alertId)
-            // verify required parameter 'targetId' is not null or undefined
-            assertParamExists('testAlertTarget', 'targetId', targetId)
-            const localVarPath = `/accounts/{account_id}/alerts/{alert_id}/targets/{target_id}/test`
-                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)))
-                .replace(`{${"alert_id"}}`, encodeURIComponent(String(alertId)))
-                .replace(`{${"target_id"}}`, encodeURIComponent(String(targetId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication jwt_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * AlertTargetsApi - functional programming interface
- * @export
- */
-export const AlertTargetsApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = AlertTargetsApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * Create a target for an alert. This is the HTTP endpoint that will be called when an alert is triggered.
-         * @param {number} accountId The ID of the account to create the alert target for
-         * @param {number} alertId The ID of the alert to create the target for
-         * @param {CreateAlertTargetPayload} createAlertTargetPayload Configuration for the alert target
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createAlertTarget(accountId: number, alertId: number, createAlertTargetPayload: CreateAlertTargetPayload, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAlertTargetResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createAlertTarget(accountId, alertId, createAlertTargetPayload, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AlertTargetsApi.createAlertTarget']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Delete an alert target from the Sign API
-         * @param {number} accountId The ID of the account to delete the alert target from
-         * @param {number} alertId The ID of the alert to delete the target from
-         * @param {number} targetId The ID of the target to delete
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteAlertTarget(accountId: number, alertId: number, targetId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteAlertTargetResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAlertTarget(accountId, alertId, targetId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AlertTargetsApi.deleteAlertTarget']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * List all alert targets for a specific alert
-         * @param {number} accountId The account that the alert belongs to
-         * @param {number} alertId The alert to list targets for
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async listAlertTargets(accountId: number, alertId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAlertTargetsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listAlertTargets(accountId, alertId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AlertTargetsApi.listAlertTargets']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Test an alert target
-         * @param {number} accountId The account that the alert belongs to
-         * @param {number} alertId The alert that the target belongs to
-         * @param {number} targetId The target to test
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async testAlertTarget(accountId: number, alertId: number, targetId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TestAlertTargetResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.testAlertTarget(accountId, alertId, targetId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AlertTargetsApi.testAlertTarget']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-    }
-};
-
-/**
- * AlertTargetsApi - factory interface
- * @export
- */
-export const AlertTargetsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = AlertTargetsApiFp(configuration)
-    return {
-        /**
-         * Create a target for an alert. This is the HTTP endpoint that will be called when an alert is triggered.
-         * @param {number} accountId The ID of the account to create the alert target for
-         * @param {number} alertId The ID of the alert to create the target for
-         * @param {CreateAlertTargetPayload} createAlertTargetPayload Configuration for the alert target
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createAlertTarget(accountId: number, alertId: number, createAlertTargetPayload: CreateAlertTargetPayload, options?: RawAxiosRequestConfig): AxiosPromise<CreateAlertTargetResponse> {
-            return localVarFp.createAlertTarget(accountId, alertId, createAlertTargetPayload, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Delete an alert target from the Sign API
-         * @param {number} accountId The ID of the account to delete the alert target from
-         * @param {number} alertId The ID of the alert to delete the target from
-         * @param {number} targetId The ID of the target to delete
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteAlertTarget(accountId: number, alertId: number, targetId: number, options?: RawAxiosRequestConfig): AxiosPromise<DeleteAlertTargetResponse> {
-            return localVarFp.deleteAlertTarget(accountId, alertId, targetId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * List all alert targets for a specific alert
-         * @param {number} accountId The account that the alert belongs to
-         * @param {number} alertId The alert to list targets for
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listAlertTargets(accountId: number, alertId: number, options?: RawAxiosRequestConfig): AxiosPromise<ListAlertTargetsResponse> {
-            return localVarFp.listAlertTargets(accountId, alertId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Test an alert target
-         * @param {number} accountId The account that the alert belongs to
-         * @param {number} alertId The alert that the target belongs to
-         * @param {number} targetId The target to test
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        testAlertTarget(accountId: number, alertId: number, targetId: number, options?: RawAxiosRequestConfig): AxiosPromise<TestAlertTargetResponse> {
-            return localVarFp.testAlertTarget(accountId, alertId, targetId, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * AlertTargetsApi - object-oriented interface
- * @export
- * @class AlertTargetsApi
- * @extends {BaseAPI}
- */
-export class AlertTargetsApi extends BaseAPI {
-    /**
-     * Create a target for an alert. This is the HTTP endpoint that will be called when an alert is triggered.
-     * @param {number} accountId The ID of the account to create the alert target for
-     * @param {number} alertId The ID of the alert to create the target for
-     * @param {CreateAlertTargetPayload} createAlertTargetPayload Configuration for the alert target
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AlertTargetsApi
-     */
-    public createAlertTarget(accountId: number, alertId: number, createAlertTargetPayload: CreateAlertTargetPayload, options?: RawAxiosRequestConfig) {
-        return AlertTargetsApiFp(this.configuration).createAlertTarget(accountId, alertId, createAlertTargetPayload, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Delete an alert target from the Sign API
-     * @param {number} accountId The ID of the account to delete the alert target from
-     * @param {number} alertId The ID of the alert to delete the target from
-     * @param {number} targetId The ID of the target to delete
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AlertTargetsApi
-     */
-    public deleteAlertTarget(accountId: number, alertId: number, targetId: number, options?: RawAxiosRequestConfig) {
-        return AlertTargetsApiFp(this.configuration).deleteAlertTarget(accountId, alertId, targetId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * List all alert targets for a specific alert
-     * @param {number} accountId The account that the alert belongs to
-     * @param {number} alertId The alert to list targets for
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AlertTargetsApi
-     */
-    public listAlertTargets(accountId: number, alertId: number, options?: RawAxiosRequestConfig) {
-        return AlertTargetsApiFp(this.configuration).listAlertTargets(accountId, alertId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Test an alert target
-     * @param {number} accountId The account that the alert belongs to
-     * @param {number} alertId The alert that the target belongs to
-     * @param {number} targetId The target to test
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AlertTargetsApi
-     */
-    public testAlertTarget(accountId: number, alertId: number, targetId: number, options?: RawAxiosRequestConfig) {
-        return AlertTargetsApiFp(this.configuration).testAlertTarget(accountId, alertId, targetId, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-
-/**
- * AlertsApi - axios parameter creator
- * @export
- */
-export const AlertsApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * Create a creator alert. These Alerts are used to notify users of a new livestream.
-         * @param {number} accountId The ID of the account to create the alert for
-         * @param {CreateAlertRequest} createAlertRequest Configuration for the alert
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createAlert: async (accountId: number, createAlertRequest: CreateAlertRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('createAlert', 'accountId', accountId)
-            // verify required parameter 'createAlertRequest' is not null or undefined
-            assertParamExists('createAlert', 'createAlertRequest', createAlertRequest)
-            const localVarPath = `/accounts/{account_id}/alerts/create`
-                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication jwt_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createAlertRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Delete an alert from the Sign API
-         * @param {number} accountId The ID of the account to delete the alert from
-         * @param {number} alertId The ID of the alert to delete
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteAlert: async (accountId: number, alertId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('deleteAlert', 'accountId', accountId)
-            // verify required parameter 'alertId' is not null or undefined
-            assertParamExists('deleteAlert', 'alertId', alertId)
-            const localVarPath = `/accounts/{account_id}/alerts/{alert_id}/delete`
-                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)))
-                .replace(`{${"alert_id"}}`, encodeURIComponent(String(alertId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication jwt_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} accountId 
-         * @param {number} [page] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listAlerts: async (accountId: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('listAlerts', 'accountId', accountId)
-            const localVarPath = `/accounts/{account_id}/alerts/list`
-                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication jwt_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Retrieve a specific alert by its ID
-         * @param {number} accountId The account that the alert belongs to
-         * @param {number} alertId The ID of the alert to retrieve
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveAlert: async (accountId: number, alertId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('retrieveAlert', 'accountId', accountId)
-            // verify required parameter 'alertId' is not null or undefined
-            assertParamExists('retrieveAlert', 'alertId', alertId)
-            const localVarPath = `/accounts/{account_id}/alerts/{alert_id}/retrieve`
-                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)))
-                .replace(`{${"alert_id"}}`, encodeURIComponent(String(alertId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication jwt_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * AlertsApi - functional programming interface
- * @export
- */
-export const AlertsApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = AlertsApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * Create a creator alert. These Alerts are used to notify users of a new livestream.
-         * @param {number} accountId The ID of the account to create the alert for
-         * @param {CreateAlertRequest} createAlertRequest Configuration for the alert
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createAlert(accountId: number, createAlertRequest: CreateAlertRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAlertResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createAlert(accountId, createAlertRequest, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AlertsApi.createAlert']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Delete an alert from the Sign API
-         * @param {number} accountId The ID of the account to delete the alert from
-         * @param {number} alertId The ID of the alert to delete
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteAlert(accountId: number, alertId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteAlertResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAlert(accountId, alertId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AlertsApi.deleteAlert']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {number} accountId 
-         * @param {number} [page] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async listAlerts(accountId: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAlertsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listAlerts(accountId, page, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AlertsApi.listAlerts']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Retrieve a specific alert by its ID
-         * @param {number} accountId The account that the alert belongs to
-         * @param {number} alertId The ID of the alert to retrieve
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async retrieveAlert(accountId: number, alertId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveAlertResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveAlert(accountId, alertId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AlertsApi.retrieveAlert']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-    }
-};
-
-/**
- * AlertsApi - factory interface
- * @export
- */
-export const AlertsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = AlertsApiFp(configuration)
-    return {
-        /**
-         * Create a creator alert. These Alerts are used to notify users of a new livestream.
-         * @param {number} accountId The ID of the account to create the alert for
-         * @param {CreateAlertRequest} createAlertRequest Configuration for the alert
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createAlert(accountId: number, createAlertRequest: CreateAlertRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateAlertResponse> {
-            return localVarFp.createAlert(accountId, createAlertRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Delete an alert from the Sign API
-         * @param {number} accountId The ID of the account to delete the alert from
-         * @param {number} alertId The ID of the alert to delete
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteAlert(accountId: number, alertId: number, options?: RawAxiosRequestConfig): AxiosPromise<DeleteAlertResponse> {
-            return localVarFp.deleteAlert(accountId, alertId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} accountId 
-         * @param {number} [page] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listAlerts(accountId: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<ListAlertsResponse> {
-            return localVarFp.listAlerts(accountId, page, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Retrieve a specific alert by its ID
-         * @param {number} accountId The account that the alert belongs to
-         * @param {number} alertId The ID of the alert to retrieve
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveAlert(accountId: number, alertId: number, options?: RawAxiosRequestConfig): AxiosPromise<RetrieveAlertResponse> {
-            return localVarFp.retrieveAlert(accountId, alertId, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * AlertsApi - object-oriented interface
- * @export
- * @class AlertsApi
- * @extends {BaseAPI}
- */
-export class AlertsApi extends BaseAPI {
-    /**
-     * Create a creator alert. These Alerts are used to notify users of a new livestream.
-     * @param {number} accountId The ID of the account to create the alert for
-     * @param {CreateAlertRequest} createAlertRequest Configuration for the alert
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AlertsApi
-     */
-    public createAlert(accountId: number, createAlertRequest: CreateAlertRequest, options?: RawAxiosRequestConfig) {
-        return AlertsApiFp(this.configuration).createAlert(accountId, createAlertRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Delete an alert from the Sign API
-     * @param {number} accountId The ID of the account to delete the alert from
-     * @param {number} alertId The ID of the alert to delete
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AlertsApi
-     */
-    public deleteAlert(accountId: number, alertId: number, options?: RawAxiosRequestConfig) {
-        return AlertsApiFp(this.configuration).deleteAlert(accountId, alertId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {number} accountId 
-     * @param {number} [page] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AlertsApi
-     */
-    public listAlerts(accountId: number, page?: number, options?: RawAxiosRequestConfig) {
-        return AlertsApiFp(this.configuration).listAlerts(accountId, page, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Retrieve a specific alert by its ID
-     * @param {number} accountId The account that the alert belongs to
-     * @param {number} alertId The ID of the alert to retrieve
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AlertsApi
-     */
-    public retrieveAlert(accountId: number, alertId: number, options?: RawAxiosRequestConfig) {
-        return AlertsApiFp(this.configuration).retrieveAlert(accountId, alertId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -5660,13 +8180,13 @@ export type UpdateKeyUpdateByEnum = typeof UpdateKeyUpdateByEnum[keyof typeof Up
 
 
 /**
- * CaptchasApi - axios parameter creator
+ * TikTokCaptchasApi - axios parameter creator
  * @export
  */
-export const CaptchasApiAxiosParamCreator = function (configuration?: Configuration) {
+export const TikTokCaptchasApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * ## ⚠️ Warning: Requires Business plan or higher  The icons captcha requires just one image & a prompt string.  ## Example Image <img src=\"https://www.eulerstream.com/_static/captchas/icon.png\" alt=\"Icons Captcha Example\" width=\"480\" />  ## Usage  The `prompt` is the text prompt provided by TikTok. The Icon captcha solution is provided as a list of points, where each point marks a location on the image that needs to be clicked. These points are expressed as ratios relative to the image\'s width and height. A point of (0.0, 0.0) corresponds to the image’s upper-left corner, while (1.0, 1.0) represents the lower-right corner. For reference, (0.5, 0.5) sits at the exact center.  The captcha image selector is `.captcha-verify-image`
+         *  The icons captcha requires just one image & a prompt string.  ## Example Image <img src=\"https://www.eulerstream.com/_static/captchas/icon.png\" alt=\"Icons Captcha Example\" width=\"480\" />  ## Usage  The `prompt` is the text prompt provided by TikTok. The Icon captcha solution is provided as a list of points, where each point marks a location on the image that needs to be clicked. These points are expressed as ratios relative to the image\'s width and height. A point of (0.0, 0.0) corresponds to the image’s upper-left corner, while (1.0, 1.0) represents the lower-right corner. For reference, (0.5, 0.5) sits at the exact center.  The captcha image selector is `.captcha-verify-image`
          * @param {string} prompt The prompt string provided by TikTok
          * @param {File} captchaImage The uploaded image file
          * @param {*} [options] Override http request option.
@@ -5909,14 +8429,14 @@ export const CaptchasApiAxiosParamCreator = function (configuration?: Configurat
 };
 
 /**
- * CaptchasApi - functional programming interface
+ * TikTokCaptchasApi - functional programming interface
  * @export
  */
-export const CaptchasApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = CaptchasApiAxiosParamCreator(configuration)
+export const TikTokCaptchasApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TikTokCaptchasApiAxiosParamCreator(configuration)
     return {
         /**
-         * ## ⚠️ Warning: Requires Business plan or higher  The icons captcha requires just one image & a prompt string.  ## Example Image <img src=\"https://www.eulerstream.com/_static/captchas/icon.png\" alt=\"Icons Captcha Example\" width=\"480\" />  ## Usage  The `prompt` is the text prompt provided by TikTok. The Icon captcha solution is provided as a list of points, where each point marks a location on the image that needs to be clicked. These points are expressed as ratios relative to the image\'s width and height. A point of (0.0, 0.0) corresponds to the image’s upper-left corner, while (1.0, 1.0) represents the lower-right corner. For reference, (0.5, 0.5) sits at the exact center.  The captcha image selector is `.captcha-verify-image`
+         *  The icons captcha requires just one image & a prompt string.  ## Example Image <img src=\"https://www.eulerstream.com/_static/captchas/icon.png\" alt=\"Icons Captcha Example\" width=\"480\" />  ## Usage  The `prompt` is the text prompt provided by TikTok. The Icon captcha solution is provided as a list of points, where each point marks a location on the image that needs to be clicked. These points are expressed as ratios relative to the image\'s width and height. A point of (0.0, 0.0) corresponds to the image’s upper-left corner, while (1.0, 1.0) represents the lower-right corner. For reference, (0.5, 0.5) sits at the exact center.  The captcha image selector is `.captcha-verify-image`
          * @param {string} prompt The prompt string provided by TikTok
          * @param {File} captchaImage The uploaded image file
          * @param {*} [options] Override http request option.
@@ -5925,7 +8445,7 @@ export const CaptchasApiFp = function(configuration?: Configuration) {
         async completeIconCaptcha(prompt: string, captchaImage: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IconCaptchaResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.completeIconCaptcha(prompt, captchaImage, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['CaptchasApi.completeIconCaptcha']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['TikTokCaptchasApi.completeIconCaptcha']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -5938,7 +8458,7 @@ export const CaptchasApiFp = function(configuration?: Configuration) {
         async completePuzzleCaptcha(backgroundImage: File, pieceImage: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PuzzleCaptchaResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.completePuzzleCaptcha(backgroundImage, pieceImage, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['CaptchasApi.completePuzzleCaptcha']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['TikTokCaptchasApi.completePuzzleCaptcha']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -5950,7 +8470,7 @@ export const CaptchasApiFp = function(configuration?: Configuration) {
         async completeShapesCaptcha(shapesCaptchaImage: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ShapesCaptchaResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.completeShapesCaptcha(shapesCaptchaImage, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['CaptchasApi.completeShapesCaptcha']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['TikTokCaptchasApi.completeShapesCaptcha']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -5963,7 +8483,7 @@ export const CaptchasApiFp = function(configuration?: Configuration) {
         async completeWhirlCaptcha(outerImage: File, innerImage: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WhirlCaptchaResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.completeWhirlCaptcha(outerImage, innerImage, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['CaptchasApi.completeWhirlCaptcha']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['TikTokCaptchasApi.completeWhirlCaptcha']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -5974,21 +8494,21 @@ export const CaptchasApiFp = function(configuration?: Configuration) {
         async retrieveCaptchaCredits(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CaptchaCreditsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveCaptchaCredits(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['CaptchasApi.retrieveCaptchaCredits']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['TikTokCaptchasApi.retrieveCaptchaCredits']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * CaptchasApi - factory interface
+ * TikTokCaptchasApi - factory interface
  * @export
  */
-export const CaptchasApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = CaptchasApiFp(configuration)
+export const TikTokCaptchasApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TikTokCaptchasApiFp(configuration)
     return {
         /**
-         * ## ⚠️ Warning: Requires Business plan or higher  The icons captcha requires just one image & a prompt string.  ## Example Image <img src=\"https://www.eulerstream.com/_static/captchas/icon.png\" alt=\"Icons Captcha Example\" width=\"480\" />  ## Usage  The `prompt` is the text prompt provided by TikTok. The Icon captcha solution is provided as a list of points, where each point marks a location on the image that needs to be clicked. These points are expressed as ratios relative to the image\'s width and height. A point of (0.0, 0.0) corresponds to the image’s upper-left corner, while (1.0, 1.0) represents the lower-right corner. For reference, (0.5, 0.5) sits at the exact center.  The captcha image selector is `.captcha-verify-image`
+         *  The icons captcha requires just one image & a prompt string.  ## Example Image <img src=\"https://www.eulerstream.com/_static/captchas/icon.png\" alt=\"Icons Captcha Example\" width=\"480\" />  ## Usage  The `prompt` is the text prompt provided by TikTok. The Icon captcha solution is provided as a list of points, where each point marks a location on the image that needs to be clicked. These points are expressed as ratios relative to the image\'s width and height. A point of (0.0, 0.0) corresponds to the image’s upper-left corner, while (1.0, 1.0) represents the lower-right corner. For reference, (0.5, 0.5) sits at the exact center.  The captcha image selector is `.captcha-verify-image`
          * @param {string} prompt The prompt string provided by TikTok
          * @param {File} captchaImage The uploaded image file
          * @param {*} [options] Override http request option.
@@ -6038,22 +8558,22 @@ export const CaptchasApiFactory = function (configuration?: Configuration, baseP
 };
 
 /**
- * CaptchasApi - object-oriented interface
+ * TikTokCaptchasApi - object-oriented interface
  * @export
- * @class CaptchasApi
+ * @class TikTokCaptchasApi
  * @extends {BaseAPI}
  */
-export class CaptchasApi extends BaseAPI {
+export class TikTokCaptchasApi extends BaseAPI {
     /**
-     * ## ⚠️ Warning: Requires Business plan or higher  The icons captcha requires just one image & a prompt string.  ## Example Image <img src=\"https://www.eulerstream.com/_static/captchas/icon.png\" alt=\"Icons Captcha Example\" width=\"480\" />  ## Usage  The `prompt` is the text prompt provided by TikTok. The Icon captcha solution is provided as a list of points, where each point marks a location on the image that needs to be clicked. These points are expressed as ratios relative to the image\'s width and height. A point of (0.0, 0.0) corresponds to the image’s upper-left corner, while (1.0, 1.0) represents the lower-right corner. For reference, (0.5, 0.5) sits at the exact center.  The captcha image selector is `.captcha-verify-image`
+     *  The icons captcha requires just one image & a prompt string.  ## Example Image <img src=\"https://www.eulerstream.com/_static/captchas/icon.png\" alt=\"Icons Captcha Example\" width=\"480\" />  ## Usage  The `prompt` is the text prompt provided by TikTok. The Icon captcha solution is provided as a list of points, where each point marks a location on the image that needs to be clicked. These points are expressed as ratios relative to the image\'s width and height. A point of (0.0, 0.0) corresponds to the image’s upper-left corner, while (1.0, 1.0) represents the lower-right corner. For reference, (0.5, 0.5) sits at the exact center.  The captcha image selector is `.captcha-verify-image`
      * @param {string} prompt The prompt string provided by TikTok
      * @param {File} captchaImage The uploaded image file
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CaptchasApi
+     * @memberof TikTokCaptchasApi
      */
     public completeIconCaptcha(prompt: string, captchaImage: File, options?: RawAxiosRequestConfig) {
-        return CaptchasApiFp(this.configuration).completeIconCaptcha(prompt, captchaImage, options).then((request) => request(this.axios, this.basePath));
+        return TikTokCaptchasApiFp(this.configuration).completeIconCaptcha(prompt, captchaImage, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6062,10 +8582,10 @@ export class CaptchasApi extends BaseAPI {
      * @param {File} pieceImage The uploaded puzzle piece image file
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CaptchasApi
+     * @memberof TikTokCaptchasApi
      */
     public completePuzzleCaptcha(backgroundImage: File, pieceImage: File, options?: RawAxiosRequestConfig) {
-        return CaptchasApiFp(this.configuration).completePuzzleCaptcha(backgroundImage, pieceImage, options).then((request) => request(this.axios, this.basePath));
+        return TikTokCaptchasApiFp(this.configuration).completePuzzleCaptcha(backgroundImage, pieceImage, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6073,10 +8593,10 @@ export class CaptchasApi extends BaseAPI {
      * @param {File} shapesCaptchaImage The uploaded image file
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CaptchasApi
+     * @memberof TikTokCaptchasApi
      */
     public completeShapesCaptcha(shapesCaptchaImage: File, options?: RawAxiosRequestConfig) {
-        return CaptchasApiFp(this.configuration).completeShapesCaptcha(shapesCaptchaImage, options).then((request) => request(this.axios, this.basePath));
+        return TikTokCaptchasApiFp(this.configuration).completeShapesCaptcha(shapesCaptchaImage, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6085,20 +8605,193 @@ export class CaptchasApi extends BaseAPI {
      * @param {File} innerImage The inner image file
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CaptchasApi
+     * @memberof TikTokCaptchasApi
      */
     public completeWhirlCaptcha(outerImage: File, innerImage: File, options?: RawAxiosRequestConfig) {
-        return CaptchasApiFp(this.configuration).completeWhirlCaptcha(outerImage, innerImage, options).then((request) => request(this.axios, this.basePath));
+        return TikTokCaptchasApiFp(this.configuration).completeWhirlCaptcha(outerImage, innerImage, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Retrieve the rate limits for the provided API key
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CaptchasApi
+     * @memberof TikTokCaptchasApi
      */
     public retrieveCaptchaCredits(options?: RawAxiosRequestConfig) {
-        return CaptchasApiFp(this.configuration).retrieveCaptchaCredits(options).then((request) => request(this.axios, this.basePath));
+        return TikTokCaptchasApiFp(this.configuration).retrieveCaptchaCredits(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * TikTokGeneralApi - axios parameter creator
+ * @export
+ */
+export const TikTokGeneralApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Exchange an authorization code or refresh token for access tokens.  For authorization_code grant: - code: The authorization code from /oauth/complete - redirect_uri: Must match the original redirect_uri  For refresh_token grant: - refresh_token: A valid refresh token
+         * @param {ExchangeTokenRequest} exchangeTokenRequest Token request parameters
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        exchangeToken: async (exchangeTokenRequest: ExchangeTokenRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'exchangeTokenRequest' is not null or undefined
+            assertParamExists('exchangeToken', 'exchangeTokenRequest', exchangeTokenRequest)
+            const localVarPath = `/tiktok/oauth/token`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(exchangeTokenRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Revoke an access token or refresh token (RFC 7009). This endpoint always returns success for valid client credentials, even if the token was already revoked or invalid.
+         * @param {RevokeRequestBody} revokeRequestBody Revoke request parameters
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        revokeToken: async (revokeRequestBody: RevokeRequestBody, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'revokeRequestBody' is not null or undefined
+            assertParamExists('revokeToken', 'revokeRequestBody', revokeRequestBody)
+            const localVarPath = `/tiktok/oauth/revoke`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(revokeRequestBody, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TikTokGeneralApi - functional programming interface
+ * @export
+ */
+export const TikTokGeneralApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TikTokGeneralApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Exchange an authorization code or refresh token for access tokens.  For authorization_code grant: - code: The authorization code from /oauth/complete - redirect_uri: Must match the original redirect_uri  For refresh_token grant: - refresh_token: A valid refresh token
+         * @param {ExchangeTokenRequest} exchangeTokenRequest Token request parameters
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async exchangeToken(exchangeTokenRequest: ExchangeTokenRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OAuthTokenResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.exchangeToken(exchangeTokenRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokGeneralApi.exchangeToken']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Revoke an access token or refresh token (RFC 7009). This endpoint always returns success for valid client credentials, even if the token was already revoked or invalid.
+         * @param {RevokeRequestBody} revokeRequestBody Revoke request parameters
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async revokeToken(revokeRequestBody: RevokeRequestBody, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OAuthRevokeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.revokeToken(revokeRequestBody, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokGeneralApi.revokeToken']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * TikTokGeneralApi - factory interface
+ * @export
+ */
+export const TikTokGeneralApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TikTokGeneralApiFp(configuration)
+    return {
+        /**
+         * Exchange an authorization code or refresh token for access tokens.  For authorization_code grant: - code: The authorization code from /oauth/complete - redirect_uri: Must match the original redirect_uri  For refresh_token grant: - refresh_token: A valid refresh token
+         * @param {ExchangeTokenRequest} exchangeTokenRequest Token request parameters
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        exchangeToken(exchangeTokenRequest: ExchangeTokenRequest, options?: RawAxiosRequestConfig): AxiosPromise<OAuthTokenResponse> {
+            return localVarFp.exchangeToken(exchangeTokenRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Revoke an access token or refresh token (RFC 7009). This endpoint always returns success for valid client credentials, even if the token was already revoked or invalid.
+         * @param {RevokeRequestBody} revokeRequestBody Revoke request parameters
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        revokeToken(revokeRequestBody: RevokeRequestBody, options?: RawAxiosRequestConfig): AxiosPromise<OAuthRevokeResponse> {
+            return localVarFp.revokeToken(revokeRequestBody, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * TikTokGeneralApi - object-oriented interface
+ * @export
+ * @class TikTokGeneralApi
+ * @extends {BaseAPI}
+ */
+export class TikTokGeneralApi extends BaseAPI {
+    /**
+     * Exchange an authorization code or refresh token for access tokens.  For authorization_code grant: - code: The authorization code from /oauth/complete - redirect_uri: Must match the original redirect_uri  For refresh_token grant: - refresh_token: A valid refresh token
+     * @param {ExchangeTokenRequest} exchangeTokenRequest Token request parameters
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokGeneralApi
+     */
+    public exchangeToken(exchangeTokenRequest: ExchangeTokenRequest, options?: RawAxiosRequestConfig) {
+        return TikTokGeneralApiFp(this.configuration).exchangeToken(exchangeTokenRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Revoke an access token or refresh token (RFC 7009). This endpoint always returns success for valid client credentials, even if the token was already revoked or invalid.
+     * @param {RevokeRequestBody} revokeRequestBody Revoke request parameters
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokGeneralApi
+     */
+    public revokeToken(revokeRequestBody: RevokeRequestBody, options?: RawAxiosRequestConfig) {
+        return TikTokGeneralApiFp(this.configuration).revokeToken(revokeRequestBody, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -6111,21 +8804,23 @@ export class CaptchasApi extends BaseAPI {
 export const TikTokLIVEApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Fetch the WebSocket URL & first payload for a TikTok LIVE Room given a Room ID.
+         * Fetch the WebSocket URL & first payload for a TikTok LIVE Room given a Room ID.  **Authentication (Optional):** Anonymous access is supported. For authenticated requests, provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
          * @param {string} [client] The client library identifier. Used for metrics.
          * @param {string} [roomId] The room ID to fetch the Webcast URL for.
          * @param {string} [uniqueId] The unique ID of the TikTok user. Send this instead of a Room ID, if you\&#39;re an Enterprise user.
          * @param {string} [cursor] Starting cursor for the webcast connection, if any
-         * @param {string} [sessionId] Cookie - The account session ID from TikTok web
          * @param {string} [userAgent] Override the user agent used for signing and fetching
-         * @param {string} [ttTargetIdc] Cookie - TikTok \&quot;Identity Data Center\&quot; which links a session_id to a region
          * @param {boolean} [clientEnter] Whether the client enters a room after connecting, or if it\&#39;s done by query parameters
          * @param {SoaxProxyRegion} [country] Country code to make the request from.
          * @param {WebcastFetchPlatform} [platform] Platform to connect with
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {string} [sessionId] Use x-oauth-token or x-cookie-header instead
+         * @param {string} [ttTargetIdc] Use x-oauth-token or x-cookie-header instead
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fetchWebcastURL: async (client?: string, roomId?: string, uniqueId?: string, cursor?: string, sessionId?: string, userAgent?: string, ttTargetIdc?: string, clientEnter?: boolean, country?: SoaxProxyRegion, platform?: WebcastFetchPlatform, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        fetchWebcastURL: async (client?: string, roomId?: string, uniqueId?: string, cursor?: string, userAgent?: string, clientEnter?: boolean, country?: SoaxProxyRegion, platform?: WebcastFetchPlatform, xOauthToken?: string, xCookieHeader?: string, sessionId?: string, ttTargetIdc?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/webcast/fetch`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6163,16 +8858,8 @@ export const TikTokLIVEApiAxiosParamCreator = function (configuration?: Configur
                 localVarQueryParameter['cursor'] = cursor;
             }
 
-            if (sessionId !== undefined) {
-                localVarQueryParameter['session_id'] = sessionId;
-            }
-
             if (userAgent !== undefined) {
                 localVarQueryParameter['user_agent'] = userAgent;
-            }
-
-            if (ttTargetIdc !== undefined) {
-                localVarQueryParameter['tt_target_idc'] = ttTargetIdc;
             }
 
             if (clientEnter !== undefined) {
@@ -6187,8 +8874,22 @@ export const TikTokLIVEApiAxiosParamCreator = function (configuration?: Configur
                 localVarQueryParameter['platform'] = platform;
             }
 
+            if (sessionId !== undefined) {
+                localVarQueryParameter['session_id'] = sessionId;
+            }
+
+            if (ttTargetIdc !== undefined) {
+                localVarQueryParameter['tt_target_idc'] = ttTargetIdc;
+            }
+
 
     
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -6227,47 +8928,6 @@ export const TikTokLIVEApiAxiosParamCreator = function (configuration?: Configur
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Premium Route - A bulk-check endpoint to determine if a group of TikTok users (up to 50 at once) are live. It uses a highly optimized job-based system for checking large numbers of users quickly.
-         * @param {RetrieveBulkLiveCheckPayload} retrieveBulkLiveCheckPayload The body of the request containing user numeric IDs.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveBulkLiveCheck: async (retrieveBulkLiveCheckPayload: RetrieveBulkLiveCheckPayload, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'retrieveBulkLiveCheckPayload' is not null or undefined
-            assertParamExists('retrieveBulkLiveCheck', 'retrieveBulkLiveCheckPayload', retrieveBulkLiveCheckPayload)
-            const localVarPath = `/webcast/bulk_live_check`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(retrieveBulkLiveCheckPayload, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6322,7 +8982,36 @@ export const TikTokLIVEApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Fetch TikTok LIVE Stream Cover URL given a uniqueId.
+         * Requires Premium Routes Addon - Retrieve the list of available hashtags for TikTok LIVE streams.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveHashtagList: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/webcast/hashtag_list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Business Plan - Fetch TikTok LIVE Stream Cover URL given a uniqueId.
          * @param {string} uniqueId The unique ID of the TikTok to fetch the cover for.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6367,7 +9056,7 @@ export const TikTokLIVEApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Fetch Room ID for a given uniqueId & whether that user is live.
+         * Requires Business Plan - Fetch Room ID for a given uniqueId & whether that user is live.
          * @param {string} uniqueId The unique ID of the TikTok user to fetch the data for.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6412,49 +9101,7 @@ export const TikTokLIVEApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Premium Route - Retrieve TikTok Live Room Information
-         * @param {string} uniqueId The unique identifier for the TikTok user or room
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveRoomInfo: async (uniqueId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'uniqueId' is not null or undefined
-            assertParamExists('retrieveRoomInfo', 'uniqueId', uniqueId)
-            const localVarPath = `/webcast/room_info`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-            if (uniqueId !== undefined) {
-                localVarQueryParameter['uniqueId'] = uniqueId;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Fetch TikTok LIVE Stream video given a uniqueId.
+         * Requires Business Plan - Fetch TikTok LIVE Stream video given a uniqueId.
          * @param {string} uniqueId The unique ID of the TikTok to fetch the data for.
          * @param {StreamType} [streamType] The type of video stream to fetch. Default is HLS_SD.
          * @param {*} [options] Override http request option.
@@ -6504,66 +9151,19 @@ export const TikTokLIVEApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Premium Route - Fetch the TikTok LIVE webcast feed for a specific region. Gets a random sampling of creators for a region.
+         * Requires Premium Routes Addon - Retrieve TikTok LIVE rankings for a specific region.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
          * @param {OxyLabsProxyRegion} region The region (country) with which to fetch a feed from.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveWebcastFeed: async (region: OxyLabsProxyRegion, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'region' is not null or undefined
-            assertParamExists('retrieveWebcastFeed', 'region', region)
-            const localVarPath = `/webcast/feed`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication jwt_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-            if (region !== undefined) {
-                localVarQueryParameter['region'] = region;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Premium Route - Retrieve TikTok LIVE rankings for a specific region.
-         * @param {OxyLabsProxyRegion} region The region (country) with which to fetch a feed from.
-         * @param {string} sessionId The session ID cookie from TikTok, used to access the feed.
-         * @param {string} ttTargetIdc The tt-target-idc cookie from TikTok, used to access the feed.
          * @param {RetrieveWebcastRankingsRankTypeEnum} rankType The type of ranking to fetch. See documentation for more details.
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {string} [sessionId] Use x-oauth-token or x-cookie-header instead
+         * @param {string} [ttTargetIdc] Use x-oauth-token or x-cookie-header instead
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveWebcastRankings: async (region: OxyLabsProxyRegion, sessionId: string, ttTargetIdc: string, rankType: RetrieveWebcastRankingsRankTypeEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        retrieveWebcastRankings: async (region: OxyLabsProxyRegion, rankType: RetrieveWebcastRankingsRankTypeEnum, xOauthToken?: string, xCookieHeader?: string, sessionId?: string, ttTargetIdc?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'region' is not null or undefined
             assertParamExists('retrieveWebcastRankings', 'region', region)
-            // verify required parameter 'sessionId' is not null or undefined
-            assertParamExists('retrieveWebcastRankings', 'sessionId', sessionId)
-            // verify required parameter 'ttTargetIdc' is not null or undefined
-            assertParamExists('retrieveWebcastRankings', 'ttTargetIdc', ttTargetIdc)
             // verify required parameter 'rankType' is not null or undefined
             assertParamExists('retrieveWebcastRankings', 'rankType', rankType)
             const localVarPath = `/webcast/rankings`;
@@ -6588,67 +9188,10 @@ export const TikTokLIVEApiAxiosParamCreator = function (configuration?: Configur
                 localVarQueryParameter['region'] = region;
             }
 
-            if (sessionId !== undefined) {
-                localVarQueryParameter['session_id'] = sessionId;
-            }
-
-            if (ttTargetIdc !== undefined) {
-                localVarQueryParameter['tt_target_idc'] = ttTargetIdc;
-            }
-
             if (rankType !== undefined) {
                 localVarQueryParameter['rank_type'] = rankType;
             }
 
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Premium Route - Retrieve TikTok LIVE earnings for a specific user.
-         * @param {string} uniqueId The unique ID (username) of the user to fetch earnings for.
-         * @param {string} sessionId The session ID cookie from TikTok, used to access the feed.
-         * @param {string} ttTargetIdc The tt-target-idc cookie from TikTok, used to access the feed.
-         * @param {WebcastUserEarningsOutputPeriod} [period] Earnings period
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveWebcastUserEarnings: async (uniqueId: string, sessionId: string, ttTargetIdc: string, period?: WebcastUserEarningsOutputPeriod, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'uniqueId' is not null or undefined
-            assertParamExists('retrieveWebcastUserEarnings', 'uniqueId', uniqueId)
-            // verify required parameter 'sessionId' is not null or undefined
-            assertParamExists('retrieveWebcastUserEarnings', 'sessionId', sessionId)
-            // verify required parameter 'ttTargetIdc' is not null or undefined
-            assertParamExists('retrieveWebcastUserEarnings', 'ttTargetIdc', ttTargetIdc)
-            const localVarPath = `/webcast/user_earnings`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-            if (uniqueId !== undefined) {
-                localVarQueryParameter['unique_id'] = uniqueId;
-            }
-
             if (sessionId !== undefined) {
                 localVarQueryParameter['session_id'] = sessionId;
             }
@@ -6657,56 +9200,17 @@ export const TikTokLIVEApiAxiosParamCreator = function (configuration?: Configur
                 localVarQueryParameter['tt_target_idc'] = ttTargetIdc;
             }
 
-            if (period !== undefined) {
-                localVarQueryParameter['period'] = period;
-            }
-
 
     
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Premium Route - Send a chat to a TikTok LIVE room.
-         * @param {WebcastRoomChatPayload} webcastRoomChatPayload The payload configuration for sending a chat
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        sendRoomChat: async (webcastRoomChatPayload: WebcastRoomChatPayload, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'webcastRoomChatPayload' is not null or undefined
-            assertParamExists('sendRoomChat', 'webcastRoomChatPayload', webcastRoomChatPayload)
-            const localVarPath = `/webcast/chat`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key_query required
-            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
-
-            // authentication api_key_header required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(webcastRoomChatPayload, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -6770,22 +9274,24 @@ export const TikTokLIVEApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = TikTokLIVEApiAxiosParamCreator(configuration)
     return {
         /**
-         * Fetch the WebSocket URL & first payload for a TikTok LIVE Room given a Room ID.
+         * Fetch the WebSocket URL & first payload for a TikTok LIVE Room given a Room ID.  **Authentication (Optional):** Anonymous access is supported. For authenticated requests, provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
          * @param {string} [client] The client library identifier. Used for metrics.
          * @param {string} [roomId] The room ID to fetch the Webcast URL for.
          * @param {string} [uniqueId] The unique ID of the TikTok user. Send this instead of a Room ID, if you\&#39;re an Enterprise user.
          * @param {string} [cursor] Starting cursor for the webcast connection, if any
-         * @param {string} [sessionId] Cookie - The account session ID from TikTok web
          * @param {string} [userAgent] Override the user agent used for signing and fetching
-         * @param {string} [ttTargetIdc] Cookie - TikTok \&quot;Identity Data Center\&quot; which links a session_id to a region
          * @param {boolean} [clientEnter] Whether the client enters a room after connecting, or if it\&#39;s done by query parameters
          * @param {SoaxProxyRegion} [country] Country code to make the request from.
          * @param {WebcastFetchPlatform} [platform] Platform to connect with
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {string} [sessionId] Use x-oauth-token or x-cookie-header instead
+         * @param {string} [ttTargetIdc] Use x-oauth-token or x-cookie-header instead
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async fetchWebcastURL(client?: string, roomId?: string, uniqueId?: string, cursor?: string, sessionId?: string, userAgent?: string, ttTargetIdc?: string, clientEnter?: boolean, country?: SoaxProxyRegion, platform?: WebcastFetchPlatform, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.fetchWebcastURL(client, roomId, uniqueId, cursor, sessionId, userAgent, ttTargetIdc, clientEnter, country, platform, options);
+        async fetchWebcastURL(client?: string, roomId?: string, uniqueId?: string, cursor?: string, userAgent?: string, clientEnter?: boolean, country?: SoaxProxyRegion, platform?: WebcastFetchPlatform, xOauthToken?: string, xCookieHeader?: string, sessionId?: string, ttTargetIdc?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.fetchWebcastURL(client, roomId, uniqueId, cursor, userAgent, clientEnter, country, platform, xOauthToken, xCookieHeader, sessionId, ttTargetIdc, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['TikTokLIVEApi.fetchWebcastURL']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -6802,18 +9308,6 @@ export const TikTokLIVEApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Premium Route - A bulk-check endpoint to determine if a group of TikTok users (up to 50 at once) are live. It uses a highly optimized job-based system for checking large numbers of users quickly.
-         * @param {RetrieveBulkLiveCheckPayload} retrieveBulkLiveCheckPayload The body of the request containing user numeric IDs.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async retrieveBulkLiveCheck(retrieveBulkLiveCheckPayload: RetrieveBulkLiveCheckPayload, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveBulkLiveCheckResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveBulkLiveCheck(retrieveBulkLiveCheckPayload, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEApi.retrieveBulkLiveCheck']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
          * Retrieve TikTok Live Room Gift List
          * @param {string} roomId The room ID of the TikTok LIVE session
          * @param {string} [webcastLanguage] Webcast language for locale-based fields
@@ -6827,7 +9321,18 @@ export const TikTokLIVEApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Fetch TikTok LIVE Stream Cover URL given a uniqueId.
+         * Requires Premium Routes Addon - Retrieve the list of available hashtags for TikTok LIVE streams.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retrieveHashtagList(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HashtagListAPIResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveHashtagList(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEApi.retrieveHashtagList']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Business Plan - Fetch TikTok LIVE Stream Cover URL given a uniqueId.
          * @param {string} uniqueId The unique ID of the TikTok to fetch the cover for.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6839,7 +9344,7 @@ export const TikTokLIVEApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Fetch Room ID for a given uniqueId & whether that user is live.
+         * Requires Business Plan - Fetch Room ID for a given uniqueId & whether that user is live.
          * @param {string} uniqueId The unique ID of the TikTok user to fetch the data for.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6851,19 +9356,7 @@ export const TikTokLIVEApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Premium Route - Retrieve TikTok Live Room Information
-         * @param {string} uniqueId The unique identifier for the TikTok user or room
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async retrieveRoomInfo(uniqueId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebcastRoomInfoRouteResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveRoomInfo(uniqueId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEApi.retrieveRoomInfo']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Fetch TikTok LIVE Stream video given a uniqueId.
+         * Requires Business Plan - Fetch TikTok LIVE Stream video given a uniqueId.
          * @param {string} uniqueId The unique ID of the TikTok to fetch the data for.
          * @param {StreamType} [streamType] The type of video stream to fetch. Default is HLS_SD.
          * @param {*} [options] Override http request option.
@@ -6876,57 +9369,20 @@ export const TikTokLIVEApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Premium Route - Fetch the TikTok LIVE webcast feed for a specific region. Gets a random sampling of creators for a region.
+         * Requires Premium Routes Addon - Retrieve TikTok LIVE rankings for a specific region.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
          * @param {OxyLabsProxyRegion} region The region (country) with which to fetch a feed from.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async retrieveWebcastFeed(region: OxyLabsProxyRegion, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebcastFeedRouteResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveWebcastFeed(region, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEApi.retrieveWebcastFeed']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Premium Route - Retrieve TikTok LIVE rankings for a specific region.
-         * @param {OxyLabsProxyRegion} region The region (country) with which to fetch a feed from.
-         * @param {string} sessionId The session ID cookie from TikTok, used to access the feed.
-         * @param {string} ttTargetIdc The tt-target-idc cookie from TikTok, used to access the feed.
          * @param {RetrieveWebcastRankingsRankTypeEnum} rankType The type of ranking to fetch. See documentation for more details.
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {string} [sessionId] Use x-oauth-token or x-cookie-header instead
+         * @param {string} [ttTargetIdc] Use x-oauth-token or x-cookie-header instead
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async retrieveWebcastRankings(region: OxyLabsProxyRegion, sessionId: string, ttTargetIdc: string, rankType: RetrieveWebcastRankingsRankTypeEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebcastRegionRankingsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveWebcastRankings(region, sessionId, ttTargetIdc, rankType, options);
+        async retrieveWebcastRankings(region: OxyLabsProxyRegion, rankType: RetrieveWebcastRankingsRankTypeEnum, xOauthToken?: string, xCookieHeader?: string, sessionId?: string, ttTargetIdc?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebcastRegionRankingsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveWebcastRankings(region, rankType, xOauthToken, xCookieHeader, sessionId, ttTargetIdc, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['TikTokLIVEApi.retrieveWebcastRankings']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Premium Route - Retrieve TikTok LIVE earnings for a specific user.
-         * @param {string} uniqueId The unique ID (username) of the user to fetch earnings for.
-         * @param {string} sessionId The session ID cookie from TikTok, used to access the feed.
-         * @param {string} ttTargetIdc The tt-target-idc cookie from TikTok, used to access the feed.
-         * @param {WebcastUserEarningsOutputPeriod} [period] Earnings period
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async retrieveWebcastUserEarnings(uniqueId: string, sessionId: string, ttTargetIdc: string, period?: WebcastUserEarningsOutputPeriod, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebcastUserEarningsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveWebcastUserEarnings(uniqueId, sessionId, ttTargetIdc, period, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEApi.retrieveWebcastUserEarnings']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * Premium Route - Send a chat to a TikTok LIVE room.
-         * @param {WebcastRoomChatPayload} webcastRoomChatPayload The payload configuration for sending a chat
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async sendRoomChat(webcastRoomChatPayload: WebcastRoomChatPayload, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebcastRoomChatRouteResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.sendRoomChat(webcastRoomChatPayload, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEApi.sendRoomChat']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -6953,22 +9409,24 @@ export const TikTokLIVEApiFactory = function (configuration?: Configuration, bas
     const localVarFp = TikTokLIVEApiFp(configuration)
     return {
         /**
-         * Fetch the WebSocket URL & first payload for a TikTok LIVE Room given a Room ID.
+         * Fetch the WebSocket URL & first payload for a TikTok LIVE Room given a Room ID.  **Authentication (Optional):** Anonymous access is supported. For authenticated requests, provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
          * @param {string} [client] The client library identifier. Used for metrics.
          * @param {string} [roomId] The room ID to fetch the Webcast URL for.
          * @param {string} [uniqueId] The unique ID of the TikTok user. Send this instead of a Room ID, if you\&#39;re an Enterprise user.
          * @param {string} [cursor] Starting cursor for the webcast connection, if any
-         * @param {string} [sessionId] Cookie - The account session ID from TikTok web
          * @param {string} [userAgent] Override the user agent used for signing and fetching
-         * @param {string} [ttTargetIdc] Cookie - TikTok \&quot;Identity Data Center\&quot; which links a session_id to a region
          * @param {boolean} [clientEnter] Whether the client enters a room after connecting, or if it\&#39;s done by query parameters
          * @param {SoaxProxyRegion} [country] Country code to make the request from.
          * @param {WebcastFetchPlatform} [platform] Platform to connect with
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {string} [sessionId] Use x-oauth-token or x-cookie-header instead
+         * @param {string} [ttTargetIdc] Use x-oauth-token or x-cookie-header instead
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fetchWebcastURL(client?: string, roomId?: string, uniqueId?: string, cursor?: string, sessionId?: string, userAgent?: string, ttTargetIdc?: string, clientEnter?: boolean, country?: SoaxProxyRegion, platform?: WebcastFetchPlatform, options?: RawAxiosRequestConfig): AxiosPromise<object> {
-            return localVarFp.fetchWebcastURL(client, roomId, uniqueId, cursor, sessionId, userAgent, ttTargetIdc, clientEnter, country, platform, options).then((request) => request(axios, basePath));
+        fetchWebcastURL(client?: string, roomId?: string, uniqueId?: string, cursor?: string, userAgent?: string, clientEnter?: boolean, country?: SoaxProxyRegion, platform?: WebcastFetchPlatform, xOauthToken?: string, xCookieHeader?: string, sessionId?: string, ttTargetIdc?: string, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.fetchWebcastURL(client, roomId, uniqueId, cursor, userAgent, clientEnter, country, platform, xOauthToken, xCookieHeader, sessionId, ttTargetIdc, options).then((request) => request(axios, basePath));
         },
         /**
          * Retrieve the rate limits for the provided API key (or the unauthenticated limits if no key is provided)
@@ -6977,15 +9435,6 @@ export const TikTokLIVEApiFactory = function (configuration?: Configuration, bas
          */
         getRateLimits(options?: RawAxiosRequestConfig): AxiosPromise<GetRateLimits> {
             return localVarFp.getRateLimits(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Premium Route - A bulk-check endpoint to determine if a group of TikTok users (up to 50 at once) are live. It uses a highly optimized job-based system for checking large numbers of users quickly.
-         * @param {RetrieveBulkLiveCheckPayload} retrieveBulkLiveCheckPayload The body of the request containing user numeric IDs.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveBulkLiveCheck(retrieveBulkLiveCheckPayload: RetrieveBulkLiveCheckPayload, options?: RawAxiosRequestConfig): AxiosPromise<RetrieveBulkLiveCheckResponse> {
-            return localVarFp.retrieveBulkLiveCheck(retrieveBulkLiveCheckPayload, options).then((request) => request(axios, basePath));
         },
         /**
          * Retrieve TikTok Live Room Gift List
@@ -6998,7 +9447,15 @@ export const TikTokLIVEApiFactory = function (configuration?: Configuration, bas
             return localVarFp.retrieveGiftInfo(roomId, webcastLanguage, options).then((request) => request(axios, basePath));
         },
         /**
-         * Fetch TikTok LIVE Stream Cover URL given a uniqueId.
+         * Requires Premium Routes Addon - Retrieve the list of available hashtags for TikTok LIVE streams.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveHashtagList(options?: RawAxiosRequestConfig): AxiosPromise<HashtagListAPIResponse> {
+            return localVarFp.retrieveHashtagList(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Business Plan - Fetch TikTok LIVE Stream Cover URL given a uniqueId.
          * @param {string} uniqueId The unique ID of the TikTok to fetch the cover for.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7007,7 +9464,7 @@ export const TikTokLIVEApiFactory = function (configuration?: Configuration, bas
             return localVarFp.retrieveRoomCover(uniqueId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Fetch Room ID for a given uniqueId & whether that user is live.
+         * Requires Business Plan - Fetch Room ID for a given uniqueId & whether that user is live.
          * @param {string} uniqueId The unique ID of the TikTok user to fetch the data for.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -7016,16 +9473,7 @@ export const TikTokLIVEApiFactory = function (configuration?: Configuration, bas
             return localVarFp.retrieveRoomId(uniqueId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Premium Route - Retrieve TikTok Live Room Information
-         * @param {string} uniqueId The unique identifier for the TikTok user or room
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveRoomInfo(uniqueId: string, options?: RawAxiosRequestConfig): AxiosPromise<WebcastRoomInfoRouteResponse> {
-            return localVarFp.retrieveRoomInfo(uniqueId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Fetch TikTok LIVE Stream video given a uniqueId.
+         * Requires Business Plan - Fetch TikTok LIVE Stream video given a uniqueId.
          * @param {string} uniqueId The unique ID of the TikTok to fetch the data for.
          * @param {StreamType} [streamType] The type of video stream to fetch. Default is HLS_SD.
          * @param {*} [options] Override http request option.
@@ -7035,46 +9483,18 @@ export const TikTokLIVEApiFactory = function (configuration?: Configuration, bas
             return localVarFp.retrieveRoomVideo(uniqueId, streamType, options).then((request) => request(axios, basePath));
         },
         /**
-         * Premium Route - Fetch the TikTok LIVE webcast feed for a specific region. Gets a random sampling of creators for a region.
+         * Requires Premium Routes Addon - Retrieve TikTok LIVE rankings for a specific region.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
          * @param {OxyLabsProxyRegion} region The region (country) with which to fetch a feed from.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveWebcastFeed(region: OxyLabsProxyRegion, options?: RawAxiosRequestConfig): AxiosPromise<WebcastFeedRouteResponse> {
-            return localVarFp.retrieveWebcastFeed(region, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Premium Route - Retrieve TikTok LIVE rankings for a specific region.
-         * @param {OxyLabsProxyRegion} region The region (country) with which to fetch a feed from.
-         * @param {string} sessionId The session ID cookie from TikTok, used to access the feed.
-         * @param {string} ttTargetIdc The tt-target-idc cookie from TikTok, used to access the feed.
          * @param {RetrieveWebcastRankingsRankTypeEnum} rankType The type of ranking to fetch. See documentation for more details.
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {string} [sessionId] Use x-oauth-token or x-cookie-header instead
+         * @param {string} [ttTargetIdc] Use x-oauth-token or x-cookie-header instead
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        retrieveWebcastRankings(region: OxyLabsProxyRegion, sessionId: string, ttTargetIdc: string, rankType: RetrieveWebcastRankingsRankTypeEnum, options?: RawAxiosRequestConfig): AxiosPromise<WebcastRegionRankingsResponse> {
-            return localVarFp.retrieveWebcastRankings(region, sessionId, ttTargetIdc, rankType, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Premium Route - Retrieve TikTok LIVE earnings for a specific user.
-         * @param {string} uniqueId The unique ID (username) of the user to fetch earnings for.
-         * @param {string} sessionId The session ID cookie from TikTok, used to access the feed.
-         * @param {string} ttTargetIdc The tt-target-idc cookie from TikTok, used to access the feed.
-         * @param {WebcastUserEarningsOutputPeriod} [period] Earnings period
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retrieveWebcastUserEarnings(uniqueId: string, sessionId: string, ttTargetIdc: string, period?: WebcastUserEarningsOutputPeriod, options?: RawAxiosRequestConfig): AxiosPromise<WebcastUserEarningsResponse> {
-            return localVarFp.retrieveWebcastUserEarnings(uniqueId, sessionId, ttTargetIdc, period, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Premium Route - Send a chat to a TikTok LIVE room.
-         * @param {WebcastRoomChatPayload} webcastRoomChatPayload The payload configuration for sending a chat
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        sendRoomChat(webcastRoomChatPayload: WebcastRoomChatPayload, options?: RawAxiosRequestConfig): AxiosPromise<WebcastRoomChatRouteResponse> {
-            return localVarFp.sendRoomChat(webcastRoomChatPayload, options).then((request) => request(axios, basePath));
+        retrieveWebcastRankings(region: OxyLabsProxyRegion, rankType: RetrieveWebcastRankingsRankTypeEnum, xOauthToken?: string, xCookieHeader?: string, sessionId?: string, ttTargetIdc?: string, options?: RawAxiosRequestConfig): AxiosPromise<WebcastRegionRankingsResponse> {
+            return localVarFp.retrieveWebcastRankings(region, rankType, xOauthToken, xCookieHeader, sessionId, ttTargetIdc, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -7097,23 +9517,25 @@ export const TikTokLIVEApiFactory = function (configuration?: Configuration, bas
  */
 export class TikTokLIVEApi extends BaseAPI {
     /**
-     * Fetch the WebSocket URL & first payload for a TikTok LIVE Room given a Room ID.
+     * Fetch the WebSocket URL & first payload for a TikTok LIVE Room given a Room ID.  **Authentication (Optional):** Anonymous access is supported. For authenticated requests, provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
      * @param {string} [client] The client library identifier. Used for metrics.
      * @param {string} [roomId] The room ID to fetch the Webcast URL for.
      * @param {string} [uniqueId] The unique ID of the TikTok user. Send this instead of a Room ID, if you\&#39;re an Enterprise user.
      * @param {string} [cursor] Starting cursor for the webcast connection, if any
-     * @param {string} [sessionId] Cookie - The account session ID from TikTok web
      * @param {string} [userAgent] Override the user agent used for signing and fetching
-     * @param {string} [ttTargetIdc] Cookie - TikTok \&quot;Identity Data Center\&quot; which links a session_id to a region
      * @param {boolean} [clientEnter] Whether the client enters a room after connecting, or if it\&#39;s done by query parameters
      * @param {SoaxProxyRegion} [country] Country code to make the request from.
      * @param {WebcastFetchPlatform} [platform] Platform to connect with
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {string} [sessionId] Use x-oauth-token or x-cookie-header instead
+     * @param {string} [ttTargetIdc] Use x-oauth-token or x-cookie-header instead
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TikTokLIVEApi
      */
-    public fetchWebcastURL(client?: string, roomId?: string, uniqueId?: string, cursor?: string, sessionId?: string, userAgent?: string, ttTargetIdc?: string, clientEnter?: boolean, country?: SoaxProxyRegion, platform?: WebcastFetchPlatform, options?: RawAxiosRequestConfig) {
-        return TikTokLIVEApiFp(this.configuration).fetchWebcastURL(client, roomId, uniqueId, cursor, sessionId, userAgent, ttTargetIdc, clientEnter, country, platform, options).then((request) => request(this.axios, this.basePath));
+    public fetchWebcastURL(client?: string, roomId?: string, uniqueId?: string, cursor?: string, userAgent?: string, clientEnter?: boolean, country?: SoaxProxyRegion, platform?: WebcastFetchPlatform, xOauthToken?: string, xCookieHeader?: string, sessionId?: string, ttTargetIdc?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEApiFp(this.configuration).fetchWebcastURL(client, roomId, uniqueId, cursor, userAgent, clientEnter, country, platform, xOauthToken, xCookieHeader, sessionId, ttTargetIdc, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7124,17 +9546,6 @@ export class TikTokLIVEApi extends BaseAPI {
      */
     public getRateLimits(options?: RawAxiosRequestConfig) {
         return TikTokLIVEApiFp(this.configuration).getRateLimits(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Premium Route - A bulk-check endpoint to determine if a group of TikTok users (up to 50 at once) are live. It uses a highly optimized job-based system for checking large numbers of users quickly.
-     * @param {RetrieveBulkLiveCheckPayload} retrieveBulkLiveCheckPayload The body of the request containing user numeric IDs.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TikTokLIVEApi
-     */
-    public retrieveBulkLiveCheck(retrieveBulkLiveCheckPayload: RetrieveBulkLiveCheckPayload, options?: RawAxiosRequestConfig) {
-        return TikTokLIVEApiFp(this.configuration).retrieveBulkLiveCheck(retrieveBulkLiveCheckPayload, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7150,7 +9561,17 @@ export class TikTokLIVEApi extends BaseAPI {
     }
 
     /**
-     * Fetch TikTok LIVE Stream Cover URL given a uniqueId.
+     * Requires Premium Routes Addon - Retrieve the list of available hashtags for TikTok LIVE streams.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEApi
+     */
+    public retrieveHashtagList(options?: RawAxiosRequestConfig) {
+        return TikTokLIVEApiFp(this.configuration).retrieveHashtagList(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Business Plan - Fetch TikTok LIVE Stream Cover URL given a uniqueId.
      * @param {string} uniqueId The unique ID of the TikTok to fetch the cover for.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -7161,7 +9582,7 @@ export class TikTokLIVEApi extends BaseAPI {
     }
 
     /**
-     * Fetch Room ID for a given uniqueId & whether that user is live.
+     * Requires Business Plan - Fetch Room ID for a given uniqueId & whether that user is live.
      * @param {string} uniqueId The unique ID of the TikTok user to fetch the data for.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -7172,18 +9593,7 @@ export class TikTokLIVEApi extends BaseAPI {
     }
 
     /**
-     * Premium Route - Retrieve TikTok Live Room Information
-     * @param {string} uniqueId The unique identifier for the TikTok user or room
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TikTokLIVEApi
-     */
-    public retrieveRoomInfo(uniqueId: string, options?: RawAxiosRequestConfig) {
-        return TikTokLIVEApiFp(this.configuration).retrieveRoomInfo(uniqueId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Fetch TikTok LIVE Stream video given a uniqueId.
+     * Requires Business Plan - Fetch TikTok LIVE Stream video given a uniqueId.
      * @param {string} uniqueId The unique ID of the TikTok to fetch the data for.
      * @param {StreamType} [streamType] The type of video stream to fetch. Default is HLS_SD.
      * @param {*} [options] Override http request option.
@@ -7195,53 +9605,19 @@ export class TikTokLIVEApi extends BaseAPI {
     }
 
     /**
-     * Premium Route - Fetch the TikTok LIVE webcast feed for a specific region. Gets a random sampling of creators for a region.
+     * Requires Premium Routes Addon - Retrieve TikTok LIVE rankings for a specific region.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
      * @param {OxyLabsProxyRegion} region The region (country) with which to fetch a feed from.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TikTokLIVEApi
-     */
-    public retrieveWebcastFeed(region: OxyLabsProxyRegion, options?: RawAxiosRequestConfig) {
-        return TikTokLIVEApiFp(this.configuration).retrieveWebcastFeed(region, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Premium Route - Retrieve TikTok LIVE rankings for a specific region.
-     * @param {OxyLabsProxyRegion} region The region (country) with which to fetch a feed from.
-     * @param {string} sessionId The session ID cookie from TikTok, used to access the feed.
-     * @param {string} ttTargetIdc The tt-target-idc cookie from TikTok, used to access the feed.
      * @param {RetrieveWebcastRankingsRankTypeEnum} rankType The type of ranking to fetch. See documentation for more details.
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {string} [sessionId] Use x-oauth-token or x-cookie-header instead
+     * @param {string} [ttTargetIdc] Use x-oauth-token or x-cookie-header instead
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TikTokLIVEApi
      */
-    public retrieveWebcastRankings(region: OxyLabsProxyRegion, sessionId: string, ttTargetIdc: string, rankType: RetrieveWebcastRankingsRankTypeEnum, options?: RawAxiosRequestConfig) {
-        return TikTokLIVEApiFp(this.configuration).retrieveWebcastRankings(region, sessionId, ttTargetIdc, rankType, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Premium Route - Retrieve TikTok LIVE earnings for a specific user.
-     * @param {string} uniqueId The unique ID (username) of the user to fetch earnings for.
-     * @param {string} sessionId The session ID cookie from TikTok, used to access the feed.
-     * @param {string} ttTargetIdc The tt-target-idc cookie from TikTok, used to access the feed.
-     * @param {WebcastUserEarningsOutputPeriod} [period] Earnings period
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TikTokLIVEApi
-     */
-    public retrieveWebcastUserEarnings(uniqueId: string, sessionId: string, ttTargetIdc: string, period?: WebcastUserEarningsOutputPeriod, options?: RawAxiosRequestConfig) {
-        return TikTokLIVEApiFp(this.configuration).retrieveWebcastUserEarnings(uniqueId, sessionId, ttTargetIdc, period, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Premium Route - Send a chat to a TikTok LIVE room.
-     * @param {WebcastRoomChatPayload} webcastRoomChatPayload The payload configuration for sending a chat
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TikTokLIVEApi
-     */
-    public sendRoomChat(webcastRoomChatPayload: WebcastRoomChatPayload, options?: RawAxiosRequestConfig) {
-        return TikTokLIVEApiFp(this.configuration).sendRoomChat(webcastRoomChatPayload, options).then((request) => request(this.axios, this.basePath));
+    public retrieveWebcastRankings(region: OxyLabsProxyRegion, rankType: RetrieveWebcastRankingsRankTypeEnum, xOauthToken?: string, xCookieHeader?: string, sessionId?: string, ttTargetIdc?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEApiFp(this.configuration).retrieveWebcastRankings(region, rankType, xOauthToken, xCookieHeader, sessionId, ttTargetIdc, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -7265,5 +9641,2444 @@ export const RetrieveWebcastRankingsRankTypeEnum = {
     DailyRank: 'DAILY_RANK'
 } as const;
 export type RetrieveWebcastRankingsRankTypeEnum = typeof RetrieveWebcastRankingsRankTypeEnum[keyof typeof RetrieveWebcastRankingsRankTypeEnum];
+
+
+/**
+ * TikTokLIVEAlertTargetsApi - axios parameter creator
+ * @export
+ */
+export const TikTokLIVEAlertTargetsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Create a target for an alert. This is the HTTP endpoint that will be called when an alert is triggered.
+         * @param {number} accountId The ID of the account to create the alert target for
+         * @param {number} alertId The ID of the alert to create the target for
+         * @param {CreateAlertTargetPayload} createAlertTargetPayload Configuration for the alert target
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createAlertTarget: async (accountId: number, alertId: number, createAlertTargetPayload: CreateAlertTargetPayload, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountId' is not null or undefined
+            assertParamExists('createAlertTarget', 'accountId', accountId)
+            // verify required parameter 'alertId' is not null or undefined
+            assertParamExists('createAlertTarget', 'alertId', alertId)
+            // verify required parameter 'createAlertTargetPayload' is not null or undefined
+            assertParamExists('createAlertTarget', 'createAlertTargetPayload', createAlertTargetPayload)
+            const localVarPath = `/accounts/{account_id}/alerts/{alert_id}/targets/create`
+                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)))
+                .replace(`{${"alert_id"}}`, encodeURIComponent(String(alertId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication jwt_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createAlertTargetPayload, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete an alert target from the Sign API
+         * @param {number} accountId The ID of the account to delete the alert target from
+         * @param {number} alertId The ID of the alert to delete the target from
+         * @param {number} targetId The ID of the target to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAlertTarget: async (accountId: number, alertId: number, targetId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountId' is not null or undefined
+            assertParamExists('deleteAlertTarget', 'accountId', accountId)
+            // verify required parameter 'alertId' is not null or undefined
+            assertParamExists('deleteAlertTarget', 'alertId', alertId)
+            // verify required parameter 'targetId' is not null or undefined
+            assertParamExists('deleteAlertTarget', 'targetId', targetId)
+            const localVarPath = `/accounts/{account_id}/alerts/{alert_id}/targets/{target_id}/delete`
+                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)))
+                .replace(`{${"alert_id"}}`, encodeURIComponent(String(alertId)))
+                .replace(`{${"target_id"}}`, encodeURIComponent(String(targetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication jwt_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List all alert targets for a specific alert
+         * @param {number} accountId The account that the alert belongs to
+         * @param {number} alertId The alert to list targets for
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listAlertTargets: async (accountId: number, alertId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountId' is not null or undefined
+            assertParamExists('listAlertTargets', 'accountId', accountId)
+            // verify required parameter 'alertId' is not null or undefined
+            assertParamExists('listAlertTargets', 'alertId', alertId)
+            const localVarPath = `/accounts/{account_id}/alerts/{alert_id}/targets/list`
+                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)))
+                .replace(`{${"alert_id"}}`, encodeURIComponent(String(alertId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication jwt_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Test an alert target
+         * @param {number} accountId The account that the alert belongs to
+         * @param {number} alertId The alert that the target belongs to
+         * @param {number} targetId The target to test
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        testAlertTarget: async (accountId: number, alertId: number, targetId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountId' is not null or undefined
+            assertParamExists('testAlertTarget', 'accountId', accountId)
+            // verify required parameter 'alertId' is not null or undefined
+            assertParamExists('testAlertTarget', 'alertId', alertId)
+            // verify required parameter 'targetId' is not null or undefined
+            assertParamExists('testAlertTarget', 'targetId', targetId)
+            const localVarPath = `/accounts/{account_id}/alerts/{alert_id}/targets/{target_id}/test`
+                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)))
+                .replace(`{${"alert_id"}}`, encodeURIComponent(String(alertId)))
+                .replace(`{${"target_id"}}`, encodeURIComponent(String(targetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication jwt_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TikTokLIVEAlertTargetsApi - functional programming interface
+ * @export
+ */
+export const TikTokLIVEAlertTargetsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TikTokLIVEAlertTargetsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Create a target for an alert. This is the HTTP endpoint that will be called when an alert is triggered.
+         * @param {number} accountId The ID of the account to create the alert target for
+         * @param {number} alertId The ID of the alert to create the target for
+         * @param {CreateAlertTargetPayload} createAlertTargetPayload Configuration for the alert target
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createAlertTarget(accountId: number, alertId: number, createAlertTargetPayload: CreateAlertTargetPayload, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAlertTargetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createAlertTarget(accountId, alertId, createAlertTargetPayload, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEAlertTargetsApi.createAlertTarget']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Delete an alert target from the Sign API
+         * @param {number} accountId The ID of the account to delete the alert target from
+         * @param {number} alertId The ID of the alert to delete the target from
+         * @param {number} targetId The ID of the target to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteAlertTarget(accountId: number, alertId: number, targetId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteAlertTargetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAlertTarget(accountId, alertId, targetId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEAlertTargetsApi.deleteAlertTarget']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * List all alert targets for a specific alert
+         * @param {number} accountId The account that the alert belongs to
+         * @param {number} alertId The alert to list targets for
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listAlertTargets(accountId: number, alertId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAlertTargetsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listAlertTargets(accountId, alertId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEAlertTargetsApi.listAlertTargets']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Test an alert target
+         * @param {number} accountId The account that the alert belongs to
+         * @param {number} alertId The alert that the target belongs to
+         * @param {number} targetId The target to test
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async testAlertTarget(accountId: number, alertId: number, targetId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TestAlertTargetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.testAlertTarget(accountId, alertId, targetId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEAlertTargetsApi.testAlertTarget']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * TikTokLIVEAlertTargetsApi - factory interface
+ * @export
+ */
+export const TikTokLIVEAlertTargetsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TikTokLIVEAlertTargetsApiFp(configuration)
+    return {
+        /**
+         * Create a target for an alert. This is the HTTP endpoint that will be called when an alert is triggered.
+         * @param {number} accountId The ID of the account to create the alert target for
+         * @param {number} alertId The ID of the alert to create the target for
+         * @param {CreateAlertTargetPayload} createAlertTargetPayload Configuration for the alert target
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createAlertTarget(accountId: number, alertId: number, createAlertTargetPayload: CreateAlertTargetPayload, options?: RawAxiosRequestConfig): AxiosPromise<CreateAlertTargetResponse> {
+            return localVarFp.createAlertTarget(accountId, alertId, createAlertTargetPayload, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Delete an alert target from the Sign API
+         * @param {number} accountId The ID of the account to delete the alert target from
+         * @param {number} alertId The ID of the alert to delete the target from
+         * @param {number} targetId The ID of the target to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAlertTarget(accountId: number, alertId: number, targetId: number, options?: RawAxiosRequestConfig): AxiosPromise<DeleteAlertTargetResponse> {
+            return localVarFp.deleteAlertTarget(accountId, alertId, targetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * List all alert targets for a specific alert
+         * @param {number} accountId The account that the alert belongs to
+         * @param {number} alertId The alert to list targets for
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listAlertTargets(accountId: number, alertId: number, options?: RawAxiosRequestConfig): AxiosPromise<ListAlertTargetsResponse> {
+            return localVarFp.listAlertTargets(accountId, alertId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Test an alert target
+         * @param {number} accountId The account that the alert belongs to
+         * @param {number} alertId The alert that the target belongs to
+         * @param {number} targetId The target to test
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        testAlertTarget(accountId: number, alertId: number, targetId: number, options?: RawAxiosRequestConfig): AxiosPromise<TestAlertTargetResponse> {
+            return localVarFp.testAlertTarget(accountId, alertId, targetId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * TikTokLIVEAlertTargetsApi - object-oriented interface
+ * @export
+ * @class TikTokLIVEAlertTargetsApi
+ * @extends {BaseAPI}
+ */
+export class TikTokLIVEAlertTargetsApi extends BaseAPI {
+    /**
+     * Create a target for an alert. This is the HTTP endpoint that will be called when an alert is triggered.
+     * @param {number} accountId The ID of the account to create the alert target for
+     * @param {number} alertId The ID of the alert to create the target for
+     * @param {CreateAlertTargetPayload} createAlertTargetPayload Configuration for the alert target
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEAlertTargetsApi
+     */
+    public createAlertTarget(accountId: number, alertId: number, createAlertTargetPayload: CreateAlertTargetPayload, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEAlertTargetsApiFp(this.configuration).createAlertTarget(accountId, alertId, createAlertTargetPayload, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Delete an alert target from the Sign API
+     * @param {number} accountId The ID of the account to delete the alert target from
+     * @param {number} alertId The ID of the alert to delete the target from
+     * @param {number} targetId The ID of the target to delete
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEAlertTargetsApi
+     */
+    public deleteAlertTarget(accountId: number, alertId: number, targetId: number, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEAlertTargetsApiFp(this.configuration).deleteAlertTarget(accountId, alertId, targetId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * List all alert targets for a specific alert
+     * @param {number} accountId The account that the alert belongs to
+     * @param {number} alertId The alert to list targets for
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEAlertTargetsApi
+     */
+    public listAlertTargets(accountId: number, alertId: number, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEAlertTargetsApiFp(this.configuration).listAlertTargets(accountId, alertId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Test an alert target
+     * @param {number} accountId The account that the alert belongs to
+     * @param {number} alertId The alert that the target belongs to
+     * @param {number} targetId The target to test
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEAlertTargetsApi
+     */
+    public testAlertTarget(accountId: number, alertId: number, targetId: number, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEAlertTargetsApiFp(this.configuration).testAlertTarget(accountId, alertId, targetId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * TikTokLIVEAlertsApi - axios parameter creator
+ * @export
+ */
+export const TikTokLIVEAlertsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Create a creator alert. These Alerts are used to notify users of a new livestream.
+         * @param {number} accountId The ID of the account to create the alert for
+         * @param {CreateAlertRequest} createAlertRequest Configuration for the alert
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createAlert: async (accountId: number, createAlertRequest: CreateAlertRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountId' is not null or undefined
+            assertParamExists('createAlert', 'accountId', accountId)
+            // verify required parameter 'createAlertRequest' is not null or undefined
+            assertParamExists('createAlert', 'createAlertRequest', createAlertRequest)
+            const localVarPath = `/accounts/{account_id}/alerts/create`
+                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication jwt_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createAlertRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete an alert from the Sign API
+         * @param {number} accountId The ID of the account to delete the alert from
+         * @param {number} alertId The ID of the alert to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAlert: async (accountId: number, alertId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountId' is not null or undefined
+            assertParamExists('deleteAlert', 'accountId', accountId)
+            // verify required parameter 'alertId' is not null or undefined
+            assertParamExists('deleteAlert', 'alertId', alertId)
+            const localVarPath = `/accounts/{account_id}/alerts/{alert_id}/delete`
+                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)))
+                .replace(`{${"alert_id"}}`, encodeURIComponent(String(alertId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication jwt_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} accountId 
+         * @param {number} [page] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listAlerts: async (accountId: number, page?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountId' is not null or undefined
+            assertParamExists('listAlerts', 'accountId', accountId)
+            const localVarPath = `/accounts/{account_id}/alerts/list`
+                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication jwt_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Retrieve a specific alert by its ID
+         * @param {number} accountId The account that the alert belongs to
+         * @param {number} alertId The ID of the alert to retrieve
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveAlert: async (accountId: number, alertId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountId' is not null or undefined
+            assertParamExists('retrieveAlert', 'accountId', accountId)
+            // verify required parameter 'alertId' is not null or undefined
+            assertParamExists('retrieveAlert', 'alertId', alertId)
+            const localVarPath = `/accounts/{account_id}/alerts/{alert_id}/retrieve`
+                .replace(`{${"account_id"}}`, encodeURIComponent(String(accountId)))
+                .replace(`{${"alert_id"}}`, encodeURIComponent(String(alertId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication jwt_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TikTokLIVEAlertsApi - functional programming interface
+ * @export
+ */
+export const TikTokLIVEAlertsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TikTokLIVEAlertsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Create a creator alert. These Alerts are used to notify users of a new livestream.
+         * @param {number} accountId The ID of the account to create the alert for
+         * @param {CreateAlertRequest} createAlertRequest Configuration for the alert
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createAlert(accountId: number, createAlertRequest: CreateAlertRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAlertResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createAlert(accountId, createAlertRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEAlertsApi.createAlert']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Delete an alert from the Sign API
+         * @param {number} accountId The ID of the account to delete the alert from
+         * @param {number} alertId The ID of the alert to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteAlert(accountId: number, alertId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteAlertResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAlert(accountId, alertId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEAlertsApi.deleteAlert']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} accountId 
+         * @param {number} [page] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listAlerts(accountId: number, page?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAlertsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listAlerts(accountId, page, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEAlertsApi.listAlerts']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Retrieve a specific alert by its ID
+         * @param {number} accountId The account that the alert belongs to
+         * @param {number} alertId The ID of the alert to retrieve
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retrieveAlert(accountId: number, alertId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveAlertResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveAlert(accountId, alertId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEAlertsApi.retrieveAlert']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * TikTokLIVEAlertsApi - factory interface
+ * @export
+ */
+export const TikTokLIVEAlertsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TikTokLIVEAlertsApiFp(configuration)
+    return {
+        /**
+         * Create a creator alert. These Alerts are used to notify users of a new livestream.
+         * @param {number} accountId The ID of the account to create the alert for
+         * @param {CreateAlertRequest} createAlertRequest Configuration for the alert
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createAlert(accountId: number, createAlertRequest: CreateAlertRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateAlertResponse> {
+            return localVarFp.createAlert(accountId, createAlertRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Delete an alert from the Sign API
+         * @param {number} accountId The ID of the account to delete the alert from
+         * @param {number} alertId The ID of the alert to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAlert(accountId: number, alertId: number, options?: RawAxiosRequestConfig): AxiosPromise<DeleteAlertResponse> {
+            return localVarFp.deleteAlert(accountId, alertId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} accountId 
+         * @param {number} [page] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listAlerts(accountId: number, page?: number, options?: RawAxiosRequestConfig): AxiosPromise<ListAlertsResponse> {
+            return localVarFp.listAlerts(accountId, page, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Retrieve a specific alert by its ID
+         * @param {number} accountId The account that the alert belongs to
+         * @param {number} alertId The ID of the alert to retrieve
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveAlert(accountId: number, alertId: number, options?: RawAxiosRequestConfig): AxiosPromise<RetrieveAlertResponse> {
+            return localVarFp.retrieveAlert(accountId, alertId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * TikTokLIVEAlertsApi - object-oriented interface
+ * @export
+ * @class TikTokLIVEAlertsApi
+ * @extends {BaseAPI}
+ */
+export class TikTokLIVEAlertsApi extends BaseAPI {
+    /**
+     * Create a creator alert. These Alerts are used to notify users of a new livestream.
+     * @param {number} accountId The ID of the account to create the alert for
+     * @param {CreateAlertRequest} createAlertRequest Configuration for the alert
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEAlertsApi
+     */
+    public createAlert(accountId: number, createAlertRequest: CreateAlertRequest, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEAlertsApiFp(this.configuration).createAlert(accountId, createAlertRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Delete an alert from the Sign API
+     * @param {number} accountId The ID of the account to delete the alert from
+     * @param {number} alertId The ID of the alert to delete
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEAlertsApi
+     */
+    public deleteAlert(accountId: number, alertId: number, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEAlertsApiFp(this.configuration).deleteAlert(accountId, alertId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} accountId 
+     * @param {number} [page] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEAlertsApi
+     */
+    public listAlerts(accountId: number, page?: number, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEAlertsApiFp(this.configuration).listAlerts(accountId, page, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Retrieve a specific alert by its ID
+     * @param {number} accountId The account that the alert belongs to
+     * @param {number} alertId The ID of the alert to retrieve
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEAlertsApi
+     */
+    public retrieveAlert(accountId: number, alertId: number, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEAlertsApiFp(this.configuration).retrieveAlert(accountId, alertId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * TikTokLIVEModerationApi - axios parameter creator
+ * @export
+ */
+export const TikTokLIVEModerationApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Requires Premium Routes Addon - Add a moderator in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} toUserId The user ID to add as moderator
+         * @param {string} anchorId The streamer\&#39;s user ID
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addRoomModerator: async (toUserId: string, anchorId: string, xOauthToken?: string, xCookieHeader?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'toUserId' is not null or undefined
+            assertParamExists('addRoomModerator', 'toUserId', toUserId)
+            // verify required parameter 'anchorId' is not null or undefined
+            assertParamExists('addRoomModerator', 'anchorId', anchorId)
+            const localVarPath = `/webcast/moderation/moderators`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (toUserId !== undefined) {
+                localVarQueryParameter['to_user_id'] = toUserId;
+            }
+
+            if (anchorId !== undefined) {
+                localVarQueryParameter['anchor_id'] = anchorId;
+            }
+
+
+    
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Premium Routes Addon - Kick a user from a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {string} tiktokUserId The numeric user ID for the individual to kick
+         * @param {string} [commentMsgId] Optional comment message ID that triggered the kick
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        kickRoomUser: async (roomId: string, tiktokUserId: string, commentMsgId?: string, xOauthToken?: string, xCookieHeader?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'roomId' is not null or undefined
+            assertParamExists('kickRoomUser', 'roomId', roomId)
+            // verify required parameter 'tiktokUserId' is not null or undefined
+            assertParamExists('kickRoomUser', 'tiktokUserId', tiktokUserId)
+            const localVarPath = `/webcast/moderation/bans`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (roomId !== undefined) {
+                localVarQueryParameter['room_id'] = roomId;
+            }
+
+            if (tiktokUserId !== undefined) {
+                localVarQueryParameter['tiktok_user_id'] = tiktokUserId;
+            }
+
+            if (commentMsgId !== undefined) {
+                localVarQueryParameter['comment_msg_id'] = commentMsgId;
+            }
+
+
+    
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Premium Routes Addon - Mute a user in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {string} userId The user ID to mute
+         * @param {MuteDuration} [duration] Mute duration in seconds (-1 &#x3D; permanent, 5, 30, 60, 300)
+         * @param {number} [commentMsgId] Optional comment message ID that triggered the mute
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        muteRoomUser: async (roomId: string, userId: string, duration?: MuteDuration, commentMsgId?: number, xOauthToken?: string, xCookieHeader?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'roomId' is not null or undefined
+            assertParamExists('muteRoomUser', 'roomId', roomId)
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('muteRoomUser', 'userId', userId)
+            const localVarPath = `/webcast/moderation/mutes`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (roomId !== undefined) {
+                localVarQueryParameter['room_id'] = roomId;
+            }
+
+            if (userId !== undefined) {
+                localVarQueryParameter['user_id'] = userId;
+            }
+
+            if (duration !== undefined) {
+                localVarQueryParameter['duration'] = duration;
+            }
+
+            if (commentMsgId !== undefined) {
+                localVarQueryParameter['comment_msg_id'] = commentMsgId;
+            }
+
+
+    
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Premium Routes Addon - Remove a moderator from a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} toUserId The user ID to remove as moderator
+         * @param {string} anchorId The streamer\&#39;s user ID
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeRoomModerator: async (toUserId: string, anchorId: string, xOauthToken?: string, xCookieHeader?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'toUserId' is not null or undefined
+            assertParamExists('removeRoomModerator', 'toUserId', toUserId)
+            // verify required parameter 'anchorId' is not null or undefined
+            assertParamExists('removeRoomModerator', 'anchorId', anchorId)
+            const localVarPath = `/webcast/moderation/moderators`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (toUserId !== undefined) {
+                localVarQueryParameter['to_user_id'] = toUserId;
+            }
+
+            if (anchorId !== undefined) {
+                localVarQueryParameter['anchor_id'] = anchorId;
+            }
+
+
+    
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve the list of banned users in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {number} [page] Page number for pagination (default: 0)
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveRoomBannedUsers: async (roomId: string, page?: number, xOauthToken?: string, xCookieHeader?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'roomId' is not null or undefined
+            assertParamExists('retrieveRoomBannedUsers', 'roomId', roomId)
+            const localVarPath = `/webcast/moderation/bans`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (roomId !== undefined) {
+                localVarQueryParameter['room_id'] = roomId;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+
+    
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve the list of moderators in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} anchorId The streamer\&#39;s numeric user ID
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveRoomModerators: async (anchorId: string, xOauthToken?: string, xCookieHeader?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'anchorId' is not null or undefined
+            assertParamExists('retrieveRoomModerators', 'anchorId', anchorId)
+            const localVarPath = `/webcast/moderation/moderators`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (anchorId !== undefined) {
+                localVarQueryParameter['anchor_id'] = anchorId;
+            }
+
+
+    
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve the list of muted users in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {number} [page] Page number for pagination (default: 0)
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveRoomMutedUsers: async (roomId: string, page?: number, xOauthToken?: string, xCookieHeader?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'roomId' is not null or undefined
+            assertParamExists('retrieveRoomMutedUsers', 'roomId', roomId)
+            const localVarPath = `/webcast/moderation/mutes`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (roomId !== undefined) {
+                localVarQueryParameter['room_id'] = roomId;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+
+    
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Premium Routes Addon - Toggle comments on/off in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {boolean} enabled Whether comments should be enabled (true) or disabled (false)
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        toggleRoomComments: async (roomId: string, enabled: boolean, xOauthToken?: string, xCookieHeader?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'roomId' is not null or undefined
+            assertParamExists('toggleRoomComments', 'roomId', roomId)
+            // verify required parameter 'enabled' is not null or undefined
+            assertParamExists('toggleRoomComments', 'enabled', enabled)
+            const localVarPath = `/webcast/moderation/toggle_comments`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (roomId !== undefined) {
+                localVarQueryParameter['room_id'] = roomId;
+            }
+
+            if (enabled !== undefined) {
+                localVarQueryParameter['enabled'] = enabled;
+            }
+
+
+    
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Premium Routes Addon - Unkick a user from a livestream room (allow them back).  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {string} tiktokUserId The numeric user ID of the person to unkick
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unbanRoomUser: async (roomId: string, tiktokUserId: string, xOauthToken?: string, xCookieHeader?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'roomId' is not null or undefined
+            assertParamExists('unbanRoomUser', 'roomId', roomId)
+            // verify required parameter 'tiktokUserId' is not null or undefined
+            assertParamExists('unbanRoomUser', 'tiktokUserId', tiktokUserId)
+            const localVarPath = `/webcast/moderation/bans`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (roomId !== undefined) {
+                localVarQueryParameter['room_id'] = roomId;
+            }
+
+            if (tiktokUserId !== undefined) {
+                localVarQueryParameter['tiktok_user_id'] = tiktokUserId;
+            }
+
+
+    
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Premium Routes Addon - Unmute a user in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {string} userId The user ID to unmute
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unmuteRoomUser: async (roomId: string, userId: string, xOauthToken?: string, xCookieHeader?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'roomId' is not null or undefined
+            assertParamExists('unmuteRoomUser', 'roomId', roomId)
+            // verify required parameter 'userId' is not null or undefined
+            assertParamExists('unmuteRoomUser', 'userId', userId)
+            const localVarPath = `/webcast/moderation/mutes`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (roomId !== undefined) {
+                localVarQueryParameter['room_id'] = roomId;
+            }
+
+            if (userId !== undefined) {
+                localVarQueryParameter['user_id'] = userId;
+            }
+
+
+    
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TikTokLIVEModerationApi - functional programming interface
+ * @export
+ */
+export const TikTokLIVEModerationApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TikTokLIVEModerationApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Requires Premium Routes Addon - Add a moderator in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} toUserId The user ID to add as moderator
+         * @param {string} anchorId The streamer\&#39;s user ID
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addRoomModerator(toUserId: string, anchorId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomAdminUpdateAPIResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addRoomModerator(toUserId, anchorId, xOauthToken, xCookieHeader, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEModerationApi.addRoomModerator']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Premium Routes Addon - Kick a user from a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {string} tiktokUserId The numeric user ID for the individual to kick
+         * @param {string} [commentMsgId] Optional comment message ID that triggered the kick
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async kickRoomUser(roomId: string, tiktokUserId: string, commentMsgId?: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomKickUserAPIResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.kickRoomUser(roomId, tiktokUserId, commentMsgId, xOauthToken, xCookieHeader, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEModerationApi.kickRoomUser']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Premium Routes Addon - Mute a user in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {string} userId The user ID to mute
+         * @param {MuteDuration} [duration] Mute duration in seconds (-1 &#x3D; permanent, 5, 30, 60, 300)
+         * @param {number} [commentMsgId] Optional comment message ID that triggered the mute
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async muteRoomUser(roomId: string, userId: string, duration?: MuteDuration, commentMsgId?: number, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomMuteUserAPIResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.muteRoomUser(roomId, userId, duration, commentMsgId, xOauthToken, xCookieHeader, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEModerationApi.muteRoomUser']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Premium Routes Addon - Remove a moderator from a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} toUserId The user ID to remove as moderator
+         * @param {string} anchorId The streamer\&#39;s user ID
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async removeRoomModerator(toUserId: string, anchorId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomAdminUpdateAPIResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.removeRoomModerator(toUserId, anchorId, xOauthToken, xCookieHeader, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEModerationApi.removeRoomModerator']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve the list of banned users in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {number} [page] Page number for pagination (default: 0)
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retrieveRoomBannedUsers(roomId: string, page?: number, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomKickedUsersAPIResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveRoomBannedUsers(roomId, page, xOauthToken, xCookieHeader, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEModerationApi.retrieveRoomBannedUsers']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve the list of moderators in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} anchorId The streamer\&#39;s numeric user ID
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retrieveRoomModerators(anchorId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomModeratorsAPIResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveRoomModerators(anchorId, xOauthToken, xCookieHeader, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEModerationApi.retrieveRoomModerators']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve the list of muted users in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {number} [page] Page number for pagination (default: 0)
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retrieveRoomMutedUsers(roomId: string, page?: number, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomMutedUsersAPIResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveRoomMutedUsers(roomId, page, xOauthToken, xCookieHeader, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEModerationApi.retrieveRoomMutedUsers']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Premium Routes Addon - Toggle comments on/off in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {boolean} enabled Whether comments should be enabled (true) or disabled (false)
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async toggleRoomComments(roomId: string, enabled: boolean, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomCommentsToggleAPIResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.toggleRoomComments(roomId, enabled, xOauthToken, xCookieHeader, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEModerationApi.toggleRoomComments']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Premium Routes Addon - Unkick a user from a livestream room (allow them back).  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {string} tiktokUserId The numeric user ID of the person to unkick
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async unbanRoomUser(roomId: string, tiktokUserId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomUnkickUserAPIResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.unbanRoomUser(roomId, tiktokUserId, xOauthToken, xCookieHeader, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEModerationApi.unbanRoomUser']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Premium Routes Addon - Unmute a user in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {string} userId The user ID to unmute
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async unmuteRoomUser(roomId: string, userId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomUnmuteUserAPIResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.unmuteRoomUser(roomId, userId, xOauthToken, xCookieHeader, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEModerationApi.unmuteRoomUser']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * TikTokLIVEModerationApi - factory interface
+ * @export
+ */
+export const TikTokLIVEModerationApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TikTokLIVEModerationApiFp(configuration)
+    return {
+        /**
+         * Requires Premium Routes Addon - Add a moderator in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} toUserId The user ID to add as moderator
+         * @param {string} anchorId The streamer\&#39;s user ID
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addRoomModerator(toUserId: string, anchorId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): AxiosPromise<RoomAdminUpdateAPIResponse> {
+            return localVarFp.addRoomModerator(toUserId, anchorId, xOauthToken, xCookieHeader, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Premium Routes Addon - Kick a user from a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {string} tiktokUserId The numeric user ID for the individual to kick
+         * @param {string} [commentMsgId] Optional comment message ID that triggered the kick
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        kickRoomUser(roomId: string, tiktokUserId: string, commentMsgId?: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): AxiosPromise<RoomKickUserAPIResponse> {
+            return localVarFp.kickRoomUser(roomId, tiktokUserId, commentMsgId, xOauthToken, xCookieHeader, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Premium Routes Addon - Mute a user in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {string} userId The user ID to mute
+         * @param {MuteDuration} [duration] Mute duration in seconds (-1 &#x3D; permanent, 5, 30, 60, 300)
+         * @param {number} [commentMsgId] Optional comment message ID that triggered the mute
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        muteRoomUser(roomId: string, userId: string, duration?: MuteDuration, commentMsgId?: number, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): AxiosPromise<RoomMuteUserAPIResponse> {
+            return localVarFp.muteRoomUser(roomId, userId, duration, commentMsgId, xOauthToken, xCookieHeader, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Premium Routes Addon - Remove a moderator from a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} toUserId The user ID to remove as moderator
+         * @param {string} anchorId The streamer\&#39;s user ID
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeRoomModerator(toUserId: string, anchorId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): AxiosPromise<RoomAdminUpdateAPIResponse> {
+            return localVarFp.removeRoomModerator(toUserId, anchorId, xOauthToken, xCookieHeader, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve the list of banned users in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {number} [page] Page number for pagination (default: 0)
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveRoomBannedUsers(roomId: string, page?: number, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): AxiosPromise<RoomKickedUsersAPIResponse> {
+            return localVarFp.retrieveRoomBannedUsers(roomId, page, xOauthToken, xCookieHeader, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve the list of moderators in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} anchorId The streamer\&#39;s numeric user ID
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveRoomModerators(anchorId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): AxiosPromise<RoomModeratorsAPIResponse> {
+            return localVarFp.retrieveRoomModerators(anchorId, xOauthToken, xCookieHeader, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve the list of muted users in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {number} [page] Page number for pagination (default: 0)
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveRoomMutedUsers(roomId: string, page?: number, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): AxiosPromise<RoomMutedUsersAPIResponse> {
+            return localVarFp.retrieveRoomMutedUsers(roomId, page, xOauthToken, xCookieHeader, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Premium Routes Addon - Toggle comments on/off in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {boolean} enabled Whether comments should be enabled (true) or disabled (false)
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        toggleRoomComments(roomId: string, enabled: boolean, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): AxiosPromise<RoomCommentsToggleAPIResponse> {
+            return localVarFp.toggleRoomComments(roomId, enabled, xOauthToken, xCookieHeader, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Premium Routes Addon - Unkick a user from a livestream room (allow them back).  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {string} tiktokUserId The numeric user ID of the person to unkick
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unbanRoomUser(roomId: string, tiktokUserId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): AxiosPromise<RoomUnkickUserAPIResponse> {
+            return localVarFp.unbanRoomUser(roomId, tiktokUserId, xOauthToken, xCookieHeader, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Premium Routes Addon - Unmute a user in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream
+         * @param {string} userId The user ID to unmute
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unmuteRoomUser(roomId: string, userId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): AxiosPromise<RoomUnmuteUserAPIResponse> {
+            return localVarFp.unmuteRoomUser(roomId, userId, xOauthToken, xCookieHeader, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * TikTokLIVEModerationApi - object-oriented interface
+ * @export
+ * @class TikTokLIVEModerationApi
+ * @extends {BaseAPI}
+ */
+export class TikTokLIVEModerationApi extends BaseAPI {
+    /**
+     * Requires Premium Routes Addon - Add a moderator in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+     * @param {string} toUserId The user ID to add as moderator
+     * @param {string} anchorId The streamer\&#39;s user ID
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEModerationApi
+     */
+    public addRoomModerator(toUserId: string, anchorId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEModerationApiFp(this.configuration).addRoomModerator(toUserId, anchorId, xOauthToken, xCookieHeader, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Premium Routes Addon - Kick a user from a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+     * @param {string} roomId The room ID of the livestream
+     * @param {string} tiktokUserId The numeric user ID for the individual to kick
+     * @param {string} [commentMsgId] Optional comment message ID that triggered the kick
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEModerationApi
+     */
+    public kickRoomUser(roomId: string, tiktokUserId: string, commentMsgId?: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEModerationApiFp(this.configuration).kickRoomUser(roomId, tiktokUserId, commentMsgId, xOauthToken, xCookieHeader, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Premium Routes Addon - Mute a user in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+     * @param {string} roomId The room ID of the livestream
+     * @param {string} userId The user ID to mute
+     * @param {MuteDuration} [duration] Mute duration in seconds (-1 &#x3D; permanent, 5, 30, 60, 300)
+     * @param {number} [commentMsgId] Optional comment message ID that triggered the mute
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEModerationApi
+     */
+    public muteRoomUser(roomId: string, userId: string, duration?: MuteDuration, commentMsgId?: number, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEModerationApiFp(this.configuration).muteRoomUser(roomId, userId, duration, commentMsgId, xOauthToken, xCookieHeader, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Premium Routes Addon - Remove a moderator from a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+     * @param {string} toUserId The user ID to remove as moderator
+     * @param {string} anchorId The streamer\&#39;s user ID
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEModerationApi
+     */
+    public removeRoomModerator(toUserId: string, anchorId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEModerationApiFp(this.configuration).removeRoomModerator(toUserId, anchorId, xOauthToken, xCookieHeader, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Premium Routes Addon - Retrieve the list of banned users in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+     * @param {string} roomId The room ID of the livestream
+     * @param {number} [page] Page number for pagination (default: 0)
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEModerationApi
+     */
+    public retrieveRoomBannedUsers(roomId: string, page?: number, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEModerationApiFp(this.configuration).retrieveRoomBannedUsers(roomId, page, xOauthToken, xCookieHeader, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Premium Routes Addon - Retrieve the list of moderators in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+     * @param {string} anchorId The streamer\&#39;s numeric user ID
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEModerationApi
+     */
+    public retrieveRoomModerators(anchorId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEModerationApiFp(this.configuration).retrieveRoomModerators(anchorId, xOauthToken, xCookieHeader, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Premium Routes Addon - Retrieve the list of muted users in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+     * @param {string} roomId The room ID of the livestream
+     * @param {number} [page] Page number for pagination (default: 0)
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEModerationApi
+     */
+    public retrieveRoomMutedUsers(roomId: string, page?: number, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEModerationApiFp(this.configuration).retrieveRoomMutedUsers(roomId, page, xOauthToken, xCookieHeader, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Premium Routes Addon - Toggle comments on/off in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+     * @param {string} roomId The room ID of the livestream
+     * @param {boolean} enabled Whether comments should be enabled (true) or disabled (false)
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEModerationApi
+     */
+    public toggleRoomComments(roomId: string, enabled: boolean, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEModerationApiFp(this.configuration).toggleRoomComments(roomId, enabled, xOauthToken, xCookieHeader, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Premium Routes Addon - Unkick a user from a livestream room (allow them back).  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+     * @param {string} roomId The room ID of the livestream
+     * @param {string} tiktokUserId The numeric user ID of the person to unkick
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEModerationApi
+     */
+    public unbanRoomUser(roomId: string, tiktokUserId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEModerationApiFp(this.configuration).unbanRoomUser(roomId, tiktokUserId, xOauthToken, xCookieHeader, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Premium Routes Addon - Unmute a user in a livestream room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+     * @param {string} roomId The room ID of the livestream
+     * @param {string} userId The user ID to unmute
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEModerationApi
+     */
+    public unmuteRoomUser(roomId: string, userId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEModerationApiFp(this.configuration).unmuteRoomUser(roomId, userId, xOauthToken, xCookieHeader, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * TikTokLIVEPremiumApi - axios parameter creator
+ * @export
+ */
+export const TikTokLIVEPremiumApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Requires Premium Routes Addon - A bulk-check endpoint to determine if a group of TikTok users (up to 50 at once) are live. It uses a highly optimized job-based system for checking large numbers of users quickly.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {RetrieveBulkLiveCheckRequest} retrieveBulkLiveCheckRequest The body of the request containing user numeric IDs.
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveBulkLiveCheck: async (retrieveBulkLiveCheckRequest: RetrieveBulkLiveCheckRequest, xOauthToken?: string, xCookieHeader?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'retrieveBulkLiveCheckRequest' is not null or undefined
+            assertParamExists('retrieveBulkLiveCheck', 'retrieveBulkLiveCheckRequest', retrieveBulkLiveCheckRequest)
+            const localVarPath = `/webcast/bulk_live_check`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(retrieveBulkLiveCheckRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve detailed analytics for a specific past livestream.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream to get analytics for
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveLiveAnalyticsVideoDetail: async (roomId: string, xOauthToken?: string, xCookieHeader?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'roomId' is not null or undefined
+            assertParamExists('retrieveLiveAnalyticsVideoDetail', 'roomId', roomId)
+            const localVarPath = `/webcast/live_analytics/video_detail`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (roomId !== undefined) {
+                localVarQueryParameter['room_id'] = roomId;
+            }
+
+
+    
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve the list of past livestreams with analytics for the authenticated user.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {number} [count] Number of videos to retrieve (default: 10)
+         * @param {number} [offset] Pagination offset (default: 0)
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveLiveAnalyticsVideoList: async (count?: number, offset?: number, xOauthToken?: string, xCookieHeader?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/webcast/live_analytics/video_list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (count !== undefined) {
+                localVarQueryParameter['count'] = count;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+
+    
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Business Plan - Retrieve TikTok Live Room Information
+         * @param {string} uniqueId The unique identifier for the TikTok user or room
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveRoomInfo: async (uniqueId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uniqueId' is not null or undefined
+            assertParamExists('retrieveRoomInfo', 'uniqueId', uniqueId)
+            const localVarPath = `/webcast/room_info`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (uniqueId !== undefined) {
+                localVarQueryParameter['uniqueId'] = uniqueId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Premium Routes Addon - Fetch the TikTok LIVE webcast feed for a specific region. Gets a random sampling of creators for a region.
+         * @param {OxyLabsProxyRegion} region The region (country) with which to fetch a feed from.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveWebcastFeed: async (region: OxyLabsProxyRegion, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'region' is not null or undefined
+            assertParamExists('retrieveWebcastFeed', 'region', region)
+            const localVarPath = `/webcast/feed`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication jwt_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-jwt-key", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (region !== undefined) {
+                localVarQueryParameter['region'] = region;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve TikTok LIVE earnings for a specific user.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} uniqueId The unique ID (username) of the user to fetch earnings for.
+         * @param {WebcastUserEarningsOutputPeriod} [period] Earnings period
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {string} [sessionId] Use x-oauth-token or x-cookie-header instead
+         * @param {string} [ttTargetIdc] Use x-oauth-token or x-cookie-header instead
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveWebcastUserEarnings: async (uniqueId: string, period?: WebcastUserEarningsOutputPeriod, xOauthToken?: string, xCookieHeader?: string, sessionId?: string, ttTargetIdc?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'uniqueId' is not null or undefined
+            assertParamExists('retrieveWebcastUserEarnings', 'uniqueId', uniqueId)
+            const localVarPath = `/webcast/user_earnings`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+            if (uniqueId !== undefined) {
+                localVarQueryParameter['unique_id'] = uniqueId;
+            }
+
+            if (period !== undefined) {
+                localVarQueryParameter['period'] = period;
+            }
+
+            if (sessionId !== undefined) {
+                localVarQueryParameter['session_id'] = sessionId;
+            }
+
+            if (ttTargetIdc !== undefined) {
+                localVarQueryParameter['tt_target_idc'] = ttTargetIdc;
+            }
+
+
+    
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Requires Premium Routes Addon - Send a chat to a TikTok LIVE room.  Either `targetRoomId` or `targetUniqueId` must be provided to identify the room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {SendRoomChatRequest} sendRoomChatRequest The payload configuration for sending a chat
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        sendRoomChat: async (sendRoomChatRequest: SendRoomChatRequest, xOauthToken?: string, xCookieHeader?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'sendRoomChatRequest' is not null or undefined
+            assertParamExists('sendRoomChat', 'sendRoomChatRequest', sendRoomChatRequest)
+            const localVarPath = `/webcast/chat`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication api_key_query required
+            await setApiKeyToObject(localVarQueryParameter, "apiKey", configuration)
+
+            // authentication api_key_header required
+            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            if (xOauthToken != null) {
+                localVarHeaderParameter['x-oauth-token'] = String(xOauthToken);
+            }
+            if (xCookieHeader != null) {
+                localVarHeaderParameter['x-cookie-header'] = String(xCookieHeader);
+            }
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(sendRoomChatRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TikTokLIVEPremiumApi - functional programming interface
+ * @export
+ */
+export const TikTokLIVEPremiumApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TikTokLIVEPremiumApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Requires Premium Routes Addon - A bulk-check endpoint to determine if a group of TikTok users (up to 50 at once) are live. It uses a highly optimized job-based system for checking large numbers of users quickly.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {RetrieveBulkLiveCheckRequest} retrieveBulkLiveCheckRequest The body of the request containing user numeric IDs.
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retrieveBulkLiveCheck(retrieveBulkLiveCheckRequest: RetrieveBulkLiveCheckRequest, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RetrieveBulkLiveCheckResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveBulkLiveCheck(retrieveBulkLiveCheckRequest, xOauthToken, xCookieHeader, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEPremiumApi.retrieveBulkLiveCheck']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve detailed analytics for a specific past livestream.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream to get analytics for
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retrieveLiveAnalyticsVideoDetail(roomId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LiveAnalyticsVideoDetailAPIResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveLiveAnalyticsVideoDetail(roomId, xOauthToken, xCookieHeader, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEPremiumApi.retrieveLiveAnalyticsVideoDetail']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve the list of past livestreams with analytics for the authenticated user.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {number} [count] Number of videos to retrieve (default: 10)
+         * @param {number} [offset] Pagination offset (default: 0)
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retrieveLiveAnalyticsVideoList(count?: number, offset?: number, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LiveAnalyticsVideoListAPIResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveLiveAnalyticsVideoList(count, offset, xOauthToken, xCookieHeader, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEPremiumApi.retrieveLiveAnalyticsVideoList']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Business Plan - Retrieve TikTok Live Room Information
+         * @param {string} uniqueId The unique identifier for the TikTok user or room
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retrieveRoomInfo(uniqueId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebcastRoomInfoRouteResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveRoomInfo(uniqueId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEPremiumApi.retrieveRoomInfo']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Premium Routes Addon - Fetch the TikTok LIVE webcast feed for a specific region. Gets a random sampling of creators for a region.
+         * @param {OxyLabsProxyRegion} region The region (country) with which to fetch a feed from.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retrieveWebcastFeed(region: OxyLabsProxyRegion, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebcastFeedRouteResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveWebcastFeed(region, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEPremiumApi.retrieveWebcastFeed']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve TikTok LIVE earnings for a specific user.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} uniqueId The unique ID (username) of the user to fetch earnings for.
+         * @param {WebcastUserEarningsOutputPeriod} [period] Earnings period
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {string} [sessionId] Use x-oauth-token or x-cookie-header instead
+         * @param {string} [ttTargetIdc] Use x-oauth-token or x-cookie-header instead
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retrieveWebcastUserEarnings(uniqueId: string, period?: WebcastUserEarningsOutputPeriod, xOauthToken?: string, xCookieHeader?: string, sessionId?: string, ttTargetIdc?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebcastUserEarningsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retrieveWebcastUserEarnings(uniqueId, period, xOauthToken, xCookieHeader, sessionId, ttTargetIdc, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEPremiumApi.retrieveWebcastUserEarnings']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * Requires Premium Routes Addon - Send a chat to a TikTok LIVE room.  Either `targetRoomId` or `targetUniqueId` must be provided to identify the room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {SendRoomChatRequest} sendRoomChatRequest The payload configuration for sending a chat
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async sendRoomChat(sendRoomChatRequest: SendRoomChatRequest, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebcastRoomChatRouteResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.sendRoomChat(sendRoomChatRequest, xOauthToken, xCookieHeader, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TikTokLIVEPremiumApi.sendRoomChat']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * TikTokLIVEPremiumApi - factory interface
+ * @export
+ */
+export const TikTokLIVEPremiumApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TikTokLIVEPremiumApiFp(configuration)
+    return {
+        /**
+         * Requires Premium Routes Addon - A bulk-check endpoint to determine if a group of TikTok users (up to 50 at once) are live. It uses a highly optimized job-based system for checking large numbers of users quickly.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {RetrieveBulkLiveCheckRequest} retrieveBulkLiveCheckRequest The body of the request containing user numeric IDs.
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveBulkLiveCheck(retrieveBulkLiveCheckRequest: RetrieveBulkLiveCheckRequest, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): AxiosPromise<RetrieveBulkLiveCheckResponse> {
+            return localVarFp.retrieveBulkLiveCheck(retrieveBulkLiveCheckRequest, xOauthToken, xCookieHeader, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve detailed analytics for a specific past livestream.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} roomId The room ID of the livestream to get analytics for
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveLiveAnalyticsVideoDetail(roomId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): AxiosPromise<LiveAnalyticsVideoDetailAPIResponse> {
+            return localVarFp.retrieveLiveAnalyticsVideoDetail(roomId, xOauthToken, xCookieHeader, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve the list of past livestreams with analytics for the authenticated user.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {number} [count] Number of videos to retrieve (default: 10)
+         * @param {number} [offset] Pagination offset (default: 0)
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveLiveAnalyticsVideoList(count?: number, offset?: number, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): AxiosPromise<LiveAnalyticsVideoListAPIResponse> {
+            return localVarFp.retrieveLiveAnalyticsVideoList(count, offset, xOauthToken, xCookieHeader, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Business Plan - Retrieve TikTok Live Room Information
+         * @param {string} uniqueId The unique identifier for the TikTok user or room
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveRoomInfo(uniqueId: string, options?: RawAxiosRequestConfig): AxiosPromise<WebcastRoomInfoRouteResponse> {
+            return localVarFp.retrieveRoomInfo(uniqueId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Premium Routes Addon - Fetch the TikTok LIVE webcast feed for a specific region. Gets a random sampling of creators for a region.
+         * @param {OxyLabsProxyRegion} region The region (country) with which to fetch a feed from.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveWebcastFeed(region: OxyLabsProxyRegion, options?: RawAxiosRequestConfig): AxiosPromise<WebcastFeedRouteResponse> {
+            return localVarFp.retrieveWebcastFeed(region, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Premium Routes Addon - Retrieve TikTok LIVE earnings for a specific user.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {string} uniqueId The unique ID (username) of the user to fetch earnings for.
+         * @param {WebcastUserEarningsOutputPeriod} [period] Earnings period
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {string} [sessionId] Use x-oauth-token or x-cookie-header instead
+         * @param {string} [ttTargetIdc] Use x-oauth-token or x-cookie-header instead
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retrieveWebcastUserEarnings(uniqueId: string, period?: WebcastUserEarningsOutputPeriod, xOauthToken?: string, xCookieHeader?: string, sessionId?: string, ttTargetIdc?: string, options?: RawAxiosRequestConfig): AxiosPromise<WebcastUserEarningsResponse> {
+            return localVarFp.retrieveWebcastUserEarnings(uniqueId, period, xOauthToken, xCookieHeader, sessionId, ttTargetIdc, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Requires Premium Routes Addon - Send a chat to a TikTok LIVE room.  Either `targetRoomId` or `targetUniqueId` must be provided to identify the room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+         * @param {SendRoomChatRequest} sendRoomChatRequest The payload configuration for sending a chat
+         * @param {string} [xOauthToken] OAuth access token for session resolution
+         * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        sendRoomChat(sendRoomChatRequest: SendRoomChatRequest, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig): AxiosPromise<WebcastRoomChatRouteResponse> {
+            return localVarFp.sendRoomChat(sendRoomChatRequest, xOauthToken, xCookieHeader, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * TikTokLIVEPremiumApi - object-oriented interface
+ * @export
+ * @class TikTokLIVEPremiumApi
+ * @extends {BaseAPI}
+ */
+export class TikTokLIVEPremiumApi extends BaseAPI {
+    /**
+     * Requires Premium Routes Addon - A bulk-check endpoint to determine if a group of TikTok users (up to 50 at once) are live. It uses a highly optimized job-based system for checking large numbers of users quickly.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+     * @param {RetrieveBulkLiveCheckRequest} retrieveBulkLiveCheckRequest The body of the request containing user numeric IDs.
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEPremiumApi
+     */
+    public retrieveBulkLiveCheck(retrieveBulkLiveCheckRequest: RetrieveBulkLiveCheckRequest, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEPremiumApiFp(this.configuration).retrieveBulkLiveCheck(retrieveBulkLiveCheckRequest, xOauthToken, xCookieHeader, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Premium Routes Addon - Retrieve detailed analytics for a specific past livestream.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+     * @param {string} roomId The room ID of the livestream to get analytics for
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEPremiumApi
+     */
+    public retrieveLiveAnalyticsVideoDetail(roomId: string, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEPremiumApiFp(this.configuration).retrieveLiveAnalyticsVideoDetail(roomId, xOauthToken, xCookieHeader, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Premium Routes Addon - Retrieve the list of past livestreams with analytics for the authenticated user.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+     * @param {number} [count] Number of videos to retrieve (default: 10)
+     * @param {number} [offset] Pagination offset (default: 0)
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEPremiumApi
+     */
+    public retrieveLiveAnalyticsVideoList(count?: number, offset?: number, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEPremiumApiFp(this.configuration).retrieveLiveAnalyticsVideoList(count, offset, xOauthToken, xCookieHeader, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Business Plan - Retrieve TikTok Live Room Information
+     * @param {string} uniqueId The unique identifier for the TikTok user or room
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEPremiumApi
+     */
+    public retrieveRoomInfo(uniqueId: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEPremiumApiFp(this.configuration).retrieveRoomInfo(uniqueId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Premium Routes Addon - Fetch the TikTok LIVE webcast feed for a specific region. Gets a random sampling of creators for a region.
+     * @param {OxyLabsProxyRegion} region The region (country) with which to fetch a feed from.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEPremiumApi
+     */
+    public retrieveWebcastFeed(region: OxyLabsProxyRegion, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEPremiumApiFp(this.configuration).retrieveWebcastFeed(region, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Premium Routes Addon - Retrieve TikTok LIVE earnings for a specific user.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+     * @param {string} uniqueId The unique ID (username) of the user to fetch earnings for.
+     * @param {WebcastUserEarningsOutputPeriod} [period] Earnings period
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {string} [sessionId] Use x-oauth-token or x-cookie-header instead
+     * @param {string} [ttTargetIdc] Use x-oauth-token or x-cookie-header instead
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEPremiumApi
+     */
+    public retrieveWebcastUserEarnings(uniqueId: string, period?: WebcastUserEarningsOutputPeriod, xOauthToken?: string, xCookieHeader?: string, sessionId?: string, ttTargetIdc?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEPremiumApiFp(this.configuration).retrieveWebcastUserEarnings(uniqueId, period, xOauthToken, xCookieHeader, sessionId, ttTargetIdc, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Requires Premium Routes Addon - Send a chat to a TikTok LIVE room.  Either `targetRoomId` or `targetUniqueId` must be provided to identify the room.  **Authentication:** Provide exactly one of the following headers: - `x-oauth-token`: An OAuth access token. The sessionId and ttTargetIdc are resolved from the stored OAuth session. [Read More](https://www.eulerstream.com/docs/oauth) - `x-cookie-header`: A cookie header string containing `sessionid` and `tt-target-idc` cookies from TikTok.
+     * @param {SendRoomChatRequest} sendRoomChatRequest The payload configuration for sending a chat
+     * @param {string} [xOauthToken] OAuth access token for session resolution
+     * @param {string} [xCookieHeader] Cookie header containing sessionid and tt-target-idc
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TikTokLIVEPremiumApi
+     */
+    public sendRoomChat(sendRoomChatRequest: SendRoomChatRequest, xOauthToken?: string, xCookieHeader?: string, options?: RawAxiosRequestConfig) {
+        return TikTokLIVEPremiumApiFp(this.configuration).sendRoomChat(sendRoomChatRequest, xOauthToken, xCookieHeader, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
 
 

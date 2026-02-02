@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * The Sign Server™
+ * Euler Stream Sign API
  * Sign Server API Documentation
  *
  * The version of the OpenAPI document: dev
@@ -89,17 +89,17 @@ function setFlattenedQueryParams(urlSearchParams: URLSearchParams, parameter: an
     if (typeof parameter === "object") {
         if (Array.isArray(parameter)) {
             (parameter as any[]).forEach(item => setFlattenedQueryParams(urlSearchParams, item, key));
-        }
+        } 
         else {
-            Object.keys(parameter).forEach(currentKey =>
+            Object.keys(parameter).forEach(currentKey => 
                 setFlattenedQueryParams(urlSearchParams, parameter[currentKey], `${key}${key !== '' ? '.' : ''}${currentKey}`)
             );
         }
-    }
+    } 
     else {
         if (urlSearchParams.has(key)) {
             urlSearchParams.append(key, parameter);
-        }
+        } 
         else {
             urlSearchParams.set(key, parameter);
         }

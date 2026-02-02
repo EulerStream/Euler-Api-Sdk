@@ -1,5 +1,7 @@
 echo "Fetching latest OpenAPI spec from EulerStream..."
 
+mkdir -p build
+
 # Get the spec
 wget -O ./build/openapi.json https://tiktok.eulerstream.com/dashboard/openapi
 

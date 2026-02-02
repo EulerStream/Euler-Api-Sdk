@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * The Sign Server™
+ * Euler Stream Sign API
  * Sign Server API Documentation
  *
  * The version of the OpenAPI document: dev

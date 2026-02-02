@@ -1,4 +1,15 @@
-import {AccountsApi, AlertsApi, AlertTargetsApi, AnalyticsApi, AuthenticationApi, TikTokLIVEApi} from "@/sdk";
+import {
+  AccountsApi,
+  AnalyticsApi,
+  AuthenticationApi,
+  TikTokCaptchasApi,
+  TikTokGeneralApi,
+  TikTokLIVEApi,
+  TikTokLIVEAlertTargetsApi,
+  TikTokLIVEAlertsApi,
+  TikTokLIVEModerationApi,
+  TikTokLIVEPremiumApi,
+} from "@/sdk";
 import {buildConfig, ClientConfiguration} from "@/utils";
 
 // Exports
@@ -12,15 +23,18 @@ export default class EulerStreamApiClient {
   public readonly accounts: AccountsApi;
   public readonly authentication: AuthenticationApi;
   public readonly analytics: AnalyticsApi;
-  public readonly alerts: AlertsApi;
-  public readonly alertTargets: AlertTargetsApi;
+  public readonly alerts: TikTokLIVEAlertsApi;
+  public readonly alertTargets: TikTokLIVEAlertTargetsApi;
+  public readonly captchas: TikTokCaptchasApi;
+  public readonly general: TikTokGeneralApi;
+  public readonly moderation: TikTokLIVEModerationApi;
+  public readonly premium: TikTokLIVEPremiumApi;
   public readonly configuration: ClientConfiguration;
 
   /**
    * EulerStream API Client
    *
    * Configuration
-   *
    *
    * API Instances
    *
@@ -38,8 +52,12 @@ export default class EulerStreamApiClient {
     this.accounts = new AccountsApi(this.configuration);
     this.authentication = new AuthenticationApi(this.configuration);
     this.analytics = new AnalyticsApi(this.configuration);
-    this.alerts = new AlertsApi(this.configuration);
-    this.alertTargets = new AlertTargetsApi(this.configuration);
+    this.alerts = new TikTokLIVEAlertsApi(this.configuration);
+    this.alertTargets = new TikTokLIVEAlertTargetsApi(this.configuration);
+    this.captchas = new TikTokCaptchasApi(this.configuration);
+    this.general = new TikTokGeneralApi(this.configuration);
+    this.moderation = new TikTokLIVEModerationApi(this.configuration);
+    this.premium = new TikTokLIVEPremiumApi(this.configuration);
 
   }
 
