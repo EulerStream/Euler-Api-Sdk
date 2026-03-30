@@ -1,0 +1,65 @@
+#nullable enable
+
+using System;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using EulerApiSdk.Api;
+using EulerApiSdk.Client;
+using EulerApiSdk.Extensions;
+
+namespace EulerApiSdk
+{
+    /// <summary>
+    /// EulerStream API Client — a convenient wrapper that exposes all generated
+    /// API groups as properties and manages the underlying DI container.
+    /// </summary>
+    public sealed class EulerStreamApiClient : IDisposable
+    {
+        private readonly ServiceProvider _serviceProvider;
+
+{{API_PROPERTIES}}
+
+        /// <summary>
+        /// Creates a new EulerStream API Client.
+        /// </summary>
+        /// <param name="configure">
+        /// Optional callback to customise the <see cref="HostConfiguration"/>
+        /// (e.g. add tokens, override HttpClient settings).
+        /// </param>
+        /// <param name="baseAddress">
+        /// Override the default base address for API requests.
+        /// </param>
+        public EulerStreamApiClient(
+            Action<HostConfiguration>? configure = null,
+            string? baseAddress = null)
+        {
+            var services = new ServiceCollection();
+
+            // Add logging (required by the generated API classes)
+            services.AddLogging(builder => builder.AddConsole().SetMinimumLevel(LogLevel.Warning));
+
+            // Register the generated SDK services
+            services.AddApi(host =>
+            {
+                host.AddApiHttpClients(client =>
+                {
+                    client.BaseAddress = new Uri(baseAddress ?? ClientUtils.BASE_ADDRESS);
+                });
+
+                // Allow the caller to further configure (e.g. add tokens)
+                configure?.Invoke(host);
+            });
+
+            _serviceProvider = services.BuildServiceProvider();
+
+            // Resolve API instances
+{{API_CONSTRUCTORS}}
+        }
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            _serviceProvider.Dispose();
+        }
+    }
+}
