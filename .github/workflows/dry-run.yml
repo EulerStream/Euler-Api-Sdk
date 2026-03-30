@@ -23,7 +23,17 @@ on:
         default: patch
 
 jobs:
+  check-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enforce master branch
+        if: github.ref != 'refs/heads/master'
+        run: |
+          echo "::error::Dry run must be triggered from the master branch, got ${{ github.ref }}"
+          exit 1
+
   generate:
+    needs: check-branch
     uses: ./.github/workflows/sdk-generate.yml
     with:
       typescript: ${{ inputs.typescript_bump != 'skip' }}

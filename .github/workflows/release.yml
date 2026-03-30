@@ -26,7 +26,17 @@ permissions:
   contents: write
 
 jobs:
+  check-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enforce releases branch
+        if: github.ref != 'refs/heads/releases'
+        run: |
+          echo "::error::Release must be triggered from the releases branch, got ${{ github.ref }}"
+          exit 1
+
   generate:
+    needs: check-branch
     uses: ./.github/workflows/sdk-generate.yml
     with:
       typescript: ${{ inputs.typescript_bump != 'skip' }}
