@@ -2,7 +2,7 @@
 
 Euler Stream Sign API
 - API version: dev
-  - Build date: 2026-03-29T21:34:16.839094-04:00[America/Toronto]
+  - Build date: 2026-03-29T23:40:32.915556-04:00[America/Toronto]
   - Generator version: 7.14.0
 
 Sign Server API Documentation
@@ -39,7 +39,7 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-  <groupId>com.eulerstream</groupId>
+  <groupId>io.github.isaackogan</groupId>
   <artifactId>euler-api-sdk</artifactId>
   <version>dev</version>
   <scope>compile</scope>
@@ -57,7 +57,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.eulerstream:euler-api-sdk:dev"
+     implementation "io.github.isaackogan:euler-api-sdk:dev"
   }
 ```
 
@@ -81,12 +81,12 @@ Please follow the [installation](#installation) instruction and execute the foll
 ```java
 
 // Import classes:
-import com.eulerstream.ApiClient;
-import com.eulerstream.ApiException;
-import com.eulerstream.Configuration;
-import com.eulerstream.auth.*;
-import com.eulerstream.model.*;
-import com.eulerstream.api.AccountsApi;
+import io.github.isaackogan.ApiClient;
+import io.github.isaackogan.ApiException;
+import io.github.isaackogan.Configuration;
+import io.github.isaackogan.auth.*;
+import io.github.isaackogan.model.*;
+import io.github.isaackogan.api.AccountsApi;
 
 public class Example {
   public static void main(String[] args) {

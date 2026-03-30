@@ -18,7 +18,7 @@ npx @openapitools/openapi-generator-cli generate \
   -i ./java-sdk/build/openapi.json \
   -g java \
   -o ./java-sdk/src/generated \
-  --additional-properties=groupId=com.eulerstream,artifactId=euler-api-sdk,apiPackage=com.eulerstream.api,modelPackage=com.eulerstream.model,invokerPackage=com.eulerstream
+  --additional-properties=groupId=io.github.isaackogan,artifactId=euler-api-sdk,apiPackage=io.github.isaackogan.api,modelPackage=io.github.isaackogan.model,invokerPackage=io.github.isaackogan
 
 # Render the client wrapper from template
 echo "Rendering EulerStreamApiClient.java from template..."

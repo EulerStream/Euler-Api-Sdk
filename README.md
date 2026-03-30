@@ -15,7 +15,7 @@ Official SDK libraries for the [EulerStream](https://www.eulerstream.com) TikTok
 | TypeScript | [`@eulerstream/euler-api-sdk`](https://www.npmjs.com/package/@eulerstream/euler-api-sdk) | `npm i @eulerstream/euler-api-sdk` |
 | Python | [`EulerApiSdk`](https://pypi.org/project/EulerApiSdk/) | `pip install EulerApiSdk` |
 | C# | [`EulerApiSdk`](https://www.nuget.org/packages/EulerApiSdk) | `dotnet add package EulerApiSdk` |
-| Java | [`com.eulerstream:euler-api-sdk`](https://central.sonatype.com/artifact/com.eulerstream/euler-api-sdk) | Maven / Gradle |
+| Java | [`io.github.isaackogan:euler-api-sdk`](https://central.sonatype.com/artifact/io.github.isaackogan/euler-api-sdk) | Maven / Gradle |
 | Go | [`github.com/EulerStream/Euler-Api-Sdk/go-sdk`](https://pkg.go.dev/github.com/EulerStream/Euler-Api-Sdk/go-sdk) | `go get github.com/EulerStream/Euler-Api-Sdk/go-sdk` |
 
 > [!TIP]

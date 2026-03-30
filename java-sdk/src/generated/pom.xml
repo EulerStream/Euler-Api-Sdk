@@ -1,32 +1,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.eulerstream</groupId>
+    <groupId>io.github.isaackogan</groupId>
     <artifactId>euler-api-sdk</artifactId>
     <packaging>jar</packaging>
     <name>euler-api-sdk</name>
     <version>dev</version>
-    <url>https://github.com/eulerstream/EulerApiSdk</url>
-    <description>Java SDK for the EulerStream TikTok LIVE API</description>
+    <url>https://github.com/openapitools/openapi-generator</url>
+    <description>OpenAPI Java</description>
     <scm>
-        <connection>scm:git:git@github.com:eulerstream/EulerApiSdk.git</connection>
-        <developerConnection>scm:git:git@github.com:eulerstream/EulerApiSdk.git</developerConnection>
-        <url>https://github.com/eulerstream/EulerApiSdk</url>
+        <connection>scm:git:git@github.com:openapitools/openapi-generator.git</connection>
+        <developerConnection>scm:git:git@github.com:openapitools/openapi-generator.git</developerConnection>
+        <url>https://github.com/openapitools/openapi-generator</url>
     </scm>
 
     <licenses>
         <license>
-            <name>MIT License</name>
-            <url>https://opensource.org/licenses/MIT</url>
+            <name>Unlicense</name>
+            <url>http://unlicense.org</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
 
     <developers>
         <developer>
-            <name>EulerStream</name>
-            <organization>EulerStream</organization>
-            <organizationUrl>https://eulerstream.com</organizationUrl>
+            <name>OpenAPI-Generator Contributors</name>
+            <email>team@openapitools.org</email>
+            <organization>OpenAPITools.org</organization>
+            <organizationUrl>http://openapitools.org</organizationUrl>
         </developer>
     </developers>
 

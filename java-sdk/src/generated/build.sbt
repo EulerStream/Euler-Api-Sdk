@@ -1,6 +1,6 @@
 lazy val root = (project in file(".")).
   settings(
-    organization := "com.eulerstream",
+    organization := "io.github.isaackogan",
     name := "euler-api-sdk",
     version := "dev",
     scalaVersion := "2.11.12",

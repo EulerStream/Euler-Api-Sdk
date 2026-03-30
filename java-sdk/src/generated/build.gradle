@@ -3,7 +3,7 @@ apply plugin: 'eclipse'
 apply plugin: 'java'
 apply plugin: 'com.diffplug.spotless'
 
-group = 'com.eulerstream'
+group = 'io.github.isaackogan'
 version = 'dev'
 
 buildscript {
