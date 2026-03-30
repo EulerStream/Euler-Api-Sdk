@@ -94,6 +94,12 @@ namespace EulerApiSdk
                     client.BaseAddress = new Uri(baseAddress ?? ClientUtils.BASE_ADDRESS);
                 });
 
+                // Register a default placeholder API key token so the DI container
+                // can always resolve TokenProvider<ApiKeyToken>.  When the caller
+                // supplies real tokens via the configure callback, the later
+                // registration wins (Microsoft DI last-wins semantics).
+                host.AddTokens(new ApiKeyToken("", ClientUtils.ApiKeyHeader.ApiKey, prefix: ""));
+
                 // Allow the caller to further configure (e.g. add tokens)
                 configure?.Invoke(host);
             });
