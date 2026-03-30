@@ -1,0 +1,9 @@
+{
+  "TikTokLIVEApi": "webcast",
+  "TikTokLIVEAlertsApi": "alerts",
+  "TikTokLIVEAlertTargetsApi": "alertTargets",
+  "TikTokLIVEModerationApi": "moderation",
+  "TikTokLIVEPremiumApi": "premium",
+  "TikTokCaptchasApi": "captchas",
+  "TikTokGeneralApi": "general"
+}
