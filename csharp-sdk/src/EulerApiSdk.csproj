@@ -21,11 +21,12 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Nullable>enable</Nullable>
     <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
 
-  <!-- Include all generated source files -->
+  <!-- Include all source files explicitly -->
   <ItemGroup>
-    <Compile Include="generated\src\EulerApiSdk\**\*.cs" />
+    <Compile Include="**\*.cs" />
   </ItemGroup>
 
   <ItemGroup>
