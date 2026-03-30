@@ -6,27 +6,47 @@ on:
       typescript_bump:
         description: 'TypeScript version bump — skip to not publish'
         type: choice
-        options: [skip, patch, minor, major]
+        options:
+          - skip
+          - patch
+          - minor
+          - major
         default: skip
       python_bump:
         description: 'Python version bump — skip to not publish'
         type: choice
-        options: [skip, patch, minor, major]
+        options:
+          - skip
+          - patch
+          - minor
+          - major
         default: skip
       csharp_bump:
         description: 'C# version bump — skip to not publish'
         type: choice
-        options: [skip, patch, minor, major]
+        options:
+          - skip
+          - patch
+          - minor
+          - major
         default: skip
       java_bump:
         description: 'Java version bump — skip to not publish'
         type: choice
-        options: [skip, patch, minor, major]
+        options:
+          - skip
+          - patch
+          - minor
+          - major
         default: skip
       go_bump:
         description: 'Go version bump — skip to not publish'
         type: choice
-        options: [skip, patch, minor, major]
+        options:
+          - skip
+          - patch
+          - minor
+          - major
         default: skip
 
 permissions:
