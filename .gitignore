@@ -1,12 +1,40 @@
+# Secrets & IDE
 .env
 .npmrc
 .idea
+.transfer-to-gh-secrets
+
+# Node
 node_modules
+openapitools.json
+
+# Build artifacts
 dist
 build
+
+# Python
 .venv
-openapitools.json
+__pycache__
+*.egg-info
+*.pyc
+
+# C#
+bin
+obj
+*.nupkg
+
+# Java
+target
+*.class
+*.jar
+
+# Go
+go-sdk/generated/go.mod
+go-sdk/generated/go.sum
+
+# Generated docs
 **/docs/**
+
+# Legacy
 test.py
 publish.sh
-.transfer-to-gh-secrets

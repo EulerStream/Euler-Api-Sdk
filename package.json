@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.25.2"
+    "@openapitools/openapi-generator-cli": "^2.25.2",
+    "@types/node": "^25.5.0"
   }
 }

@@ -6,20 +6,27 @@ on:
       typescript_bump:
         description: 'TypeScript version bump — skip to not generate'
         type: choice
-        options:
-          - skip
-          - patch
-          - minor
-          - major
+        options: [skip, patch, minor, major]
         default: patch
       python_bump:
         description: 'Python version bump — skip to not generate'
         type: choice
-        options:
-          - skip
-          - patch
-          - minor
-          - major
+        options: [skip, patch, minor, major]
+        default: patch
+      csharp_bump:
+        description: 'C# version bump — skip to not generate'
+        type: choice
+        options: [skip, patch, minor, major]
+        default: patch
+      java_bump:
+        description: 'Java version bump — skip to not generate'
+        type: choice
+        options: [skip, patch, minor, major]
+        default: patch
+      go_bump:
+        description: 'Go version bump — skip to not generate'
+        type: choice
+        options: [skip, patch, minor, major]
         default: patch
 
 jobs:
@@ -38,6 +45,9 @@ jobs:
     with:
       typescript: ${{ inputs.typescript_bump != 'skip' }}
       python: ${{ inputs.python_bump != 'skip' }}
+      csharp: ${{ inputs.csharp_bump != 'skip' }}
+      java: ${{ inputs.java_bump != 'skip' }}
+      go: ${{ inputs.go_bump != 'skip' }}
 
   preview-typescript:
     needs: generate
@@ -87,3 +97,63 @@ jobs:
           poetry version ${{ inputs.python_bump }}
           NEXT=$(poetry version -s)
           echo "### Python: $CURRENT → $NEXT" >> $GITHUB_STEP_SUMMARY
+
+  preview-csharp:
+    needs: generate
+    if: ${{ inputs.csharp_bump != 'skip' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: csharp-sdk
+          path: csharp-sdk
+
+      - name: Preview version bump
+        run: |
+          CURRENT=$(grep '<Version>' csharp-sdk/src/EulerApiSdk.csproj | sed 's/.*<Version>\(.*\)<\/Version>.*/\1/')
+          IFS='.' read -r MAJ MIN PAT <<< "$CURRENT"
+          case "${{ inputs.csharp_bump }}" in
+            patch) PAT=$((PAT+1)) ;;
+            minor) MIN=$((MIN+1)); PAT=0 ;;
+            major) MAJ=$((MAJ+1)); MIN=0; PAT=0 ;;
+          esac
+          NEXT="$MAJ.$MIN.$PAT"
+          echo "### C#: $CURRENT → $NEXT" >> $GITHUB_STEP_SUMMARY
+
+  preview-java:
+    needs: generate
+    if: ${{ inputs.java_bump != 'skip' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: java-sdk
+          path: java-sdk
+
+      - name: Preview version bump
+        run: |
+          CURRENT=$(grep -m1 '<version>' java-sdk/src/generated/pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/' | tr -d ' ')
+          IFS='.' read -r MAJ MIN PAT <<< "$CURRENT"
+          case "${{ inputs.java_bump }}" in
+            patch) PAT=$((PAT+1)) ;;
+            minor) MIN=$((MIN+1)); PAT=0 ;;
+            major) MAJ=$((MAJ+1)); MIN=0; PAT=0 ;;
+          esac
+          NEXT="$MAJ.$MIN.$PAT"
+          echo "### Java: $CURRENT → $NEXT" >> $GITHUB_STEP_SUMMARY
+
+  preview-go:
+    needs: generate
+    if: ${{ inputs.go_bump != 'skip' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: go-sdk
+          path: go-sdk
+
+      - name: Preview version
+        run: echo "### Go: published via git tag (no version file)" >> $GITHUB_STEP_SUMMARY

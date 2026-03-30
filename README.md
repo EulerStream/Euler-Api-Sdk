@@ -1,6 +1,6 @@
 # EulerStream API SDK
 
-Official SDK libraries for the [EulerStream](https://www.eulerstream.com) TikTok LIVE API, available in TypeScript and Python.
+Official SDK libraries for the [EulerStream](https://www.eulerstream.com) TikTok LIVE API.
 
 [![npm](https://img.shields.io/npm/dy/@eulerstream/euler-api-sdk?label=npm%20downloads)](https://www.npmjs.com/package/@eulerstream/euler-api-sdk)
 [![PyPI](https://img.shields.io/pypi/dm/EulerApiSdk?label=pypi%20downloads)](https://pypi.org/project/EulerApiSdk/)
@@ -14,6 +14,9 @@ Official SDK libraries for the [EulerStream](https://www.eulerstream.com) TikTok
 |----------|---------|---------|
 | TypeScript | [`@eulerstream/euler-api-sdk`](https://www.npmjs.com/package/@eulerstream/euler-api-sdk) | `npm i @eulerstream/euler-api-sdk` |
 | Python | [`EulerApiSdk`](https://pypi.org/project/EulerApiSdk/) | `pip install EulerApiSdk` |
+| C# | [`EulerApiSdk`](https://www.nuget.org/packages/EulerApiSdk) | `dotnet add package EulerApiSdk` |
+| Java | [`com.eulerstream:euler-api-sdk`](https://central.sonatype.com/artifact/com.eulerstream/euler-api-sdk) | Maven / Gradle |
+| Go | [`github.com/EulerStream/Euler-Api-Sdk/go-sdk`](https://pkg.go.dev/github.com/EulerStream/Euler-Api-Sdk/go-sdk) | `go get github.com/EulerStream/Euler-Api-Sdk/go-sdk` |
 
 > [!TIP]
 > Full API documentation and the interactive OpenAPI spec are available at [eulerstream.com/docs/openapi](https://www.eulerstream.com/docs/openapi).
@@ -49,6 +52,9 @@ with client as c:
 > See the full SDK documentation for each language:
 > - [TypeScript SDK](./typescript-sdk/README.md)
 > - [Python SDK](./python-sdk/README.md)
+> - [C# SDK](./csharp-sdk/)
+> - [Java SDK](./java-sdk/)
+> - [Go SDK](./go-sdk/)
 
 ## CI / Release Pipeline
 
@@ -57,7 +63,7 @@ SDKs are auto-generated from the [EulerStream OpenAPI spec](https://www.eulerstr
 | Workflow | Purpose |
 |----------|---------|
 | **Dry Run** | Generate & build SDKs without publishing (validation only) |
-| **Release** | Generate, version, and publish to npm / PyPI |
+| **Release** | Generate, version, and publish to npm / PyPI / NuGet / Maven Central / Go tags |
 
 > [!IMPORTANT]
 > Releases are triggered manually via the GitHub Actions **"Run workflow"** button — no automatic publishing on push.
