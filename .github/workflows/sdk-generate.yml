@@ -18,6 +18,11 @@ on:
       go:
         type: boolean
         default: false
+    secrets:
+      R2_ACCESS_KEY_ID:
+        required: false
+      R2_SECRET_ACCESS_KEY:
+        required: false
 
 jobs:
   generate-typescript:
@@ -37,31 +42,31 @@ jobs:
         run: pnpm install
 
       - name: Download spec & generate
-        working-directory: typescript-sdk
+        working-directory: sdk/typescript
         run: |
           mkdir -p build
           wget -O ./build/openapi.json https://tiktok.eulerstream.com/dashboard/openapi
           npx openapi-generator-cli generate -i ./build/openapi.json -g typescript-axios -o ./src/sdk
 
       - name: Render client template
-        working-directory: typescript-sdk
+        working-directory: sdk/typescript
         run: |
           pnpm install
-          npx tsx ./render-template.ts
+          npx tsx ./scripts/render-template.ts
 
       - name: Build
-        working-directory: typescript-sdk
+        working-directory: sdk/typescript
         run: pnpm run build
 
       - name: Test
-        working-directory: typescript-sdk
+        working-directory: sdk/typescript
         run: pnpm test
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: typescript-sdk
-          path: typescript-sdk
+          name: sdk-typescript
+          path: sdk/typescript
 
   generate-python:
     if: ${{ inputs.python }}
@@ -77,7 +82,7 @@ jobs:
         run: pip install openapi-python-client poetry
 
       - name: Generate Python SDK
-        working-directory: python-sdk
+        working-directory: sdk/python
         run: |
           openapi-python-client generate \
             --url https://tiktok.eulerstream.com/dashboard/openapi \
@@ -86,18 +91,18 @@ jobs:
             --config config.yaml
 
       - name: Build
-        working-directory: python-sdk
+        working-directory: sdk/python
         run: poetry build
 
       - name: Test
-        working-directory: python-sdk
-        run: python tests/test_basic.py
+        working-directory: sdk/python
+        run: python test/test_basic.py
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: python-sdk
-          path: python-sdk
+          name: sdk-python
+          path: sdk/python
 
   generate-csharp:
     if: ${{ inputs.csharp }}
@@ -117,7 +122,7 @@ jobs:
         run: npm install -g pnpm && pnpm install
 
       - name: Download spec & generate
-        working-directory: csharp-sdk
+        working-directory: sdk/csharp
         run: |
           mkdir -p build
           wget -O ./build/openapi.json https://tiktok.eulerstream.com/dashboard/openapi
@@ -126,26 +131,26 @@ jobs:
             --additional-properties=packageName=EulerApiSdk,targetFramework=net8.0,nullableReferenceTypes=true
 
       - name: Fix enum conflicts
-        working-directory: csharp-sdk
-        run: npx tsx ./fix-enum-conflicts.ts
+        working-directory: sdk/csharp
+        run: npx tsx ./scripts/fix-enum-conflicts.ts
 
       - name: Render client template
-        working-directory: csharp-sdk
-        run: npx tsx ./render-template.ts
+        working-directory: sdk/csharp
+        run: npx tsx ./scripts/render-template.ts
 
       - name: Build
-        working-directory: csharp-sdk/src
+        working-directory: sdk/csharp/src
         run: dotnet build -c Release
 
       - name: Test
-        working-directory: csharp-sdk/tests
+        working-directory: sdk/csharp/test
         run: dotnet test
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: csharp-sdk
-          path: csharp-sdk
+          name: sdk-csharp
+          path: sdk/csharp
 
   generate-java:
     if: ${{ inputs.java }}
@@ -166,7 +171,7 @@ jobs:
         run: npm install -g pnpm && pnpm install
 
       - name: Download spec & generate
-        working-directory: java-sdk
+        working-directory: sdk/java
         run: |
           mkdir -p build
           wget -O ./build/openapi.json https://tiktok.eulerstream.com/dashboard/openapi
@@ -175,22 +180,22 @@ jobs:
             --additional-properties=groupId=io.github.isaackogan,artifactId=euler-api-sdk,apiPackage=io.github.isaackogan.api,modelPackage=io.github.isaackogan.model,invokerPackage=io.github.isaackogan
 
       - name: Render client template
-        working-directory: java-sdk
-        run: npx tsx ./render-template.ts
+        working-directory: sdk/java
+        run: npx tsx ./scripts/render-template.ts
 
       - name: Build
-        working-directory: java-sdk/src/generated
+        working-directory: sdk/java/src/generated
         run: mvn package -DskipTests
 
       - name: Test
-        working-directory: java-sdk/src/generated
+        working-directory: sdk/java/src/generated
         run: mvn test
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: java-sdk
-          path: java-sdk
+          name: sdk-java
+          path: sdk/java
 
   generate-go:
     if: ${{ inputs.go }}
@@ -210,31 +215,124 @@ jobs:
         run: npm install -g pnpm && pnpm install
 
       - name: Download spec & generate
-        working-directory: go-sdk
+        working-directory: sdk/go
         run: |
           mkdir -p build
           wget -O ./build/openapi.json https://tiktok.eulerstream.com/dashboard/openapi
           npx @openapitools/openapi-generator-cli generate \
             -i ./build/openapi.json -g go -o ./generated \
-            --additional-properties=packageName=eulerapi,moduleName=github.com/EulerStream/Euler-Api-Sdk/go-sdk
+            --additional-properties=packageName=eulerapi,moduleName=github.com/EulerStream/Euler-Api-Sdk/sdk/go
           rm -f ./generated/go.mod ./generated/go.sum
 
       - name: Fix enum constant conflicts
-        run: npx tsx ./go-sdk/fix-enum-conflicts.ts
+        run: npx tsx ./sdk/go/scripts/fix-enum-conflicts.ts
 
       - name: Render client template
-        run: npx tsx ./go-sdk/render-template.ts
+        run: npx tsx ./sdk/go/scripts/render-template.ts
 
       - name: Build
-        working-directory: go-sdk
+        working-directory: sdk/go
         run: go build ./...
 
       - name: Test
-        working-directory: go-sdk
+        working-directory: sdk/go
         run: go test ./... -v
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: go-sdk
-          path: go-sdk
+          name: sdk-go
+          path: sdk/go
+
+  extract-examples:
+    if: always()
+    needs: [generate-typescript, generate-python, generate-csharp, generate-java, generate-go]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install root dependencies
+        run: pnpm install
+
+      - name: Download spec
+        run: |
+          mkdir -p build
+          wget -O ./build/openapi.json https://tiktok.eulerstream.com/dashboard/openapi
+
+      - name: Download TypeScript artifact
+        if: needs.generate-typescript.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: sdk-typescript
+          path: sdk/typescript
+
+      - name: Download Python artifact
+        if: needs.generate-python.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: sdk-python
+          path: sdk/python
+
+      - name: Download C# artifact
+        if: needs.generate-csharp.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: sdk-csharp
+          path: sdk/csharp
+
+      - name: Download Java artifact
+        if: needs.generate-java.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: sdk-java
+          path: sdk/java
+
+      - name: Download Go artifact
+        if: needs.generate-go.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: sdk-go
+          path: sdk/go
+
+      - name: Collect docs into sdk-examples/docs
+        run: |
+          mkdir -p sdk-examples/docs
+          [ -d sdk/typescript/src/sdk/docs ] && cp -r sdk/typescript/src/sdk/docs sdk-examples/docs/typescript || true
+          [ -d sdk/java/src/generated/docs ] && cp -r sdk/java/src/generated/docs sdk-examples/docs/java || true
+          [ -d sdk/go/generated/docs ] && cp -r sdk/go/generated/docs sdk-examples/docs/go || true
+          [ -d sdk/csharp/src/generated/docs/apis ] && cp -r sdk/csharp/src/generated/docs/apis sdk-examples/docs/csharp || true
+          [ -d sdk/python/EulerApiSdk/api ] && cp -r sdk/python/EulerApiSdk/api sdk-examples/docs/python || true
+          echo "Collected docs:"
+          ls -la sdk-examples/docs/
+
+      - name: Run extract
+        working-directory: sdk-examples
+        run: npx tsx extract.ts
+
+      - name: Upload examples artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sdk-examples-output
+          path: sdk-examples/output/
+
+      - name: Upload examples to R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+        run: |
+          pip install awscli
+          for f in sdk-examples/output/*.json; do
+            slug=$(basename "$f" .json)
+            aws s3 cp "$f" "s3://eulerstream-web/sdk-examples/${slug}.json" \
+              --endpoint-url https://f00699f0017e82344b8bed18c38dab38.r2.cloudflarestorage.com \
+              --content-type application/json
+            echo "Uploaded sdk-examples/${slug}.json"
+          done

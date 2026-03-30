@@ -20,11 +20,11 @@ jobs:
         run: npm install -g pnpm
 
       - name: Install dependencies
-        working-directory: typescript-sdk
+        working-directory: sdk/typescript
         run: pnpm install
 
       - name: Run tests
-        working-directory: typescript-sdk
+        working-directory: sdk/typescript
         run: |
           pnpm test
           npx tsx ./test/e2e.test.ts
@@ -39,14 +39,14 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        working-directory: python-sdk
+        working-directory: sdk/python
         run: pip install httpx attrs python-dateutil
 
       - name: Run tests
-        working-directory: python-sdk
+        working-directory: sdk/python
         run: |
-          python tests/test_basic.py
-          python tests/test_e2e.py
+          python test/test_basic.py
+          python test/test_e2e.py
 
   test-csharp:
     runs-on: ubuntu-latest
@@ -58,7 +58,7 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Run tests
-        working-directory: csharp-sdk/tests
+        working-directory: sdk/csharp/test
         run: dotnet test
 
   test-java:
@@ -72,7 +72,7 @@ jobs:
           java-version: '17'
 
       - name: Run tests
-        working-directory: java-sdk/src/generated
+        working-directory: sdk/java/src/generated
         run: mvn test
 
   test-go:
@@ -92,8 +92,8 @@ jobs:
         run: npm install -g pnpm && pnpm install
 
       - name: Run fix script tests
-        run: npx tsx ./go-sdk/fix-enum-conflicts.test.ts
+        run: npx tsx sdk/go/test/fix-enum-conflicts.test.ts
 
       - name: Run SDK tests
-        working-directory: go-sdk
+        working-directory: sdk/go
         run: go test ./... -v
