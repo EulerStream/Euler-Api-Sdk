@@ -6,7 +6,6 @@
 
 # Node
 node_modules
-openapitools.json
 
 # Build artifacts
 dist
