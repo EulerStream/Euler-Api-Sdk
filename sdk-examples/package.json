@@ -1,0 +1,8 @@
+{
+  "name": "@eulerstream/sdk-examples",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "build": "tsx extract.ts"
+  }
+}
