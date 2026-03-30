@@ -125,6 +125,10 @@ jobs:
             -i ./build/openapi.json -g csharp -o ./src/generated \
             --additional-properties=packageName=EulerApiSdk,targetFramework=net8.0,nullableReferenceTypes=true
 
+      - name: Fix enum conflicts
+        working-directory: csharp-sdk
+        run: npx tsx ./fix-enum-conflicts.ts
+
       - name: Render client template
         working-directory: csharp-sdk
         run: npx tsx ./render-template.ts

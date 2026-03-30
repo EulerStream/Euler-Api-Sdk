@@ -28,8 +28,7 @@ namespace EulerApiSdk.Model
     /// <summary>
     /// Defines AccountScopes
     /// </summary>
-    public enum AccountScopes
-    {
+    public enum AccountScopes {
         /// <summary>
         /// Enum _1 for value: -1
         /// </summary>
@@ -73,7 +72,7 @@ namespace EulerApiSdk.Model
         /// <summary>
         /// Enum _12 for value: 12
         /// </summary>
-        _12 = 9,
+        _12_v2 = 9,
 
         /// <summary>
         /// Enum _13 for value: 13
