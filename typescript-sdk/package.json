@@ -11,7 +11,7 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "test": "tsx ./test/test.ts",
+    "test": "tsx ./test/basic.test.ts",
     "format": "prettier --write src/**/*.js",
     "build": "tsc && tsc-alias"
   },
