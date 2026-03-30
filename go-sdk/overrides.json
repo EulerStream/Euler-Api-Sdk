@@ -1,0 +1,12 @@
+{
+  "TikTokLIVEAPI": "Webcast",
+  "TikTokLIVEAlertsAPI": "Alerts",
+  "TikTokLIVEAlertTargetsAPI": "AlertTargets",
+  "TikTokLIVEModerationAPI": "Moderation",
+  "TikTokLIVEPremiumAPI": "Premium",
+  "TikTokCaptchasAPI": "Captchas",
+  "TikTokGeneralAPI": "General",
+  "AccountsAPI": "Accounts",
+  "AnalyticsAPI": "Analytics",
+  "AuthenticationAPI": "Authentication"
+}
