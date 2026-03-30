@@ -4,7 +4,7 @@ import * as assert from 'assert';
 import { execSync } from 'child_process';
 
 const TEST_DIR: string = path.resolve(__dirname, '.test-fixtures');
-const SCRIPT: string = path.resolve(__dirname, 'fix-enum-conflicts.ts');
+const SCRIPT: string = path.resolve(__dirname, '..', 'scripts', 'fix-enum-conflicts.ts');
 
 function setup(): void {
     fs.mkdirSync(TEST_DIR, { recursive: true });

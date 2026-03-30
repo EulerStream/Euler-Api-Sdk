@@ -323,7 +323,6 @@ jobs:
           path: sdk-examples/output/
 
       - name: Upload examples to R2
-        if: secrets.R2_ACCESS_KEY_ID != ''
         continue-on-error: true
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
