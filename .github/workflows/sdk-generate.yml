@@ -144,7 +144,7 @@ jobs:
 
       - name: Test
         working-directory: sdk/csharp/test
-        run: dotnet test
+        run: dotnet test -c Release
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
