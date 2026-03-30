@@ -25,7 +25,9 @@ jobs:
 
       - name: Run tests
         working-directory: typescript-sdk
-        run: pnpm test
+        run: |
+          pnpm test
+          npx tsx ./test/e2e.test.ts
 
   test-python:
     runs-on: ubuntu-latest
@@ -42,7 +44,9 @@ jobs:
 
       - name: Run tests
         working-directory: python-sdk
-        run: python tests/test_basic.py
+        run: |
+          python tests/test_basic.py
+          python tests/test_e2e.py
 
   test-csharp:
     runs-on: ubuntu-latest

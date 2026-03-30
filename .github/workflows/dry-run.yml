@@ -176,4 +176,5 @@ jobs:
           path: go-sdk
 
       - name: Preview version
-        run: echo "### Go: published via git tag (no version file)" >> $GITHUB_STEP_SUMMARY
+        run: |
+          echo "### Go: published via git tag (no version file)" >> $GITHUB_STEP_SUMMARY
