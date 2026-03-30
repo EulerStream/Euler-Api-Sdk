@@ -24,9 +24,9 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
 
-  <!-- Include all source files explicitly -->
+  <!-- Include all source files explicitly, excluding generated test stubs -->
   <ItemGroup>
-    <Compile Include="**\*.cs" />
+    <Compile Include="**\*.cs" Exclude="generated\src\EulerApiSdk.Test\**\*.cs" />
   </ItemGroup>
 
   <ItemGroup>

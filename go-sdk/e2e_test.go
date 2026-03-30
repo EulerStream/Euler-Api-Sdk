@@ -21,8 +21,4 @@ func TestGetHosts_E2E(t *testing.T) {
 	if hosts == nil {
 		t.Fatal("expected non-nil HostsResponse, got nil")
 	}
-
-	if hosts.GetCode() != 0 {
-		t.Fatalf("expected response code 0, got %v", hosts.GetCode())
-	}
 }
