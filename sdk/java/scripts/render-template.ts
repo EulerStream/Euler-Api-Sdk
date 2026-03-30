@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-const SDK_API_DIR = path.resolve(__dirname, 'src/generated/src/main/java/io/github/isaackogan/api');
-const TEMPLATE_PATH = path.resolve(__dirname, 'src/EulerStreamApiClient.java.template');
-const OUTPUT_PATH = path.resolve(__dirname, 'src/generated/src/main/java/io/github/isaackogan/EulerStreamApiClient.java');
-const OVERRIDES_PATH = path.resolve(__dirname, 'overrides.json');
+const SDK_API_DIR = path.resolve(__dirname, '..', 'src/generated/src/main/java/io/github/isaackogan/api');
+const TEMPLATE_PATH = path.resolve(__dirname, '..', 'src/EulerStreamApiClient.java.template');
+const OUTPUT_PATH = path.resolve(__dirname, '..', 'src/generated/src/main/java/io/github/isaackogan/EulerStreamApiClient.java');
+const OVERRIDES_PATH = path.resolve(__dirname, '..', 'overrides.json');
 
 // Discover all *Api classes from generated SDK directory
 const apiFiles = fs.readdirSync(SDK_API_DIR)

@@ -3,7 +3,7 @@ End-to-end tests for the EulerApiSdk Python SDK.
 
 Makes real HTTP calls against the live API.
 
-Run with: python tests/test_e2e.py
+Run with: python test/test_e2e.py
 """
 
 import sys

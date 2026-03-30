@@ -29,12 +29,14 @@ target
 *.jar
 
 # Go
-go-sdk/generated/go.mod
-go-sdk/generated/go.sum
+sdk/go/generated/go.mod
+sdk/go/generated/go.sum
 
-# Generated docs
+# Generated docs (but keep sdk-examples output)
 **/docs/**
+!sdk-examples/output/**
 
 # Legacy
 test.py
 publish.sh
+.turbo

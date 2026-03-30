@@ -1,7 +1,7 @@
 """
 Basic tests for the EulerApiSdk Python SDK.
 
-Run with: python tests/test_basic.py
+Run with: python test/test_basic.py
 """
 
 import sys

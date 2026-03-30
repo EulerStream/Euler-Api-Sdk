@@ -1,9 +1,18 @@
 {
-  "name": "@eulerstream/base",
+  "name": "@eulerstream/monorepo",
   "private": true,
   "version": "0.0.1",
+  "scripts": {
+    "generate": "turbo run generate",
+    "build": "turbo run build",
+    "build:examples": "turbo run build --filter=@eulerstream/sdk-examples",
+    "test": "turbo run test"
+  },
+  "packageManager": "pnpm@10.26.0",
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.25.2",
-    "@types/node": "^25.5.0"
+    "@types/node": "^25.5.0",
+    "tsx": "^4.19.0",
+    "turbo": "^2.5.0"
   }
 }

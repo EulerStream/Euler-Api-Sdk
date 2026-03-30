@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-const SDK_API_DIR = path.resolve(__dirname, 'src/generated/src/EulerApiSdk/Api');
-const TEMPLATE_PATH = path.resolve(__dirname, 'src/EulerStreamApiClient.cs.template');
-const OUTPUT_PATH = path.resolve(__dirname, 'src/generated/src/EulerApiSdk/EulerStreamApiClient.cs');
-const OVERRIDES_PATH = path.resolve(__dirname, 'overrides.json');
+const SDK_API_DIR = path.resolve(__dirname, '..', 'src/generated/src/EulerApiSdk/Api');
+const TEMPLATE_PATH = path.resolve(__dirname, '..', 'src/EulerStreamApiClient.cs.template');
+const OUTPUT_PATH = path.resolve(__dirname, '..', 'src/generated/src/EulerApiSdk/EulerStreamApiClient.cs');
+const OVERRIDES_PATH = path.resolve(__dirname, '..', 'overrides.json');
 
 // Discover all *Api classes from generated SDK directory
 // Each file in the Api folder that matches *Api.cs (excluding IApi.cs) contains an API class

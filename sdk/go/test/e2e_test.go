@@ -1,13 +1,15 @@
-package eulerstream
+package eulerstream_test
 
 import (
 	"context"
 	"net/http"
 	"testing"
+
+	eulerstream "github.com/EulerStream/Euler-Api-Sdk/sdk/go"
 )
 
 func TestGetHosts_E2E(t *testing.T) {
-	client := NewEulerStreamClient()
+	client := eulerstream.NewEulerStreamClient()
 
 	hosts, httpResp, err := client.Analytics.GetHosts(context.Background()).Execute()
 	if err != nil {

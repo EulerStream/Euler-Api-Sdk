@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-const SDK_API_PATH = path.resolve(__dirname, 'src/sdk/api.ts');
-const TEMPLATE_PATH = path.resolve(__dirname, 'src/index.ts.template');
-const OUTPUT_PATH = path.resolve(__dirname, 'src/index.ts');
-const OVERRIDES_PATH = path.resolve(__dirname, 'overrides.json');
+const SDK_API_PATH = path.resolve(__dirname, '..', 'src/sdk/api.ts');
+const TEMPLATE_PATH = path.resolve(__dirname, '..', 'src/index.ts.template');
+const OUTPUT_PATH = path.resolve(__dirname, '..', 'src/index.ts');
+const OVERRIDES_PATH = path.resolve(__dirname, '..', 'overrides.json');
 
 // Discover all *Api classes from generated SDK
 const apiSource = fs.readFileSync(SDK_API_PATH, 'utf-8');

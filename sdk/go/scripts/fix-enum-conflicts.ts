@@ -12,7 +12,7 @@ import * as path from 'path';
  *   After:   ACCOUNT_SCOPES_0 AccountScopes = 0
  */
 
-const GENERATED_DIR: string = process.argv[2] || path.resolve(__dirname, 'generated');
+const GENERATED_DIR: string = process.argv[2] || path.resolve(__dirname, '..', 'generated');
 
 // Convert PascalCase type name to SCREAMING_SNAKE_CASE prefix
 function toPrefix(typeName: string): string {

@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-const GENERATED_DIR: string = path.resolve(__dirname, 'generated');
-const TEMPLATE_PATH: string = path.resolve(__dirname, 'client.go.template');
-const OUTPUT_PATH: string = path.resolve(__dirname, 'client.go');
-const OVERRIDES_PATH: string = path.resolve(__dirname, 'overrides.json');
+const GENERATED_DIR: string = path.resolve(__dirname, '..', 'generated');
+const TEMPLATE_PATH: string = path.resolve(__dirname, '..', 'client.go.template');
+const OUTPUT_PATH: string = path.resolve(__dirname, '..', 'client.go');
+const OVERRIDES_PATH: string = path.resolve(__dirname, '..', 'overrides.json');
 
 // Discover all *APIService types from generated Go files
 const apiFiles: string[] = fs.readdirSync(GENERATED_DIR).filter((f: string) => f.startsWith('api_') && f.endsWith('.go'));

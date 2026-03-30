@@ -10,7 +10,7 @@ import * as path from 'path';
  */
 
 const MODEL_DIR: string = process.argv[2] ||
-    path.resolve(__dirname, 'src/generated/src/EulerApiSdk/Model');
+    path.resolve(__dirname, '..', 'src/generated/src/EulerApiSdk/Model');
 
 // Match a C# enum block
 const enumBlockRegex = /public enum (\w+)\s*\{([\s\S]*?)\}/g;
