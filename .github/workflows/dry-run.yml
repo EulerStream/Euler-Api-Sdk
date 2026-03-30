@@ -3,18 +3,77 @@ name: "Dry Run: Generate SDKs"
 on:
   workflow_dispatch:
     inputs:
-      typescript:
-        description: 'Generate TypeScript SDK'
-        type: boolean
-        default: true
-      python:
-        description: 'Generate Python SDK'
-        type: boolean
-        default: true
+      typescript_bump:
+        description: 'TypeScript version bump — skip to not generate'
+        type: choice
+        options:
+          - skip
+          - patch
+          - minor
+          - major
+        default: patch
+      python_bump:
+        description: 'Python version bump — skip to not generate'
+        type: choice
+        options:
+          - skip
+          - patch
+          - minor
+          - major
+        default: patch
 
 jobs:
   generate:
     uses: ./.github/workflows/sdk-generate.yml
     with:
-      typescript: ${{ inputs.typescript }}
-      python: ${{ inputs.python }}
+      typescript: ${{ inputs.typescript_bump != 'skip' }}
+      python: ${{ inputs.python_bump != 'skip' }}
+
+  preview-typescript:
+    needs: generate
+    if: ${{ inputs.typescript_bump != 'skip' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: typescript-sdk
+          path: typescript-sdk
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Preview version bump
+        working-directory: typescript-sdk
+        run: |
+          CURRENT=$(node -p "require('./package.json').version")
+          npm version ${{ inputs.typescript_bump }} --no-git-tag-version
+          NEXT=$(node -p "require('./package.json').version")
+          echo "### TypeScript: $CURRENT → $NEXT" >> $GITHUB_STEP_SUMMARY
+
+  preview-python:
+    needs: generate
+    if: ${{ inputs.python_bump != 'skip' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: python-sdk
+          path: python-sdk
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install poetry
+        run: pip install poetry
+
+      - name: Preview version bump
+        working-directory: python-sdk
+        run: |
+          CURRENT=$(poetry version -s)
+          poetry version ${{ inputs.python_bump }}
+          NEXT=$(poetry version -s)
+          echo "### Python: $CURRENT → $NEXT" >> $GITHUB_STEP_SUMMARY

@@ -3,25 +3,38 @@ name: "Release: Generate & Publish SDKs"
 on:
   workflow_dispatch:
     inputs:
-      typescript_version:
-        description: 'TypeScript SDK version (e.g. 0.2.0) — leave empty to skip'
-        required: false
-        default: ''
-      python_version:
-        description: 'Python SDK version (e.g. 0.0.4) — leave empty to skip'
-        required: false
-        default: ''
+      typescript_bump:
+        description: 'TypeScript version bump — skip to not publish'
+        type: choice
+        options:
+          - skip
+          - patch
+          - minor
+          - major
+        default: skip
+      python_bump:
+        description: 'Python version bump — skip to not publish'
+        type: choice
+        options:
+          - skip
+          - patch
+          - minor
+          - major
+        default: skip
+
+permissions:
+  contents: write
 
 jobs:
   generate:
     uses: ./.github/workflows/sdk-generate.yml
     with:
-      typescript: ${{ inputs.typescript_version != '' }}
-      python: ${{ inputs.python_version != '' }}
+      typescript: ${{ inputs.typescript_bump != 'skip' }}
+      python: ${{ inputs.python_bump != 'skip' }}
 
   publish-typescript:
     needs: generate
-    if: ${{ inputs.typescript_version != '' }}
+    if: ${{ inputs.typescript_bump != 'skip' }}
     runs-on: ubuntu-latest
     steps:
       - name: Download build artifact
@@ -37,9 +50,9 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Set version
+      - name: Bump version
         working-directory: typescript-sdk
-        run: npm version ${{ inputs.typescript_version }} --no-git-tag-version
+        run: npm version ${{ inputs.typescript_bump }} --no-git-tag-version
 
       - name: Publish to npm
         working-directory: typescript-sdk
@@ -47,9 +60,15 @@ jobs:
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
           pnpm publish --no-git-checks --access public --registry https://registry.npmjs.org/
 
+      - name: Upload version file
+        uses: actions/upload-artifact@v4
+        with:
+          name: typescript-version
+          path: typescript-sdk/package.json
+
   publish-python:
     needs: generate
-    if: ${{ inputs.python_version != '' }}
+    if: ${{ inputs.python_bump != 'skip' }}
     runs-on: ubuntu-latest
     steps:
       - name: Download build artifact
@@ -65,12 +84,48 @@ jobs:
       - name: Install poetry
         run: pip install poetry
 
-      - name: Set version
+      - name: Bump version
         working-directory: python-sdk
-        run: poetry version ${{ inputs.python_version }}
+        run: poetry version ${{ inputs.python_bump }}
 
       - name: Publish to PyPI
         working-directory: python-sdk
         run: |
           poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
           poetry publish --build
+
+      - name: Upload version file
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-version
+          path: python-sdk/pyproject.toml
+
+  commit-versions:
+    needs: [publish-typescript, publish-python]
+    if: always() && (needs.publish-typescript.result == 'success' || needs.publish-python.result == 'success')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download TypeScript version
+        if: needs.publish-typescript.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: typescript-version
+          path: typescript-sdk
+
+      - name: Download Python version
+        if: needs.publish-python.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: python-version
+          path: python-sdk
+
+      - name: Commit version bumps
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add typescript-sdk/package.json python-sdk/pyproject.toml
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: bump SDK versions [skip ci]"
+          git push
