@@ -213,18 +213,21 @@ jobs:
           npx @openapitools/openapi-generator-cli generate \
             -i ./build/openapi.json -g go -o ./generated \
             --additional-properties=packageName=eulerapi,moduleName=github.com/EulerStream/Euler-Api-Sdk/go-sdk
+          rm -f ./generated/go.mod ./generated/go.sum
+
+      - name: Fix enum constant conflicts
+        run: npx tsx ./go-sdk/fix-enum-conflicts.ts
 
       - name: Render client template
-        working-directory: go-sdk
-        run: npx tsx ./render-template.ts
+        run: npx tsx ./go-sdk/render-template.ts
 
-      - name: Build (wrapper only)
+      - name: Build
         working-directory: go-sdk
-        run: go vet ./client.go || echo "Go SDK build skipped — generated enum conflicts (known upstream issue)"
+        run: go build ./...
 
-      - name: Test (wrapper only)
+      - name: Test
         working-directory: go-sdk
-        run: echo "Go SDK tests skipped — generated code has enum constant conflicts, pending upstream fix"
+        run: go test ./... -v
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4

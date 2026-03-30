@@ -20,15 +20,15 @@ type TikTokSignLiveClient string
 
 // List of TikTokSignLiveClient
 const (
-	TTLIVE_JAVA TikTokSignLiveClient = "ttlive-java"
-	TTLIVE_NODE TikTokSignLiveClient = "ttlive-node"
-	TTLIVE_PYTHON TikTokSignLiveClient = "ttlive-python"
-	TTLIVE_NET TikTokSignLiveClient = "ttlive-net"
-	TTLIVE_RUST TikTokSignLiveClient = "ttlive-rust"
-	GOTIKTOK_LIVE TikTokSignLiveClient = "gotiktok_live"
-	TTLIVE_CLOUDFLARE TikTokSignLiveClient = "ttlive-cloudflare"
-	TTLIVE_OTHER TikTokSignLiveClient = "ttlive-other"
-	INTERNAL TikTokSignLiveClient = "internal"
+	TIK_TOK_SIGN_LIVE_CLIENT_TTLIVE_JAVA TikTokSignLiveClient = "ttlive-java"
+	TIK_TOK_SIGN_LIVE_CLIENT_TTLIVE_NODE TikTokSignLiveClient = "ttlive-node"
+	TIK_TOK_SIGN_LIVE_CLIENT_TTLIVE_PYTHON TikTokSignLiveClient = "ttlive-python"
+	TIK_TOK_SIGN_LIVE_CLIENT_TTLIVE_NET TikTokSignLiveClient = "ttlive-net"
+	TIK_TOK_SIGN_LIVE_CLIENT_TTLIVE_RUST TikTokSignLiveClient = "ttlive-rust"
+	TIK_TOK_SIGN_LIVE_CLIENT_GOTIKTOK_LIVE TikTokSignLiveClient = "gotiktok_live"
+	TIK_TOK_SIGN_LIVE_CLIENT_TTLIVE_CLOUDFLARE TikTokSignLiveClient = "ttlive-cloudflare"
+	TIK_TOK_SIGN_LIVE_CLIENT_TTLIVE_OTHER TikTokSignLiveClient = "ttlive-other"
+	TIK_TOK_SIGN_LIVE_CLIENT_INTERNAL TikTokSignLiveClient = "internal"
 )
 
 // All allowed values of TikTokSignLiveClient enum

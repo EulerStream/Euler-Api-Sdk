@@ -20,10 +20,10 @@ type StreamType string
 
 // List of StreamType
 const (
-	HLS_LD StreamType = "hls_ld"
-	HLS_SD StreamType = "hls_sd"
-	FLV_LD StreamType = "flv_ld"
-	FLV_SD StreamType = "flv_sd"
+	STREAM_TYPE_HLS_LD StreamType = "hls_ld"
+	STREAM_TYPE_HLS_SD StreamType = "hls_sd"
+	STREAM_TYPE_FLV_LD StreamType = "flv_ld"
+	STREAM_TYPE_FLV_SD StreamType = "flv_sd"
 )
 
 // All allowed values of StreamType enum

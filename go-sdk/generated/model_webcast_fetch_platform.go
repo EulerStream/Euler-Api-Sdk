@@ -20,8 +20,8 @@ type WebcastFetchPlatform string
 
 // List of WebcastFetchPlatform
 const (
-	MOBILE WebcastFetchPlatform = "mobile"
-	WEB WebcastFetchPlatform = "web"
+	WEBCAST_FETCH_PLATFORM_MOBILE WebcastFetchPlatform = "mobile"
+	WEBCAST_FETCH_PLATFORM_WEB WebcastFetchPlatform = "web"
 )
 
 // All allowed values of WebcastFetchPlatform enum

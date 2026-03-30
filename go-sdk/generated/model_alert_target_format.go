@@ -20,7 +20,7 @@ type AlertTargetFormat float32
 
 // List of AlertTargetFormat
 const (
-	_1 AlertTargetFormat = 1
+	ALERT_TARGET_FORMAT_1 AlertTargetFormat = 1
 )
 
 // All allowed values of AlertTargetFormat enum

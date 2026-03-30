@@ -20,7 +20,7 @@ type WebcastUserEarningsOutputPeriod string
 
 // List of WebcastUserEarningsOutputPeriod
 const (
-	DAILY WebcastUserEarningsOutputPeriod = "daily"
+	WEBCAST_USER_EARNINGS_OUTPUT_PERIOD_DAILY WebcastUserEarningsOutputPeriod = "daily"
 )
 
 // All allowed values of WebcastUserEarningsOutputPeriod enum

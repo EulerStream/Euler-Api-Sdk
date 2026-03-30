@@ -20,18 +20,18 @@ type AccountScopes float32
 
 // List of AccountScopes
 const (
-	_MINUS_1 AccountScopes = -1
-	_0 AccountScopes = 0
-	_1 AccountScopes = 1
-	_3 AccountScopes = 3
-	_10 AccountScopes = 10
-	_11 AccountScopes = 11
-	_8 AccountScopes = 8
-	_6 AccountScopes = 6
-	_12 AccountScopes = 12
-	_13 AccountScopes = 13
-	_14 AccountScopes = 14
-	_15 AccountScopes = 15
+	ACCOUNT_SCOPES_MINUS_1 AccountScopes = -1
+	ACCOUNT_SCOPES_0 AccountScopes = 0
+	ACCOUNT_SCOPES_1 AccountScopes = 1
+	ACCOUNT_SCOPES_3 AccountScopes = 3
+	ACCOUNT_SCOPES_10 AccountScopes = 10
+	ACCOUNT_SCOPES_11 AccountScopes = 11
+	ACCOUNT_SCOPES_8 AccountScopes = 8
+	ACCOUNT_SCOPES_6 AccountScopes = 6
+	ACCOUNT_SCOPES_12 AccountScopes = 12
+	ACCOUNT_SCOPES_13 AccountScopes = 13
+	ACCOUNT_SCOPES_14 AccountScopes = 14
+	ACCOUNT_SCOPES_15 AccountScopes = 15
 )
 
 // All allowed values of AccountScopes enum

@@ -19,10 +19,9 @@ npx @openapitools/openapi-generator-cli generate \
 # Remove the generated go.mod/go.sum — the root go-sdk/go.mod is the module root
 rm -f ./go-sdk/generated/go.mod ./go-sdk/generated/go.sum
 
-# Fix import paths in generated test files (generator uses placeholder GIT_USER_ID/GIT_REPO_ID)
-echo "Fixing generated test file import paths..."
-find ./go-sdk/generated/test -name '*.go' -exec \
-  sed -i '' 's|github.com/GIT_USER_ID/GIT_REPO_ID|github.com/EulerStream/Euler-Api-Sdk/go-sdk/generated|g' {} +
+# Fix enum constant conflicts in generated code
+echo "Fixing enum constant conflicts..."
+npx tsx ./go-sdk/fix-enum-conflicts.ts
 
 echo "Rendering client.go from template..."
 npx tsx ./go-sdk/render-template.ts

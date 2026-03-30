@@ -20,9 +20,9 @@ type PeerRole string
 
 // List of PeerRole
 const (
-	PUBLIC PeerRole = "public"
-	ENTERPRISE PeerRole = "enterprise"
-	STAGING PeerRole = "staging"
+	PEER_ROLE_PUBLIC PeerRole = "public"
+	PEER_ROLE_ENTERPRISE PeerRole = "enterprise"
+	PEER_ROLE_STAGING PeerRole = "staging"
 )
 
 // All allowed values of PeerRole enum

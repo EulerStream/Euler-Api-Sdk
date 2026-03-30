@@ -20,9 +20,9 @@ type AlertTargetStatus float32
 
 // List of AlertTargetStatus
 const (
-	_0 AlertTargetStatus = 0
-	_1 AlertTargetStatus = 1
-	_4 AlertTargetStatus = 4
+	ALERT_TARGET_STATUS_0 AlertTargetStatus = 0
+	ALERT_TARGET_STATUS_1 AlertTargetStatus = 1
+	ALERT_TARGET_STATUS_4 AlertTargetStatus = 4
 )
 
 // All allowed values of AlertTargetStatus enum

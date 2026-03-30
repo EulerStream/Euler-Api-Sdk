@@ -20,11 +20,11 @@ type MuteDuration float32
 
 // List of MuteDuration
 const (
-	_MINUS_1 MuteDuration = -1
-	_5 MuteDuration = 5
-	_30 MuteDuration = 30
-	_60 MuteDuration = 60
-	_300 MuteDuration = 300
+	MUTE_DURATION_MINUS_1 MuteDuration = -1
+	MUTE_DURATION_5 MuteDuration = 5
+	MUTE_DURATION_30 MuteDuration = 30
+	MUTE_DURATION_60 MuteDuration = 60
+	MUTE_DURATION_300 MuteDuration = 300
 )
 
 // All allowed values of MuteDuration enum

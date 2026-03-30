@@ -20,18 +20,18 @@ type OAuthScope string
 
 // List of OAuthScope
 const (
-	WEBCAST_FETCH OAuthScope = "webcast:fetch"
-	WEBCAST_RANKINGS OAuthScope = "webcast:rankings"
-	WEBCAST_BULK_LIVE_CHECK OAuthScope = "webcast:bulk_live_check"
-	WEBCAST_USER_EARNINGS OAuthScope = "webcast:user_earnings"
-	WEBCAST_SIGN_URL OAuthScope = "webcast:sign_url"
-	WEBCAST_CHAT OAuthScope = "webcast:chat"
-	WEBCAST_MUTE OAuthScope = "webcast:mute"
-	WEBCAST_BAN OAuthScope = "webcast:ban"
-	WEBCAST_COMMENTS OAuthScope = "webcast:comments"
-	WEBCAST_MODERATORS OAuthScope = "webcast:moderators"
-	WEBCAST_LIVE_ANALYTICS OAuthScope = "webcast:live_analytics"
-	USER_CONSENTS OAuthScope = "user:consents"
+	O_AUTH_SCOPE_WEBCAST_FETCH OAuthScope = "webcast:fetch"
+	O_AUTH_SCOPE_WEBCAST_RANKINGS OAuthScope = "webcast:rankings"
+	O_AUTH_SCOPE_WEBCAST_BULK_LIVE_CHECK OAuthScope = "webcast:bulk_live_check"
+	O_AUTH_SCOPE_WEBCAST_USER_EARNINGS OAuthScope = "webcast:user_earnings"
+	O_AUTH_SCOPE_WEBCAST_SIGN_URL OAuthScope = "webcast:sign_url"
+	O_AUTH_SCOPE_WEBCAST_CHAT OAuthScope = "webcast:chat"
+	O_AUTH_SCOPE_WEBCAST_MUTE OAuthScope = "webcast:mute"
+	O_AUTH_SCOPE_WEBCAST_BAN OAuthScope = "webcast:ban"
+	O_AUTH_SCOPE_WEBCAST_COMMENTS OAuthScope = "webcast:comments"
+	O_AUTH_SCOPE_WEBCAST_MODERATORS OAuthScope = "webcast:moderators"
+	O_AUTH_SCOPE_WEBCAST_LIVE_ANALYTICS OAuthScope = "webcast:live_analytics"
+	O_AUTH_SCOPE_USER_CONSENTS OAuthScope = "user:consents"
 )
 
 // All allowed values of OAuthScope enum

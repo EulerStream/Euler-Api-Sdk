@@ -20,11 +20,11 @@ type SoaxProxyRegion string
 
 // List of SoaxProxyRegion
 const (
-	DE SoaxProxyRegion = "DE"
-	ES SoaxProxyRegion = "ES"
-	FR SoaxProxyRegion = "FR"
-	GB SoaxProxyRegion = "GB"
-	PL SoaxProxyRegion = "PL"
+	SOAX_PROXY_REGION_DE SoaxProxyRegion = "DE"
+	SOAX_PROXY_REGION_ES SoaxProxyRegion = "ES"
+	SOAX_PROXY_REGION_FR SoaxProxyRegion = "FR"
+	SOAX_PROXY_REGION_GB SoaxProxyRegion = "GB"
+	SOAX_PROXY_REGION_PL SoaxProxyRegion = "PL"
 )
 
 // All allowed values of SoaxProxyRegion enum
