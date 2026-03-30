@@ -52,8 +52,7 @@ namespace EulerApiSdk.Model
         /// <summary>
         /// Defines TokenTypeHint
         /// </summary>
-        public enum TokenTypeHintEnum
-        {
+        public enum TokenTypeHintEnum {
             /// <summary>
             /// Enum AccessToken for value: access_token
             /// </summary>

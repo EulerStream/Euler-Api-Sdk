@@ -28,8 +28,7 @@ namespace EulerApiSdk.Model
     /// <summary>
     /// Defines OxyLabsProxyRegion
     /// </summary>
-    public enum OxyLabsProxyRegion
-    {
+    public enum OxyLabsProxyRegion {
         /// <summary>
         /// Enum US for value: US
         /// </summary>

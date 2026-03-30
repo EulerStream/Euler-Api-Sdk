@@ -28,8 +28,7 @@ namespace EulerApiSdk.Model
     /// <summary>
     /// Defines OAuthScope
     /// </summary>
-    public enum OAuthScope
-    {
+    public enum OAuthScope {
         /// <summary>
         /// Enum Webcastfetch for value: webcast:fetch
         /// </summary>

@@ -28,8 +28,7 @@ namespace EulerApiSdk.Model
     /// <summary>
     /// Defines WebcastFetchPlatform
     /// </summary>
-    public enum WebcastFetchPlatform
-    {
+    public enum WebcastFetchPlatform {
         /// <summary>
         /// Enum Mobile for value: mobile
         /// </summary>

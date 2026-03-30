@@ -28,8 +28,7 @@ namespace EulerApiSdk.Model
     /// <summary>
     /// Defines AlertTargetFormat
     /// </summary>
-    public enum AlertTargetFormat
-    {
+    public enum AlertTargetFormat {
         /// <summary>
         /// Enum _1 for value: 1
         /// </summary>

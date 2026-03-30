@@ -28,8 +28,7 @@ namespace EulerApiSdk.Model
     /// <summary>
     /// Defines WebcastUserEarningsOutputPeriod
     /// </summary>
-    public enum WebcastUserEarningsOutputPeriod
-    {
+    public enum WebcastUserEarningsOutputPeriod {
         /// <summary>
         /// Enum Daily for value: daily
         /// </summary>

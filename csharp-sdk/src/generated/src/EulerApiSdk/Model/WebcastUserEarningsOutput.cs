@@ -64,8 +64,7 @@ namespace EulerApiSdk.Model
         /// <summary>
         /// Defines EarningsEstimateCurrency
         /// </summary>
-        public enum EarningsEstimateCurrencyEnum
-        {
+        public enum EarningsEstimateCurrencyEnum {
             /// <summary>
             /// Enum USD for value: USD
             /// </summary>

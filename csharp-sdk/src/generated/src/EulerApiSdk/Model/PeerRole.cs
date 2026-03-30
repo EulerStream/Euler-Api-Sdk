@@ -28,8 +28,7 @@ namespace EulerApiSdk.Model
     /// <summary>
     /// Defines PeerRole
     /// </summary>
-    public enum PeerRole
-    {
+    public enum PeerRole {
         /// <summary>
         /// Enum Public for value: public
         /// </summary>

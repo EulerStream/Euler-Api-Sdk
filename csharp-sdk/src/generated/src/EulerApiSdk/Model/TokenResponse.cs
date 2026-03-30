@@ -56,8 +56,7 @@ namespace EulerApiSdk.Model
         /// <summary>
         /// Defines TokenType
         /// </summary>
-        public enum TokenTypeEnum
-        {
+        public enum TokenTypeEnum {
             /// <summary>
             /// Enum Bearer for value: Bearer
             /// </summary>

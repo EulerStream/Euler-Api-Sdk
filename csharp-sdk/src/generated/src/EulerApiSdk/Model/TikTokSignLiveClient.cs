@@ -28,8 +28,7 @@ namespace EulerApiSdk.Model
     /// <summary>
     /// Defines TikTokSignLiveClient
     /// </summary>
-    public enum TikTokSignLiveClient
-    {
+    public enum TikTokSignLiveClient {
         /// <summary>
         /// Enum TtliveJava for value: ttlive-java
         /// </summary>

@@ -29,8 +29,7 @@ namespace EulerApiSdk.Model
     /// Mute duration in seconds
     /// </summary>
     /// <value>Mute duration in seconds</value>
-    public enum MuteDuration
-    {
+    public enum MuteDuration {
         /// <summary>
         /// Enum _1 for value: -1
         /// </summary>

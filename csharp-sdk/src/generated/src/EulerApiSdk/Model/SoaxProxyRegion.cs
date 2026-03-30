@@ -28,8 +28,7 @@ namespace EulerApiSdk.Model
     /// <summary>
     /// Defines SoaxProxyRegion
     /// </summary>
-    public enum SoaxProxyRegion
-    {
+    public enum SoaxProxyRegion {
         /// <summary>
         /// Enum DE for value: DE
         /// </summary>

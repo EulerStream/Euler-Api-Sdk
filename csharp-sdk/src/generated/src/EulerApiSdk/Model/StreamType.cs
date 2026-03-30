@@ -28,8 +28,7 @@ namespace EulerApiSdk.Model
     /// <summary>
     /// Defines StreamType
     /// </summary>
-    public enum StreamType
-    {
+    public enum StreamType {
         /// <summary>
         /// Enum HlsLd for value: hls_ld
         /// </summary>

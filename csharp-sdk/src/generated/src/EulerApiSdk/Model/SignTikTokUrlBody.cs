@@ -64,8 +64,7 @@ namespace EulerApiSdk.Model
         /// <summary>
         /// Defines Method
         /// </summary>
-        public enum MethodEnum
-        {
+        public enum MethodEnum {
             /// <summary>
             /// Enum GET for value: GET
             /// </summary>
@@ -213,8 +212,7 @@ namespace EulerApiSdk.Model
         /// <summary>
         /// Defines Type
         /// </summary>
-        public enum TypeEnum
-        {
+        public enum TypeEnum {
             /// <summary>
             /// Enum Fetch for value: fetch
             /// </summary>

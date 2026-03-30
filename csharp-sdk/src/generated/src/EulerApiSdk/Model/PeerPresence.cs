@@ -58,8 +58,7 @@ namespace EulerApiSdk.Model
         /// <summary>
         /// Defines Type
         /// </summary>
-        public enum TypeEnum
-        {
+        public enum TypeEnum {
             /// <summary>
             /// Enum Api for value: api
             /// </summary>

@@ -28,8 +28,7 @@ namespace EulerApiSdk.Model
     /// <summary>
     /// Defines AlertTargetStatus
     /// </summary>
-    public enum AlertTargetStatus
-    {
+    public enum AlertTargetStatus {
         /// <summary>
         /// Enum _0 for value: 0
         /// </summary>

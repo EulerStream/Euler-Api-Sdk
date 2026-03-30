@@ -56,8 +56,7 @@ namespace EulerApiSdk.Model
         /// <summary>
         /// Defines GrantType
         /// </summary>
-        public enum GrantTypeEnum
-        {
+        public enum GrantTypeEnum {
             /// <summary>
             /// Enum AuthorizationCode for value: authorization_code
             /// </summary>
