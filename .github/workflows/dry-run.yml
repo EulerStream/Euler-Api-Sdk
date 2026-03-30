@@ -1,0 +1,20 @@
+name: "Dry Run: Generate SDKs"
+
+on:
+  workflow_dispatch:
+    inputs:
+      typescript:
+        description: 'Generate TypeScript SDK'
+        type: boolean
+        default: true
+      python:
+        description: 'Generate Python SDK'
+        type: boolean
+        default: true
+
+jobs:
+  generate:
+    uses: ./.github/workflows/sdk-generate.yml
+    with:
+      typescript: ${{ inputs.typescript }}
+      python: ${{ inputs.python }}

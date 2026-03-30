@@ -1,0 +1,76 @@
+name: "Release: Generate & Publish SDKs"
+
+on:
+  workflow_dispatch:
+    inputs:
+      typescript_version:
+        description: 'TypeScript SDK version (e.g. 0.2.0) — leave empty to skip'
+        required: false
+        default: ''
+      python_version:
+        description: 'Python SDK version (e.g. 0.0.4) — leave empty to skip'
+        required: false
+        default: ''
+
+jobs:
+  generate:
+    uses: ./.github/workflows/sdk-generate.yml
+    with:
+      typescript: ${{ inputs.typescript_version != '' }}
+      python: ${{ inputs.python_version != '' }}
+
+  publish-typescript:
+    needs: generate
+    if: ${{ inputs.typescript_version != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: typescript-sdk
+          path: typescript-sdk
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Set version
+        working-directory: typescript-sdk
+        run: npm version ${{ inputs.typescript_version }} --no-git-tag-version
+
+      - name: Publish to npm
+        working-directory: typescript-sdk
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          pnpm publish --no-git-checks --access public --registry https://registry.npmjs.org/
+
+  publish-python:
+    needs: generate
+    if: ${{ inputs.python_version != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: python-sdk
+          path: python-sdk
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install poetry
+        run: pip install poetry
+
+      - name: Set version
+        working-directory: python-sdk
+        run: poetry version ${{ inputs.python_version }}
+
+      - name: Publish to PyPI
+        working-directory: python-sdk
+        run: |
+          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+          poetry publish --build

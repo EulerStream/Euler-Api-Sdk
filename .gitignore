@@ -9,3 +9,4 @@ openapitools.json
 **/docs/**
 test.py
 publish.sh
+.transfer-to-gh-secrets
