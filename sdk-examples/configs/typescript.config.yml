@@ -25,5 +25,3 @@ apiClassMap:
 paramOverrides:
   global:
     account_id: $accountId
-    alert_id: $alertId
-    target_id: $targetId
