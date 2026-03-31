@@ -244,7 +244,7 @@ jobs:
           name: sdk-go
           path: sdk/go
 
-  extract-examples:
+  generate-examples:
     if: always()
     needs: [generate-typescript, generate-python, generate-csharp, generate-java, generate-go]
     runs-on: ubuntu-latest
@@ -258,7 +258,7 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Install root dependencies
+      - name: Install dependencies
         run: pnpm install
 
       - name: Download spec
@@ -266,55 +266,9 @@ jobs:
           mkdir -p build
           wget -O ./build/openapi.json https://tiktok.eulerstream.com/dashboard/openapi
 
-      - name: Download TypeScript artifact
-        if: needs.generate-typescript.result == 'success'
-        uses: actions/download-artifact@v4
-        with:
-          name: sdk-typescript
-          path: sdk/typescript
-
-      - name: Download Python artifact
-        if: needs.generate-python.result == 'success'
-        uses: actions/download-artifact@v4
-        with:
-          name: sdk-python
-          path: sdk/python
-
-      - name: Download C# artifact
-        if: needs.generate-csharp.result == 'success'
-        uses: actions/download-artifact@v4
-        with:
-          name: sdk-csharp
-          path: sdk/csharp
-
-      - name: Download Java artifact
-        if: needs.generate-java.result == 'success'
-        uses: actions/download-artifact@v4
-        with:
-          name: sdk-java
-          path: sdk/java
-
-      - name: Download Go artifact
-        if: needs.generate-go.result == 'success'
-        uses: actions/download-artifact@v4
-        with:
-          name: sdk-go
-          path: sdk/go
-
-      - name: Collect docs into sdk-examples/docs
-        run: |
-          mkdir -p sdk-examples/docs
-          [ -d sdk/typescript/src/sdk/docs ] && cp -r sdk/typescript/src/sdk/docs sdk-examples/docs/typescript || true
-          [ -d sdk/java/src/generated/docs ] && cp -r sdk/java/src/generated/docs sdk-examples/docs/java || true
-          [ -d sdk/go/generated/docs ] && cp -r sdk/go/generated/docs sdk-examples/docs/go || true
-          [ -d sdk/csharp/src/generated/docs/apis ] && cp -r sdk/csharp/src/generated/docs/apis sdk-examples/docs/csharp || true
-          [ -d sdk/python/EulerApiSdk/api ] && cp -r sdk/python/EulerApiSdk/api sdk-examples/docs/python || true
-          echo "Collected docs:"
-          ls -la sdk-examples/docs/
-
-      - name: Run extract
+      - name: Generate examples
         working-directory: sdk-examples
-        run: npx tsx extract.ts
+        run: npx tsx generate.ts
 
       - name: Upload examples artifact
         uses: actions/upload-artifact@v4
@@ -330,10 +284,5 @@ jobs:
           AWS_DEFAULT_REGION: auto
         run: |
           pip install awscli
-          for f in sdk-examples/output/*.json; do
-            slug=$(basename "$f" .json)
-            aws s3 cp "$f" "s3://eulerstream-web/sdk-examples/${slug}.json" \
-              --endpoint-url https://f00699f0017e82344b8bed18c38dab38.r2.cloudflarestorage.com \
-              --content-type application/json
-            echo "Uploaded sdk-examples/${slug}.json"
-          done
+          aws s3 sync sdk-examples/output/ s3://eulerstream-web/sdk-examples/ \
+            --endpoint-url https://f00699f0017e82344b8bed18c38dab38.r2.cloudflarestorage.com

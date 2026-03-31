@@ -1,0 +1,11 @@
+boilerplate:
+  showImports: false
+
+variables:
+  baseUrl: "https://tiktok.eulerstream.com"
+  authHeader: "x-api-key"
+  authValue: "YOUR_API_KEY"
+
+outputFormats:
+  - md
+  - json

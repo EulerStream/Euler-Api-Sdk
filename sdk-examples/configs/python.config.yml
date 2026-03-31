@@ -1,0 +1,27 @@
+boilerplate:
+  showImports: true
+
+variables:
+  sdkImport: "from EulerApiSdk.client import AuthenticatedClient"
+  sdkPackage: EulerApiSdk
+  clientConstruction: |
+    client = AuthenticatedClient(
+        base_url="https://tiktok.eulerstream.com",
+        token="YOUR_API_KEY",
+    )
+  clientVar: client
+
+templatePath: ./python-wrapper.mustache
+
+outputFormats:
+  - md
+  - json
+
+apiClassMap:
+  "TikTok LIVE": tik_tok_live
+  Accounts: accounts
+  Authentication: authentication
+  Analytics: analytics
+  Alerts: tik_tok_live_alerts
+  "Alert Targets": tik_tok_live_alert_targets
+  Captchas: tik_tok_captchas

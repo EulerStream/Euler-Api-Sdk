@@ -1,0 +1,27 @@
+boilerplate:
+  showImports: true
+
+variables:
+  sdkImport: "import io.github.isaackogan.EulerStreamApiClient;"
+  clientConstruction: |
+    EulerStreamApiClient client = EulerStreamApiClient.builder()
+        .basePath("https://tiktok.eulerstream.com")
+        .apiKey("YOUR_API_KEY")
+        .build();
+  clientVar: client
+  apiAccessPattern: call
+
+templatePath: ./wrapper.mustache
+
+outputFormats:
+  - md
+  - json
+
+apiClassMap:
+  "TikTok LIVE": webcast
+  Accounts: accounts
+  Authentication: authentication
+  Analytics: analytics
+  Alerts: alerts
+  "Alert Targets": alertTargets
+  Captchas: captchas

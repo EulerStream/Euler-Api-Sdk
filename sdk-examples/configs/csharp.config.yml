@@ -1,0 +1,29 @@
+boilerplate:
+  showImports: true
+
+variables:
+  sdkImport: |
+    using EulerApiSdk;
+    using EulerApiSdk.Client;
+  clientConstruction: |
+    var client = new EulerStreamApiClient(
+        host => host.AddTokens(new ApiKeyToken("YOUR_API_KEY", ClientUtils.ApiKeyHeader.ApiKey)),
+        baseAddress: "https://tiktok.eulerstream.com"
+    );
+  clientVar: client
+  apiAccessPattern: dot
+
+templatePath: ./wrapper.mustache
+
+outputFormats:
+  - md
+  - json
+
+apiClassMap:
+  "TikTok LIVE": Webcast
+  Accounts: Accounts
+  Authentication: Authentication
+  Analytics: Analytics
+  Alerts: Alerts
+  "Alert Targets": AlertTargets
+  Captchas: Captchas
