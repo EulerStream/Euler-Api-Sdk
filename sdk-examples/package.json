@@ -7,6 +7,6 @@
     "build": "tsx generate.ts"
   },
   "dependencies": {
-    "@eulerstream/openapi-generator-examples": "^0.2.5"
+    "@eulerstream/openapi-generator-examples": "^0.2.6"
   }
 }
