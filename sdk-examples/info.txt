@@ -1,0 +1,103 @@
+R2 CDN Structure for SDK Usage Examples
+========================================
+
+Base URL: https://eulerstream-web.r2.dev/sdk-examples/
+(Uploaded via: aws s3 sync sdk-examples/output/ s3://eulerstream-web/sdk-examples/)
+
+Directory Layout
+----------------
+
+  sdk-examples/
+    usage/
+      {language}/
+        index.json          -- Array of ALL operations for this language
+        index.md            -- Markdown index linking all operations by tag
+        {tag-directory}/
+          {operationFile}.json
+          {operationFile}.md
+
+
+Languages & Their Tag Directory Naming
+--------------------------------------
+
+  Language       Dir Name       Tag Dirs (casing)        File Names (casing)
+  -----------    -----------    ---------------------    ---------------------
+  typescript     typescript     kebab-case               camelCase
+  python-opc     python-opc     snake_case               snake_case
+  java           java           kebab-case               camelCase
+  csharp         csharp         PascalCase               PascalCase
+  go             go             snake_case               snake_case
+  curl           curl           kebab-case               kebab-case
+
+
+Tag Directories Per Language
+----------------------------
+
+  Tag (OpenAPI)      typescript     python-opc             java           csharp         go               curl
+  ----------------   -----------    -------------------    -----------    -----------    --------------   -----------
+  TikTok LIVE        tik-tok-live   tik_tok_live           tik-tok-live   TikTokLive     tik_tok_live     tik-tok-live
+  Accounts           accounts       accounts               accounts       Accounts       accounts         accounts
+  Authentication     authentication authentication         authentication Authentication authentication   authentication
+  Analytics          analytics      analytics              analytics      Analytics      analytics        analytics
+  Alerts             alerts         alerts                 alerts         Alerts         alerts           alerts
+  Alert Targets      alert-targets  alert_targets          alert-targets  AlertTargets   alert_targets    alert-targets
+  Captchas           captchas       captchas               captchas       Captchas       captchas         captchas
+
+
+Example Paths
+-------------
+
+  Fetch the index of all TypeScript operations:
+    usage/typescript/index.json
+
+  Fetch a specific operation (TypeScript, FetchWebcastURL):
+    usage/typescript/tik-tok-live/fetchWebcastURL.json
+    usage/typescript/tik-tok-live/fetchWebcastURL.md
+
+  Same operation in Python:
+    usage/python-opc/tik_tok_live/fetch_webcast_url.json
+
+  Same operation in C#:
+    usage/csharp/TikTokLive/FetchWebcastURLAsync.json
+
+  Same operation in Go:
+    usage/go/tik_tok_live/fetch_webcast_url.json
+
+  Same operation in curl:
+    usage/curl/tik-tok-live/fetch-webcast-url.json
+
+
+JSON File Schema (per-operation)
+--------------------------------
+
+  {
+    "operationId": "FetchWebcastURL",           // Original OpenAPI operationId
+    "tag": "TikTok LIVE",                       // OpenAPI tag name
+    "httpMethod": "GET",                         // HTTP method
+    "path": "/webcast/fetch",                    // API path
+    "description": "...",                        // Operation description
+    "example": "import ...\n\nclient = ...",     // Full code example (string with newlines)
+    "codeBlockLang": "typescript",               // Language for syntax highlighting
+    "parameters": [                              // All parameters (required + optional)
+      {
+        "name": "room_id",
+        "type": "string",                        // Language-specific type
+        "required": false,
+        "description": "..."
+      }
+    ],
+    "requestBody": {                             // Only present if operation has a body
+      "typeName": "SignTikTokUrlBody",
+      "construction": "const body: SignTikTokUrlBody = { ... };"
+    }
+  }
+
+
+index.json Schema
+-----------------
+
+  Array of the same per-operation objects above. Contains ALL operations for the language.
+  Use this to build a sidebar/nav or to fetch everything in one request.
+
+
+Total: 38 operations x 6 languages = 228 JSON files + 228 MD files + 12 index files = 468 files

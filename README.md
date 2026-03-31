@@ -2,8 +2,6 @@
 
 Official SDK libraries for the [EulerStream](https://www.eulerstream.com) TikTok LIVE API.
 
-[![npm](https://img.shields.io/npm/dy/@eulerstream/euler-api-sdk?label=npm%20downloads)](https://www.npmjs.com/package/@eulerstream/euler-api-sdk)
-[![PyPI](https://img.shields.io/pypi/dm/EulerApiSdk?label=pypi%20downloads)](https://pypi.org/project/EulerApiSdk/)
 [![Stars](https://img.shields.io/github/stars/EulerStream/EulerApiSdk?style=flat&color=0274b5)](https://github.com/EulerStream/EulerApiSdk)
 [![Issues](https://img.shields.io/github/issues/EulerStream/EulerApiSdk)](https://github.com/EulerStream/EulerApiSdk/issues)
 [![Patrons](https://www.eulerstream.com/api/pips/patrons?v=002)](https://www.eulerstream.com/)
