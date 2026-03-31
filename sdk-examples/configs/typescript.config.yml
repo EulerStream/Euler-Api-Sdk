@@ -28,3 +28,6 @@ apiClassMap:
 paramOverrides:
   global:
     account_id: $accountId
+
+excludeParams:
+  - x-cookie-header
