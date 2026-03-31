@@ -3,7 +3,7 @@ boilerplate:
 
 variables:
   sdkImport: "import EulerStreamApiClient from '@eulerstream/euler-api-sdk'"
-  clientConstruction: "const client = new EulerStreamApiClient({ apiKey: 'YOUR_API_KEY', basePath: 'https://tiktok.eulerstream.com' });"
+  clientConstruction: "const client = new EulerStreamApiClient({ apiKey: '$apiKey', basePath: '$baseUrl' });"
   clientVar: client
   apiAccessPattern: dot
 
@@ -21,3 +21,9 @@ apiClassMap:
   Alerts: alerts
   "Alert Targets": alertTargets
   Captchas: captchas
+
+paramOverrides:
+  global:
+    account_id: $accountId
+    alert_id: $alertId
+    target_id: $targetId

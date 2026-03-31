@@ -7,8 +7,8 @@ variables:
     using EulerApiSdk.Client;
   clientConstruction: |
     var client = new EulerStreamApiClient(
-        host => host.AddTokens(new ApiKeyToken("YOUR_API_KEY", ClientUtils.ApiKeyHeader.ApiKey)),
-        baseAddress: "https://tiktok.eulerstream.com"
+        host => host.AddTokens(new ApiKeyToken("$apiKey", ClientUtils.ApiKeyHeader.ApiKey)),
+        baseAddress: "$baseUrl"
     );
   clientVar: client
   apiAccessPattern: dot
@@ -27,3 +27,9 @@ apiClassMap:
   Alerts: Alerts
   "Alert Targets": AlertTargets
   Captchas: Captchas
+
+paramOverrides:
+  global:
+    account_id: $accountId
+    alert_id: $alertId
+    target_id: $targetId

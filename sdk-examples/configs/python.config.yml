@@ -6,8 +6,8 @@ variables:
   sdkPackage: EulerApiSdk
   clientConstruction: |
     client = AuthenticatedClient(
-        base_url="https://tiktok.eulerstream.com",
-        token="YOUR_API_KEY",
+        base_url="$baseUrl",
+        token="$apiKey",
     )
   clientVar: client
 
@@ -25,3 +25,9 @@ apiClassMap:
   Alerts: tik_tok_live_alerts
   "Alert Targets": tik_tok_live_alert_targets
   Captchas: tik_tok_captchas
+
+paramOverrides:
+  global:
+    account_id: $accountId
+    alert_id: $alertId
+    target_id: $targetId

@@ -2,10 +2,16 @@ boilerplate:
   showImports: false
 
 variables:
-  baseUrl: "https://tiktok.eulerstream.com"
+  baseUrl: "$baseUrl"
   authHeader: "x-api-key"
-  authValue: "YOUR_API_KEY"
+  authValue: "$apiKey"
 
 outputFormats:
   - md
   - json
+
+paramOverrides:
+  global:
+    account_id: $accountId
+    alert_id: $alertId
+    target_id: $targetId

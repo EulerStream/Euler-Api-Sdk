@@ -5,8 +5,8 @@ variables:
   sdkImport: "import io.github.isaackogan.EulerStreamApiClient;"
   clientConstruction: |
     EulerStreamApiClient client = EulerStreamApiClient.builder()
-        .basePath("https://tiktok.eulerstream.com")
-        .apiKey("YOUR_API_KEY")
+        .basePath("$baseUrl")
+        .apiKey("$apiKey")
         .build();
   clientVar: client
   apiAccessPattern: call
@@ -25,3 +25,9 @@ apiClassMap:
   Alerts: alerts
   "Alert Targets": alertTargets
   Captchas: captchas
+
+paramOverrides:
+  global:
+    account_id: $accountId
+    alert_id: $alertId
+    target_id: $targetId

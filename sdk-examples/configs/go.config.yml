@@ -9,8 +9,8 @@ variables:
     )
   clientConstruction: |
     client := eulerstream.NewEulerStreamClient(
-    	eulerstream.WithAPIKey("YOUR_API_KEY"),
-    	eulerstream.WithServerURL("https://tiktok.eulerstream.com"),
+    	eulerstream.WithAPIKey("$apiKey"),
+    	eulerstream.WithServerURL("$baseUrl"),
     )
   clientVar: client
   apiAccessPattern: dot
@@ -29,3 +29,9 @@ apiClassMap:
   Alerts: Alerts
   "Alert Targets": AlertTargets
   Captchas: Captchas
+
+paramOverrides:
+  global:
+    account_id: $accountId
+    alert_id: $alertId
+    target_id: $targetId
