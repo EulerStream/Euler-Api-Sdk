@@ -15,12 +15,15 @@ outputFormats:
 
 apiClassMap:
   "TikTok LIVE": webcast
+  "TikTok LIVE Premium": premium
+  "TikTok LIVE Moderation": moderation
+  "TikTok General": general
+  "TikTok Captchas": captchas
+  Analytics: analytics
+  "TikTok LIVE Alerts": alerts
+  "TikTok LIVE Alert Targets": alertTargets
   Accounts: accounts
   Authentication: authentication
-  Analytics: analytics
-  Alerts: alerts
-  "Alert Targets": alertTargets
-  Captchas: captchas
 
 paramOverrides:
   global:

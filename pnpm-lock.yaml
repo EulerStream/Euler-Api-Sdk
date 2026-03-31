@@ -24,8 +24,8 @@ importers:
   sdk-examples:
     dependencies:
       '@eulerstream/openapi-generator-examples':
-        specifier: ^0.2.3
-        version: 0.2.3
+        specifier: ^0.2.4
+        version: 0.2.4
 
   sdk/csharp: {}
 
@@ -731,8 +731,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@eulerstream/openapi-generator-examples@0.2.3':
-    resolution: {integrity: sha512-+5tH+VRonB4Mqw6oiIWvhy7fwi4H06rbWFFuXg1UM0vs5efVJG3BJYpG3hgHkPWJHPtDPhtfWkrIwo2KyfjtrA==}
+  '@eulerstream/openapi-generator-examples@0.2.4':
+    resolution: {integrity: sha512-qa8EZgwR0IaK7Hw+fHomtjHXbfGGCDRjhAxUwGsCNhlMgCiSZo/LHjqD1i6j2BOQ9Ysz4TLdN1bVbfRCz38nrQ==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -2540,7 +2540,7 @@ snapshots:
   '@esbuild/win32-x64@0.27.4':
     optional: true
 
-  '@eulerstream/openapi-generator-examples@0.2.3':
+  '@eulerstream/openapi-generator-examples@0.2.4':
     dependencies:
       mustache: 4.2.0
       yaml: 2.8.3
