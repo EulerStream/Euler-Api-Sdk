@@ -81,6 +81,9 @@ jobs:
     needs: generate
     if: ${{ inputs.typescript_bump != 'skip' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v4
@@ -91,9 +94,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
 
-      - name: Install pnpm
-        run: npm install -g pnpm
+      - name: Ensure npm supports trusted publishing
+        run: npm install -g npm@latest
 
       - name: Bump version
         working-directory: sdk/typescript
@@ -101,9 +105,7 @@ jobs:
 
       - name: Publish to npm
         working-directory: sdk/typescript
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-          pnpm publish --no-git-checks --access public --registry https://registry.npmjs.org/
+        run: npm publish --provenance --access public
 
       - name: Upload version file
         uses: actions/upload-artifact@v4
