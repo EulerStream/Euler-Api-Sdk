@@ -52,6 +52,9 @@ on:
 permissions:
   contents: write
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 jobs:
   check-branch:
     runs-on: ubuntu-latest
@@ -93,7 +96,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '22.22.1'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Ensure npm supports trusted publishing
@@ -341,7 +344,7 @@ jobs:
       - uses: actions/setup-node@v4
         if: needs.publish-typescript.result == 'success'
         with:
-          node-version: '22'
+          node-version: '22.22.1'
 
       - uses: actions/setup-python@v5
         if: needs.publish-python.result == 'success'
