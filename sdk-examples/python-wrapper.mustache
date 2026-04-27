@@ -1,0 +1,14 @@
+from {{variables.sdkPackage}}.api.{{apiProperty}} import {{methodName}}
+{{{variables.sdkImport}}}
+
+{{{variables.clientConstruction}}}
+
+{{#hasRequiredParams}}
+{{{paramDeclarations}}}
+
+{{/hasRequiredParams}}
+{{#hasBody}}
+{{{bodyConstruction}}}
+
+{{/hasBody}}
+{{{resultLine}}}

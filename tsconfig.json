@@ -10,8 +10,8 @@
     "types": ["node"]
   },
   "include": [
-    "csharp-sdk/render-template.ts",
-    "java-sdk/render-template.ts",
-    "go-sdk/render-template.ts"
+    "sdk/csharp/scripts/render-template.ts",
+    "sdk/java/scripts/render-template.ts",
+    "sdk/go/scripts/render-template.ts"
   ]
 }

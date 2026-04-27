@@ -1,0 +1,39 @@
+boilerplate:
+  showImports: true
+
+variables:
+  sdkImport: |
+    using EulerApiSdk;
+    using EulerApiSdk.Client;
+  clientConstruction: |
+    var client = new EulerStreamApiClient(
+        host => host.AddTokens(new ApiKeyToken("$apiKey", ClientUtils.ApiKeyHeader.ApiKey)),
+        baseAddress: "$baseUrl"
+    );
+  clientVar: client
+  apiAccessPattern: dot
+
+templatePath: ./wrapper.mustache
+
+outputFormats:
+  - md
+  - json
+
+apiClassMap:
+  "TikTok LIVE": Webcast
+  "TikTok LIVE Premium": Premium
+  "TikTok LIVE Moderation": Moderation
+  "TikTok General": General
+  "TikTok Captchas": Captchas
+  Analytics: Analytics
+  "TikTok LIVE Alerts": Alerts
+  "TikTok LIVE Alert Targets": AlertTargets
+  Accounts: Accounts
+  Authentication: Authentication
+
+paramOverrides:
+  global:
+    account_id: $accountId
+
+excludeParams:
+  - x-cookie-header

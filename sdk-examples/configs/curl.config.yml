@@ -1,0 +1,18 @@
+boilerplate:
+  showImports: false
+
+variables:
+  baseUrl: "$baseUrl"
+  authHeader: "x-api-key"
+  authValue: "$apiKey"
+
+outputFormats:
+  - md
+  - json
+
+paramOverrides:
+  global:
+    account_id: $accountId
+
+excludeParams:
+  - x-cookie-header

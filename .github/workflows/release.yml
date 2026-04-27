@@ -71,6 +71,9 @@ jobs:
       csharp: ${{ inputs.csharp_bump != 'skip' }}
       java: ${{ inputs.java_bump != 'skip' }}
       go: ${{ inputs.go_bump != 'skip' }}
+    secrets:
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
 
   # ── TypeScript → npm ──────────────────────────────────────────
 
@@ -82,8 +85,8 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: typescript-sdk
-          path: typescript-sdk
+          name: sdk-typescript
+          path: sdk/typescript
 
       - uses: actions/setup-node@v4
         with:
@@ -93,11 +96,11 @@ jobs:
         run: npm install -g pnpm
 
       - name: Bump version
-        working-directory: typescript-sdk
+        working-directory: sdk/typescript
         run: npm version ${{ inputs.typescript_bump }} --no-git-tag-version
 
       - name: Publish to npm
-        working-directory: typescript-sdk
+        working-directory: sdk/typescript
         run: |
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
           pnpm publish --no-git-checks --access public --registry https://registry.npmjs.org/
@@ -106,7 +109,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: typescript-version
-          path: typescript-sdk/package.json
+          path: sdk/typescript/package.json
 
   # ── Python → PyPI ─────────────────────────────────────────────
 
@@ -118,8 +121,8 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: python-sdk
-          path: python-sdk
+          name: sdk-python
+          path: sdk/python
 
       - uses: actions/setup-python@v5
         with:
@@ -129,11 +132,11 @@ jobs:
         run: pip install poetry
 
       - name: Bump version
-        working-directory: python-sdk
+        working-directory: sdk/python
         run: poetry version ${{ inputs.python_bump }}
 
       - name: Publish to PyPI
-        working-directory: python-sdk
+        working-directory: sdk/python
         run: |
           poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
           poetry publish --build
@@ -142,7 +145,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: python-version
-          path: python-sdk/pyproject.toml
+          path: sdk/python/pyproject.toml
 
   # ── C# → NuGet ───────────────────────────────────────────────
 
@@ -154,15 +157,15 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: csharp-sdk
-          path: csharp-sdk
+          name: sdk-csharp
+          path: sdk/csharp
 
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
       - name: Bump version
-        working-directory: csharp-sdk/src
+        working-directory: sdk/csharp/src
         run: |
           CURRENT=$(grep '<Version>' EulerApiSdk.csproj | sed 's/.*<Version>\(.*\)<\/Version>.*/\1/')
           IFS='.' read -r MAJ MIN PAT <<< "$CURRENT"
@@ -176,7 +179,7 @@ jobs:
           echo "Bumped C# version: $CURRENT → $NEXT"
 
       - name: Pack & publish to NuGet
-        working-directory: csharp-sdk/src
+        working-directory: sdk/csharp/src
         run: |
           dotnet pack -c Release --no-build -o ./nupkg || dotnet pack -c Release -o ./nupkg
           dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_TOKEN }} --source https://api.nuget.org/v3/index.json
@@ -185,7 +188,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: csharp-version
-          path: csharp-sdk/src/EulerApiSdk.csproj
+          path: sdk/csharp/src/EulerApiSdk.csproj
 
   # ── Java → Maven Central ─────────────────────────────────────
 
@@ -197,8 +200,8 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: java-sdk
-          path: java-sdk
+          name: sdk-java
+          path: sdk/java
 
       - uses: actions/setup-java@v4
         with:
@@ -211,7 +214,7 @@ jobs:
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
       - name: Bump version
-        working-directory: java-sdk/src/generated
+        working-directory: sdk/java/src/generated
         run: |
           CURRENT=$(grep -m1 '<version>' pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/' | tr -d ' ')
           IFS='.' read -r MAJ MIN PAT <<< "$CURRENT"
@@ -225,7 +228,7 @@ jobs:
           echo "Bumped Java version: $CURRENT → $NEXT"
 
       - name: Publish to Maven Central
-        working-directory: java-sdk/src/generated
+        working-directory: sdk/java/src/generated
         run: mvn deploy -DskipTests
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
@@ -236,7 +239,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: java-version
-          path: java-sdk/src/generated/pom.xml
+          path: sdk/java/src/generated/pom.xml
 
   # ── Go → git tag ─────────────────────────────────────────────
 
@@ -252,11 +255,11 @@ jobs:
       - name: Compute next Go version tag
         id: version
         run: |
-          LATEST=$(git tag --list 'go-sdk/v*' --sort=-v:refname | head -1)
+          LATEST=$(git tag --list 'sdk/go/v*' --sort=-v:refname | head -1)
           if [ -z "$LATEST" ]; then
             CURRENT="0.0.0"
           else
-            CURRENT="${LATEST#go-sdk/v}"
+            CURRENT="${LATEST#sdk/go/v}"
           fi
           IFS='.' read -r MAJ MIN PAT <<< "$CURRENT"
           case "${{ inputs.go_bump }}" in
@@ -265,7 +268,7 @@ jobs:
             major) MAJ=$((MAJ+1)); MIN=0; PAT=0 ;;
           esac
           NEXT="$MAJ.$MIN.$PAT"
-          echo "tag=go-sdk/v$NEXT" >> $GITHUB_OUTPUT
+          echo "tag=sdk/go/v$NEXT" >> $GITHUB_OUTPUT
           echo "version=$NEXT" >> $GITHUB_OUTPUT
           echo "Go version: $CURRENT → $NEXT"
 
@@ -276,10 +279,17 @@ jobs:
           git tag ${{ steps.version.outputs.tag }}
           git push origin ${{ steps.version.outputs.tag }}
 
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Index on Go module proxy
+        run: GOPROXY=proxy.golang.org go list -m github.com/EulerStream/Euler-Api-Sdk/sdk/go@v${{ steps.version.outputs.version }}
+
   # ── Commit version bumps back ─────────────────────────────────
 
   commit-versions:
-    needs: [publish-typescript, publish-python, publish-csharp, publish-java, publish-go]
+    needs: [generate, publish-typescript, publish-python, publish-csharp, publish-java, publish-go]
     if: |
       always() && (
         needs.publish-typescript.result == 'success' ||
@@ -296,28 +306,35 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: typescript-version
-          path: typescript-sdk
+          path: sdk/typescript
 
       - name: Download Python version
         if: needs.publish-python.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: python-version
-          path: python-sdk
+          path: sdk/python
 
       - name: Download C# version
         if: needs.publish-csharp.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: csharp-version
-          path: csharp-sdk/src
+          path: sdk/csharp/src
 
       - name: Download Java version
         if: needs.publish-java.result == 'success'
         uses: actions/download-artifact@v4
         with:
           name: java-version
-          path: java-sdk/src/generated
+          path: sdk/java/src/generated
+
+      - name: Download SDK examples output
+        uses: actions/download-artifact@v4
+        with:
+          name: sdk-examples-output
+          path: sdk-examples/output
+        continue-on-error: true
 
       - uses: actions/setup-node@v4
         if: needs.publish-typescript.result == 'success'
@@ -338,21 +355,21 @@ jobs:
         run: |
           PARTS=""
           if [ "${{ needs.publish-typescript.result }}" = "success" ]; then
-            TS=$(node -p "require('./typescript-sdk/package.json').version")
+            TS=$(node -p "require('./sdk/typescript/package.json').version")
             PARTS="typescript@${TS}"
           fi
           if [ "${{ needs.publish-python.result }}" = "success" ]; then
-            PY=$(cd python-sdk && poetry version -s)
+            PY=$(cd sdk/python && poetry version -s)
             [ -n "$PARTS" ] && PARTS="${PARTS}, "
             PARTS="${PARTS}python@${PY}"
           fi
           if [ "${{ needs.publish-csharp.result }}" = "success" ]; then
-            CS=$(grep '<Version>' csharp-sdk/src/EulerApiSdk.csproj | sed 's/.*<Version>\(.*\)<\/Version>.*/\1/')
+            CS=$(grep '<Version>' sdk/csharp/src/EulerApiSdk.csproj | sed 's/.*<Version>\(.*\)<\/Version>.*/\1/')
             [ -n "$PARTS" ] && PARTS="${PARTS}, "
             PARTS="${PARTS}csharp@${CS}"
           fi
           if [ "${{ needs.publish-java.result }}" = "success" ]; then
-            JV=$(grep -m1 '<version>' java-sdk/src/generated/pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/' | tr -d ' ')
+            JV=$(grep -m1 '<version>' sdk/java/src/generated/pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/' | tr -d ' ')
             [ -n "$PARTS" ] && PARTS="${PARTS}, "
             PARTS="${PARTS}java@${JV}"
           fi
@@ -362,7 +379,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add typescript-sdk/package.json python-sdk/pyproject.toml csharp-sdk/src/EulerApiSdk.csproj java-sdk/src/generated/pom.xml 2>/dev/null || true
+          git add sdk/typescript/package.json sdk/python/pyproject.toml sdk/csharp/src/EulerApiSdk.csproj sdk/java/src/generated/pom.xml 2>/dev/null || true
+          git add sdk-examples/output/*.json 2>/dev/null || true
           git diff --cached --quiet && exit 0
           git commit -m "${{ steps.msg.outputs.msg }}"
           git push

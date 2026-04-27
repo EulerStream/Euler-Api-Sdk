@@ -68,6 +68,9 @@ jobs:
       csharp: ${{ inputs.csharp_bump != 'skip' }}
       java: ${{ inputs.java_bump != 'skip' }}
       go: ${{ inputs.go_bump != 'skip' }}
+    secrets:
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
 
   preview-typescript:
     needs: generate
@@ -77,15 +80,15 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: typescript-sdk
-          path: typescript-sdk
+          name: sdk-typescript
+          path: sdk/typescript
 
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
 
       - name: Preview version bump
-        working-directory: typescript-sdk
+        working-directory: sdk/typescript
         run: |
           CURRENT=$(node -p "require('./package.json').version")
           npm version ${{ inputs.typescript_bump }} --no-git-tag-version
@@ -100,8 +103,8 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: python-sdk
-          path: python-sdk
+          name: sdk-python
+          path: sdk/python
 
       - uses: actions/setup-python@v5
         with:
@@ -111,7 +114,7 @@ jobs:
         run: pip install poetry
 
       - name: Preview version bump
-        working-directory: python-sdk
+        working-directory: sdk/python
         run: |
           CURRENT=$(poetry version -s)
           poetry version ${{ inputs.python_bump }}
@@ -126,12 +129,12 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: csharp-sdk
-          path: csharp-sdk
+          name: sdk-csharp
+          path: sdk/csharp
 
       - name: Preview version bump
         run: |
-          CURRENT=$(grep '<Version>' csharp-sdk/src/EulerApiSdk.csproj | sed 's/.*<Version>\(.*\)<\/Version>.*/\1/')
+          CURRENT=$(grep '<Version>' sdk/csharp/src/EulerApiSdk.csproj | sed 's/.*<Version>\(.*\)<\/Version>.*/\1/')
           IFS='.' read -r MAJ MIN PAT <<< "$CURRENT"
           case "${{ inputs.csharp_bump }}" in
             patch) PAT=$((PAT+1)) ;;
@@ -149,12 +152,12 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: java-sdk
-          path: java-sdk
+          name: sdk-java
+          path: sdk/java
 
       - name: Preview version bump
         run: |
-          CURRENT=$(grep -m1 '<version>' java-sdk/src/generated/pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/' | tr -d ' ')
+          CURRENT=$(grep -m1 '<version>' sdk/java/src/generated/pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/' | tr -d ' ')
           IFS='.' read -r MAJ MIN PAT <<< "$CURRENT"
           case "${{ inputs.java_bump }}" in
             patch) PAT=$((PAT+1)) ;;
@@ -172,8 +175,8 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: go-sdk
-          path: go-sdk
+          name: sdk-go
+          path: sdk/go
 
       - name: Preview version
         run: |

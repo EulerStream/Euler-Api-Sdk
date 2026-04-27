@@ -1,0 +1,41 @@
+boilerplate:
+  showImports: true
+
+variables:
+  sdkImport: |
+    import (
+    	"context"
+    	eulerstream "github.com/EulerStream/Euler-Api-Sdk/sdk/go"
+    )
+  clientConstruction: |
+    client := eulerstream.NewEulerStreamClient(
+    	eulerstream.WithAPIKey("$apiKey"),
+    	eulerstream.WithServerURL("$baseUrl"),
+    )
+  clientVar: client
+  apiAccessPattern: dot
+
+templatePath: ./wrapper.mustache
+
+outputFormats:
+  - md
+  - json
+
+apiClassMap:
+  "TikTok LIVE": Webcast
+  "TikTok LIVE Premium": Premium
+  "TikTok LIVE Moderation": Moderation
+  "TikTok General": General
+  "TikTok Captchas": Captchas
+  Analytics: Analytics
+  "TikTok LIVE Alerts": Alerts
+  "TikTok LIVE Alert Targets": AlertTargets
+  Accounts: Accounts
+  Authentication: Authentication
+
+paramOverrides:
+  global:
+    account_id: $accountId
+
+excludeParams:
+  - x-cookie-header

@@ -1,0 +1,37 @@
+boilerplate:
+  showImports: true
+
+variables:
+  sdkImport: "import io.github.isaackogan.EulerStreamApiClient;"
+  clientConstruction: |
+    EulerStreamApiClient client = EulerStreamApiClient.builder()
+        .basePath("$baseUrl")
+        .apiKey("$apiKey")
+        .build();
+  clientVar: client
+  apiAccessPattern: call
+
+templatePath: ./wrapper.mustache
+
+outputFormats:
+  - md
+  - json
+
+apiClassMap:
+  "TikTok LIVE": webcast
+  "TikTok LIVE Premium": premium
+  "TikTok LIVE Moderation": moderation
+  "TikTok General": general
+  "TikTok Captchas": captchas
+  Analytics: analytics
+  "TikTok LIVE Alerts": alerts
+  "TikTok LIVE Alert Targets": alertTargets
+  Accounts: accounts
+  Authentication: authentication
+
+paramOverrides:
+  global:
+    account_id: $accountId
+
+excludeParams:
+  - x-cookie-header

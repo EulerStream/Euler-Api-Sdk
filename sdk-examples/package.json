@@ -1,0 +1,12 @@
+{
+  "name": "@eulerstream/sdk-examples",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "tsx generate.ts"
+  },
+  "dependencies": {
+    "@eulerstream/openapi-generator-examples": "^0.2.8"
+  }
+}
