@@ -1,5 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const SDK_API_PATH = path.resolve(__dirname, '..', 'src/sdk/api.ts');
 const TEMPLATE_PATH = path.resolve(__dirname, '..', 'src/index.ts.template');
